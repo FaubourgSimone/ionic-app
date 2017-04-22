@@ -19,13 +19,10 @@ export class RadioPage {
         data => {
           console.log('Data received');
           this.streaming_url = data.streaming_url ? data.streaming_url : this.streaming_url;
+          this.player.init(this.streaming_url);
         },
         // Failure
         err => {
-          this.player.init(this.streaming_url);
-        },
-        // Complete
-        () => {
           this.player.init(this.streaming_url);
         }
     );
