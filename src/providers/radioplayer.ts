@@ -4,12 +4,18 @@ export class RadioPlayer {
     promise:any;
 
     constructor() {
-        this.url = "http://91.121.65.131:1337/faubourgsimone";
+        console.log('Hello RadioPlayer');
+    }
+
+    init(url:string) {
+        console.log('RadioPlayer.init: ', url);
+        this.url = url;
+        // TODO : verifier que l'url est accessible
         this.stream = new Audio(this.url);
-    };
+        console.log(this.stream);
+    }
 
     play() {
-        this.stream.play();
         this.promise = new Promise((resolve,reject) => {
             this.stream.addEventListener('playing', () => {
                 resolve(true);
@@ -19,12 +25,13 @@ export class RadioPlayer {
                 reject(false);
             });
         });
+        this.stream.play();
 
         return this.promise;
-    };
+    }
 
     pause() {
         this.stream.pause();
-    };
+    }
 
 }

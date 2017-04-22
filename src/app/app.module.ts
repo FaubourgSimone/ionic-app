@@ -14,6 +14,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { RadioPlayer } from '../providers/radioplayer';
 
+import { MovieListPage } from '../pages/movie-list/movie-list';
+import { MovieInfoPage } from '../pages/movie-info/movie-info';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +24,9 @@ import { RadioPlayer } from '../providers/radioplayer';
     CalepinsPage,
     RadioPage,
     CasquePage,
-    TabsPage
+    TabsPage,
+    MovieListPage,
+    MovieInfoPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,9 @@ import { RadioPlayer } from '../providers/radioplayer';
     CalepinsPage,
     RadioPage,
     CasquePage,
-    TabsPage
+    TabsPage,
+    MovieListPage,
+    MovieInfoPage
   ],
   providers: [
     StatusBar,
