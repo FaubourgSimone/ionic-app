@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InformationService } from '../../services/information';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { ViewController } from 'ionic-angular';
+import { NgZone } from '@angular/core';
 
 @Component({
     selector: 'page-radio',
@@ -20,10 +22,12 @@ export class RadioPage {
         title: ''
     };
 
-    constructor(public navCtrl: NavController,
-                private player:RadioPlayer,
-                private informationService:InformationService,
-                private backgroundMode: BackgroundMode) {
+    constructor(public viewCtrl: ViewController,
+                public navCtrl: NavController,
+                private player: RadioPlayer,
+                private informationService: InformationService,
+                private backgroundMode: BackgroundMode,
+                private zone: NgZone) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.informationService.getInitData().subscribe(
@@ -50,20 +54,21 @@ export class RadioPage {
                 }
             });
             this.backgroundMode.on('deactivate').subscribe(()=> {
-                this.loopData();
+                this.zone.run(()=>{
+                    this.loopData();
+                });
             });
         }
         catch(e) {}
 
-
-
         this.player.init(this.streaming_url);
     }
 
-    ionViewWillEnter() {
+    ionViewDidEnter() {
+        console.log('ionViewDidEnter');
         this.loopData();
     }
-    ionViewWillLeave() {
+    ionViewDidLeave() {
         if(this.timer) {
             clearTimeout(this.timer);
         }
@@ -78,6 +83,7 @@ export class RadioPage {
         // Cherche les informations sur la piste en cours de lecture
         this.informationService.getCurrentSongs().subscribe(
             data => {
+                console.log('############################################################');
                 this.currentSong = {
                     cover_url: data.songs[0].album_cover || '',
                     title: data.songs[0].title || ''
@@ -87,8 +93,6 @@ export class RadioPage {
             err => this.handleCurrentError(err)
         );
     }
-
-
 
     play() {
         console.log('Waiting For Streaming');

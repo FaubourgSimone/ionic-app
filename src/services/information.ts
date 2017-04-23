@@ -68,9 +68,9 @@ export class InformationService {
                 // Vérifie si le tableau de tags comprend une expression dans le titre courant
                 // si c'est le cas, renvoie l'url associée
                 tagArray.forEach((tag, index)=> {
-                    console.log('------->', index, tag);
+                    // console.log('------->', index, tag);
                     if (titleToCompare.toLowerCase().indexOf(tag.toLowerCase()) > -1) {
-                        console.log('---------------------> ', urlIfFound);
+                        // console.log('---------------------> ', urlIfFound);
                         coverToGet = urlIfFound;
                         return false;
                     }
@@ -79,6 +79,11 @@ export class InformationService {
             };
 
             let coverToGet = null;
+
+            if(song.album_cover.indexOf('pochette-default') > -1) {
+                song.album_cover = defaultCoverUrl;
+            }
+
             // url de friday wear
             if (coverToGet === null) {
                 coverToGet = checkIfTagFor(song.title, defaultTagsFridayWear, defaultCoverFridayWearUrl);
@@ -95,6 +100,8 @@ export class InformationService {
             if (coverToGet === null) {
                 coverToGet = song.album_cover;
             }
+
+
 
             return {
                 album_cover: coverToGet,
