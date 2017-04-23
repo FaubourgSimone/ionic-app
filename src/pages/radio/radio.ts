@@ -16,6 +16,7 @@ export class RadioPage {
     private streaming_url:string = 'http://91.121.65.131:1337/faubourgsimone';
     private loop_interval:Number = 3000;
     private timer:any;
+    private hasLeft:boolean = false;
 
     private currentSong:Object = {
         cover_url: 'assets/images/cover-default.jpg',
@@ -46,7 +47,6 @@ export class RadioPage {
     ngOnInit() {
         console.log('NG INIT');
         this.backgroundMode.enable();
-
         try {
             this.backgroundMode.on('activate').subscribe(()=> {
                 if(this.timer) {
@@ -55,7 +55,11 @@ export class RadioPage {
             });
             this.backgroundMode.on('deactivate').subscribe(()=> {
                 this.zone.run(()=>{
-                    this.loopData();
+                    // si on avait pas change de tab avant de rentrer en mode background
+                    if(!this.hasLeft) {
+                        console.log('IS ACTIVE :', this.hasLeft);
+                        this.loopData();
+                    }
                 });
             });
         }
@@ -66,9 +70,11 @@ export class RadioPage {
 
     ionViewDidEnter() {
         console.log('ionViewDidEnter');
+        this.hasLeft = false;
         this.loopData();
     }
     ionViewDidLeave() {
+        this.hasLeft = true;
         if(this.timer) {
             clearTimeout(this.timer);
         }
