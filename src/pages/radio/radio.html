@@ -6,6 +6,10 @@
 
 <ion-content padding>
   <h2>Hello Radio!</h2>
+
+    <h3 >{{currentSong.title}}</h3>
+    <img src="{{currentSong.cover_url}}"/>
+
   <button dark (click)="play()">
     <ion-icon name="play"></ion-icon>
   </button>

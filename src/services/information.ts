@@ -24,7 +24,20 @@ export class InformationService {
                     return res.json();
                 }
             });
+    }
 
-
+    getCurrentSongs() {
+        return this.http
+            .get('http://ks25555.kimsufi.com/fsapi/cacheapi.json')
+            .map(res => {
+                // If request fails, throw an Error that will be caught
+                if(res.status < 200 || res.status >= 300) {
+                    return new Error('This request has failed ' + res.status);
+                }
+                // If everything went fine, return the response
+                else {
+                    return res.json();
+                }
+            });
     }
 }
