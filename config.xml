@@ -87,4 +87,5 @@
     <engine name="android" spec="~6.0.0" />
     <engine name="windows" spec="~4.4.3" />
     <plugin name="com.hutchind.cordova.plugins.streamingmedia" spec="~0.1.4" />
+    <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
 </widget>

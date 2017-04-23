@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InformationService } from '../../services/information';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @Component({
     selector: 'page-radio',
     templateUrl: 'radio.html',
-    providers: [InformationService]
+    providers: [InformationService, BackgroundMode]
 })
 export class RadioPage {
 
@@ -15,11 +16,14 @@ export class RadioPage {
     private timer:any;
 
     private currentSong:Object = {
-        cover_url: 'http://faubourgsimone.paris/player/public/img/pochette-default.jpg',
+        cover_url: 'assets/images/cover-default.jpg',
         title: ''
     };
 
-    constructor(public navCtrl: NavController, private player:RadioPlayer, private informationService:InformationService) {
+    constructor(public navCtrl: NavController,
+                private player:RadioPlayer,
+                private informationService:InformationService,
+                private backgroundMode: BackgroundMode) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.informationService.getInitData().subscribe(
@@ -37,28 +41,40 @@ export class RadioPage {
 
     ngOnInit() {
         console.log('NG INIT');
+        this.backgroundMode.enable();
+
+        try {
+            this.backgroundMode.on('activate').subscribe(()=> {
+                if(this.timer) {
+                    clearTimeout(this.timer);
+                }
+            });
+            this.backgroundMode.on('deactivate').subscribe(()=> {
+                this.loopData();
+            });
+        }
+        catch(e) {}
+
+
+
         this.player.init(this.streaming_url);
     }
 
     ionViewWillEnter() {
-        console.log('ENTER');
         this.loopData();
     }
     ionViewWillLeave() {
-        console.log('LEAVE');
         if(this.timer) {
-            console.log('clear timer');
             clearTimeout(this.timer);
         }
     }
 
-
     loopData() {
         if(this.timer) {
-            console.log('clear timer');
+            // console.log('clear timer');
             clearTimeout(this.timer);
         }
-        console.log('loopdata ', this);
+        // console.log('loopdata ', this);
         // Cherche les informations sur la piste en cours de lecture
         this.informationService.getCurrentSongs().subscribe(
             data => {
