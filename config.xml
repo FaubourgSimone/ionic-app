@@ -23,7 +23,7 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="orientation" value="portrait"/>
-  <preference name="StatusBarBackgroundColor" value="#86000f"/>
+  <preference name="StatusBarBackgroundColor" value="#135A76"/>
   <platform name="android">
     <allow-intent href="market:*"/>
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
@@ -82,7 +82,7 @@
     <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" "/>
   </plugin>
   <engine name="ios" spec="~4.3.1"/>
-  <engine name="android" spec="~6.0.0"/>
   <engine name="windows" spec="~4.4.3"/>
+  <engine name="android" spec="~6.1.0"/>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
 </widget>
