@@ -9,7 +9,11 @@ page-radio {
   .cover {
     width: 180px;
     display: block;
-    margin: 4rem auto 3rem auto;
+    margin: 4rem auto 2rem auto;
+  }
+
+  .current-song {
+    font-weight: bold;
   }
 
   //ion-card .item-ios ion-icon[item-left] + .item-inner,
@@ -18,6 +22,10 @@ page-radio {
   }
   ion-card .item-ios ion-icon[item-left] + .item-inner {
     margin-left: 0px;
+  }
+
+  ion-card ion-icon {
+    color: color($colors, "primary");
   }
 
   .spinner {

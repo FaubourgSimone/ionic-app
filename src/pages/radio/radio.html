@@ -1,7 +1,7 @@
 <!--<ion-header>-->
-  <!--<ion-navbar>-->
-    <!--<ion-title>Faubourg Simone</ion-title>-->
-  <!--</ion-navbar>-->
+<!--<ion-navbar>-->
+<!--<ion-title>Faubourg Simone</ion-title>-->
+<!--</ion-navbar>-->
 <!--</ion-header>-->
 
 <ion-content padding>
@@ -13,24 +13,42 @@
         <button style="padding: 0; width: 44px;  height: 44px;" ion-button round color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive">
             <ion-icon [name]="playPauseButton"></ion-icon>
         </button>
-
         <button ion-button round outline style="padding: 0; width: 44px; height: 44px;" *ngIf="!isButtonActive">
             <ion-spinner name="dots" color="primary" *ngIf="!isButtonActive"></ion-spinner>
         </button>
+        <button style="padding: 0; width: 44px;  height: 44px;" ion-button round outline color="primary" icon-only>
+            <ion-icon name="share"></ion-icon>
+        </button>
     </ion-row>
 
+
     <ion-card>
-
         <img class="cover" src="{{currentSong.cover_url}}"/>
+        <!--<ion-item no-margin>-->
+            <!--<ion-icon no-margin name='people' item-left></ion-icon>-->
+            <!--<span>{{currentSong.artist}}</span>-->
+        <!--</ion-item>-->
+        <!--<ion-item no-margin>-->
+            <!--<ion-icon no-margin name='musical-notes' item-left></ion-icon>-->
+            <!--<span>{{currentSong.track}}</span>-->
+        <!--</ion-item>-->
 
-        <ion-item no-margin>
-            <ion-icon no-margin name='people' item-left></ion-icon>{{currentSong.artist}}
+        <ion-item no-margin text-wrap>
+            <h2 class="current-song" no-margin no-padding color="primary"><span>{{currentSong.artist}}</span> • <span>{{currentSong.track}}</span></h2>
         </ion-item>
-        <ion-item no-margin>
-            <ion-icon no-margin name='musical-notes' item-left></ion-icon>{{currentSong.track}}
-        </ion-item>
-
-
     </ion-card>
+
+
+    <ion-list>
+        <ion-list-header><h3>Derniers morceaux: </h3></ion-list-header>
+        <ion-item *ngFor="let song of lastSongs" text-wrap>
+            <ion-thumbnail item-left>
+                <img src={{song.cover_url}}>
+            </ion-thumbnail>
+            <h4>{{song.artist}}</h4>
+            <p>{{song.track}}</p>
+            <button ion-button clear item-right>See More</button>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

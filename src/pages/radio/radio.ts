@@ -32,6 +32,9 @@ export class RadioPage {
         track: ''
     };
 
+    private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
+
+
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
                 private player: RadioPlayer,
@@ -78,7 +81,7 @@ export class RadioPage {
                 this.zone.run(()=>{
                     // si on n'avait pas change de tab avant de rentrer en mode background
                     // if(!this.hasLeft) {
-                        this.loopData();
+                    this.loopData();
                     // }
                 });
             });
@@ -140,13 +143,39 @@ export class RadioPage {
                 console.log('############################################################');
                 let hasChanged = (this.currentSong.title !== data.songs[0].title);
 
-                this.currentSong = {
-                    cover_url: data.songs[0].album_cover || '',
-                    title: data.songs[0].title || '',
-                    artist: data.songs[0].title.split(" - ")[0],
-                    track: data.songs[0].title.split(" - ")[1]
-                };
                 if(hasChanged) {
+
+                    this.currentSong = {
+                        cover_url: data.songs[0].album_cover || '',
+                        title: data.songs[0].title || '',
+                        artist: data.songs[0].title.split(" - ")[0],
+                        track: data.songs[0].title.split(" - ")[1]
+                    };
+
+                    let lastSongsData = data.songs;
+
+
+
+                    // let lastSongsData = data.songs.reduce(function(map, obj) {
+                    //     map[obj.key] = obj.val;
+                    //     return map;
+                    // }, {});
+                    // console.log(lastSongsData);
+
+                    this.lastSongs = lastSongsData.map((song)=> {
+                        let result = {
+                            cover_url: song.album_cover || '',
+                            title: song.title || '',
+                            artist: song.title.split(" - ")[0],
+                            track: song.title.split(" - ")[1]
+                        };
+                        return result;
+                    });
+                    this.lastSongs.shift();
+
+                    console.log(this.lastSongs);
+                    console.log('#####################################################');
+
                     this.destroyMusicControls();
                     this.createMusicControls();
                 }
@@ -262,5 +291,4 @@ export class RadioPage {
         console.log('Radio.handleCurrentError: ', error);
         // TODO: display message
     }
-
 }
