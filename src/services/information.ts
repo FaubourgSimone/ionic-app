@@ -48,6 +48,7 @@ export class InformationService {
             "sample",
             "jingle",
             "faubourg simone",
+            "fabourg simone", // lol
             "flash calepin"
         ];
         let defaultCoverFridayWearUrl = "assets/images/cover-friday-wear.jpg";

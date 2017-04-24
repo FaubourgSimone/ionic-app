@@ -8,15 +8,19 @@
 
 
 
-    <h2 ion-text color="primary">Hello Radio!</h2>
-    <h3 ion-text color="secondary">{{currentSong.title}}</h3>
-
+    <h2 padding ion-text color="primary">{{currentSong.title}}</h2>
     <img class='cover' src="{{currentSong.cover_url}}"/>
 
 
-  <ion-segment margin-bottom>
-    <ion-segment-button dark (click)="play()"><ion-icon name="play"></ion-icon></ion-segment-button>
-    <ion-segment-button dark (click)="pause()"><ion-icon name="pause"></ion-icon></ion-segment-button>
-  </ion-segment>
+  <!--<ion-range min="0" max="100" step="2" [(ngModel)]="volume" (ionChange)="setVolume()">-->
+    <!--<ion-icon color="primary" large range-left  name="volume-mute"></ion-icon>-->
+    <!--<ion-icon color="primary" large range-right name="volume-up"></ion-icon>-->
+  <!--</ion-range>-->
+
+  <ion-row justify-content-center>
+    <!--icon name with variable [name]="myIcon"-->
+    <button ion-button color="primary" icon-only (click)="play()"><ion-icon name="play"></ion-icon></button>
+    <button ion-button color="primary" icon-only (click)="pause()"><ion-icon name="pause"></ion-icon></button>
+  </ion-row>
 
 </ion-content>

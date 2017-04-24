@@ -11,11 +11,11 @@ export class RadioPlayer {
         console.log('RadioPlayer.init: ', url);
         this.url = url;
         // TODO : verifier que l'url est accessible
-        this.stream = new Audio(this.url);
-        console.log(this.stream);
     }
 
     play() {
+        this.stream = new Audio(this.url);
+        console.log(this.stream);
         this.promise = new Promise((resolve,reject) => {
             this.stream.addEventListener('playing', () => {
                 resolve(true);

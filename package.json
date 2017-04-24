@@ -1,6 +1,6 @@
 {
   "name": "faubourgsimone",
-  "version": "0.0.1",
+  "version": "3.0.0",
   "author": "Faubourg Simone <jennifer.proust@faubourgsimone.paris>",
   "homepage": "http://faubourgsimone.paris/",
   "description": "faubourgsimone: app for the parisian webradio faubourgsimone.paris",
@@ -23,6 +23,7 @@
     "@angular/platform-server": "2.4.8",
     "@ionic-native/background-mode": "^3.5.0",
     "@ionic-native/core": "3.4.2",
+    "@ionic-native/music-controls": "^3.5.0",
     "@ionic-native/splash-screen": "3.4.2",
     "@ionic-native/status-bar": "3.4.2",
     "@ionic/storage": "2.0.1",

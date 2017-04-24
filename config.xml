@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.faubourgsimone132719" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.faubourgsimone" version="3.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>faubourgsimone</name>
     <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="tech.team@faubourgsimone.com" href="http://faubourgsimone.paris/">Faubourg Simone Team</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-navigation href="http://ionic.local/*" />
+    <allow-navigation href="http://faubourgsimone.local/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -86,6 +86,10 @@
     <engine name="ios" spec="~4.3.1" />
     <engine name="android" spec="~6.0.0" />
     <engine name="windows" spec="~4.4.3" />
-    <plugin name="com.hutchind.cordova.plugins.streamingmedia" spec="~0.1.4" />
     <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
+    <plugin name="cordova-plugin-nativeaudio" spec="~3.0.9" />
+    <plugin name="cordova-plugin-music-controls" spec="~1.4.1" />
+    <plugin name="cordova-plugin-media" spec="~3.0.0">
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>
