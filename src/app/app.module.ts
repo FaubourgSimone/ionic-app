@@ -14,8 +14,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { RadioPlayer } from '../providers/radioplayer';
 
-import { MovieListPage } from '../pages/movie-list/movie-list';
-import { MovieInfoPage } from '../pages/movie-info/movie-info';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '0f7b6934'
+  }
+};
 
 @NgModule({
   declarations: [
@@ -24,13 +28,12 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
     CalepinsPage,
     RadioPage,
     CasquePage,
-    TabsPage,
-    MovieListPage,
-    MovieInfoPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,9 +42,7 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
     CalepinsPage,
     RadioPage,
     CasquePage,
-    TabsPage,
-    MovieListPage,
-    MovieInfoPage
+    TabsPage
   ],
   providers: [
     StatusBar,

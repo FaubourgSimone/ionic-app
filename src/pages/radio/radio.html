@@ -10,10 +10,13 @@
     <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
 
     <ion-row class="toggle-buttons" align-items-center>
-        <button ion-button color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive">
+        <button style="padding: 0; width: 44px;  height: 44px;" ion-button round color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive">
             <ion-icon [name]="playPauseButton"></ion-icon>
         </button>
-        <p><ion-spinner class='spinner' name="dots" color="primary" icon-only *ngIf="!isButtonActive"></ion-spinner></p>
+
+        <button ion-button round outline style="padding: 0; width: 44px; height: 44px;" *ngIf="!isButtonActive">
+            <ion-spinner name="dots" color="primary" *ngIf="!isButtonActive"></ion-spinner>
+        </button>
     </ion-row>
 
     <ion-card>

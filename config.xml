@@ -6,6 +6,7 @@
   <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="http://faubourgsimone.local/*"/>
+  <allow-navigation href="http://192.168.1.21:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
@@ -69,6 +70,11 @@
     <splash src="resources/ios/splash/Default@2x~iphone.png" width="640" height="960"/>
     <splash src="resources/ios/splash/Default~iphone.png" width="320" height="480"/>
   </platform>
+  <platform name="wp8">
+    <icon src="resources/wp8/icon/ApplicationIcon.png" width="99" height="99"/>
+    <icon src="resources/wp8/icon/Background.png" width="159" height="159"/>
+    <splash src="resources/wp8/splash/SplashScreenImage.png" width="768" height="1280"/>
+  </platform>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
   <plugin name="cordova-plugin-whitelist" spec="1.3.1"/>
   <plugin name="cordova-plugin-console" spec="1.0.5"/>
@@ -81,6 +87,7 @@
   <plugin name="cordova-plugin-media" spec="~3.0.0">
     <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" "/>
   </plugin>
+  <plugin name="ionic-plugin-deploy" spec="~0.6.6"/>
   <engine name="ios" spec="~4.3.1"/>
   <engine name="windows" spec="~4.4.3"/>
   <engine name="android" spec="~6.1.0"/>

@@ -2,7 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
-import { InformationService } from '../../services/information';
+// import { InformationService } from '../../services/information';
+import { InitService } from '../../providers/init-service';
 import { MusicControls } from '@ionic-native/music-controls';
 
 declare let cordova: any;
@@ -10,7 +11,7 @@ declare let cordova: any;
 @Component({
     selector: 'page-radio',
     templateUrl: 'radio.html',
-    providers: [InformationService, BackgroundMode, MusicControls]
+    providers: [InitService, BackgroundMode, MusicControls]
 })
 export class RadioPage {
 
@@ -33,13 +34,13 @@ export class RadioPage {
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
                 private player: RadioPlayer,
-                private informationService: InformationService,
+                private initService: InitService,
                 private backgroundMode: BackgroundMode,
                 private zone: NgZone,
                 private musicControls: MusicControls) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-        this.informationService.getInitData().subscribe(
+        this.initService.getInitData().subscribe(
             // Success
             data => {
                 console.log('Data received ', data.loop_interval);
@@ -118,7 +119,7 @@ export class RadioPage {
         }
         // console.log('loopdata ', this);
         // Cherche les informations sur la piste en cours de lecture
-        this.informationService.getCurrentSongs().subscribe(
+        this.initService.getCurrentSongs().subscribe(
             data => {
                 console.log('############################################################');
                 let hasChanged = (this.currentSong.title !== data.songs[0].title);
