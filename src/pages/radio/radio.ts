@@ -2,9 +2,9 @@ import { Component, NgZone } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
-// import { InformationService } from '../../services/information';
 import { InitService } from '../../providers/init-service';
 import { MusicControls } from '@ionic-native/music-controls';
+import { LoadingController, Loading } from 'ionic-angular';
 
 declare let cordova: any;
 
@@ -23,6 +23,7 @@ export class RadioPage {
     private playPauseButton:string = 'play';
     private isButtonActive:boolean = true;
     // private volume:number = 50;
+    private loader:Loading;
 
     private currentSong = {
         cover_url: 'assets/images/cover-default.jpg',
@@ -37,7 +38,8 @@ export class RadioPage {
                 private initService: InitService,
                 private backgroundMode: BackgroundMode,
                 private zone: NgZone,
-                private musicControls: MusicControls) {
+                private musicControls: MusicControls,
+                public loadingCtrl: LoadingController) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.initService.getInitData().subscribe(
@@ -112,6 +114,20 @@ export class RadioPage {
     //     // }
     // }
 
+    presentLoading() {
+        this.loader = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: 'Paris ne s\'est pas faite en un jour...'
+        });
+        this.loader.present();
+    }
+
+    dismissLoading() {
+        if(this.loader) {
+            this.loader.dismiss();
+        }
+    }
+
     loopData() {
         if(this.timer) {
             // console.log('clear timer');
@@ -151,6 +167,7 @@ export class RadioPage {
 
     play() {
         this.isButtonActive = false;
+        this.presentLoading();
         console.log('Waiting For Streaming');
         if(this.player.isPlaying) {
             return false;
@@ -162,6 +179,7 @@ export class RadioPage {
                 console.log('Start Playing');
                 this.isPlaying = true;
                 this.isButtonActive = true;
+                this.dismissLoading();
                 if (typeof cordova !== 'undefined') {
                     this.musicControls.updateIsPlaying(true);
                 }
