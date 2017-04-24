@@ -19,6 +19,8 @@ export class RadioPage {
     private timer:any;
     private hasLeft:boolean = false;
     private isPlaying:boolean = false;
+    private playPauseButton:string = 'play';
+    private isButtonActive:boolean = true;
     // private volume:number = 50;
 
     private currentSong = {
@@ -137,13 +139,28 @@ export class RadioPage {
         );
     }
 
+    togglePlayPause() {
+        if(this.isPlaying) {
+            this.pause();
+        }
+        else {
+            this.play();
+        }
+    }
+
     play() {
+        this.isButtonActive = false;
         console.log('Waiting For Streaming');
+        if(this.player.isPlaying) {
+            return false;
+        }
+        this.playPauseButton = 'pause';
         this.player.play()
             .catch(error => this.handlePlayError(error))
             .then(() => {
                 console.log('Start Playing');
                 this.isPlaying = true;
+                this.isButtonActive = true;
                 if (typeof cordova !== 'undefined') {
                     this.musicControls.updateIsPlaying(true);
                 }
@@ -151,6 +168,8 @@ export class RadioPage {
     }
 
     pause() {
+        console.log('RadioPage.pause');
+        this.playPauseButton = 'play';
         this.isPlaying = false;
         this.player.pause();
         if (typeof cordova !== 'undefined') {

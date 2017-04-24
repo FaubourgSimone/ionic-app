@@ -2,6 +2,7 @@ export class RadioPlayer {
     url:string;
     stream:any;
     promise:any;
+    public isPlaying:boolean = false;
 
     constructor() {
         console.log('Hello RadioPlayer');
@@ -14,6 +15,7 @@ export class RadioPlayer {
     }
 
     play() {
+        this.isPlaying = true;
         this.stream = new Audio(this.url);
         console.log(this.stream);
         this.promise = new Promise((resolve,reject) => {
@@ -31,6 +33,8 @@ export class RadioPlayer {
     }
 
     pause() {
+        console.log('pause');
+        this.isPlaying = false;
         this.stream.pause();
     }
 

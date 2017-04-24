@@ -1,5 +1,23 @@
 page-radio {
-  .cover {
-    width: 100%;
+  .logo {
+    width: 200px;
+    float: left;
   }
+  .toggle-buttons {
+    margin-top: 36px;
+  }
+  .cover {
+    width: 180px;
+    display: block;
+    margin: 4rem auto 3rem auto;
+  }
+
+  //ion-card .item-ios ion-icon[item-left] + .item-inner,
+  ion-card .item-md ion-icon[item-left] + .item-inner {
+    margin-left: 10px;
+  }
+  ion-card .item-ios ion-icon[item-left] + .item-inner {
+    margin-left: 0px;
+  }
+
 }

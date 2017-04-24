@@ -1,26 +1,33 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Faubourg Simone</ion-title>
-  </ion-navbar>
-</ion-header>
+<!--<ion-header>-->
+  <!--<ion-navbar>-->
+    <!--<ion-title>Faubourg Simone</ion-title>-->
+  <!--</ion-navbar>-->
+<!--</ion-header>-->
 
 <ion-content padding>
 
 
+    <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
 
-    <h2 padding ion-text color="primary">{{currentSong.title}}</h2>
-    <img class='cover' src="{{currentSong.cover_url}}"/>
+    <ion-row class="toggle-buttons" align-items-center>
+        <button ion-button color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive">
+            <ion-icon [name]="playPauseButton"></ion-icon>
+        </button>
+        <p><ion-spinner class='spinner' name="dots" color="primary" icon-only *ngIf="!isButtonActive"></ion-spinner></p>
+    </ion-row>
+
+    <ion-card>
+
+        <img class="cover" src="{{currentSong.cover_url}}"/>
+
+        <ion-item no-margin>
+            <ion-icon no-margin name='people' item-left></ion-icon>{{currentSong.artist}}
+        </ion-item>
+        <ion-item no-margin>
+            <ion-icon no-margin name='musical-notes' item-left></ion-icon>{{currentSong.track}}
+        </ion-item>
 
 
-  <!--<ion-range min="0" max="100" step="2" [(ngModel)]="volume" (ionChange)="setVolume()">-->
-    <!--<ion-icon color="primary" large range-left  name="volume-mute"></ion-icon>-->
-    <!--<ion-icon color="primary" large range-right name="volume-up"></ion-icon>-->
-  <!--</ion-range>-->
-
-  <ion-row justify-content-center>
-    <!--icon name with variable [name]="myIcon"-->
-    <button ion-button color="primary" icon-only (click)="play()"><ion-icon name="play"></ion-icon></button>
-    <button ion-button color="primary" icon-only (click)="pause()"><ion-icon name="pause"></ion-icon></button>
-  </ion-row>
+    </ion-card>
 
 </ion-content>
