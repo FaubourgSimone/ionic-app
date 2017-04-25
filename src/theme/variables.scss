@@ -76,3 +76,9 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+// Custom variables
+// --------------------------------------------------
+@import "font-lato";
+$font-family-base: 'Lato', sans-serif;
