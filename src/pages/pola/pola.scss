@@ -1,3 +1,53 @@
 page-pola {
+  .logo {
+    width: 160px;
+    float: left;
+  }
+  ion-card {
+    display: block;
+  }
+  ion-card.td-card {
+    border: 1px solid #999;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    width: 85%;
+    height: 60vh;
+    position: absolute;
+  }
+  ion-card img {
+    //border-radius: 5% 5% 0px 0px;
+    max-width: 100%;
+  }
+  .fade {
+    -webkit-transition: 0.2s opacity linear;
+    transition: 0.2s opacity linear;
+    opacity: 0;
+  }
+  ion-footer {
+    height: 15%;
+  }
+  .pola-footer {
+    width: 50%;
+    margin: auto;
+    padding-top: 6px;
+  }
+  .rate {
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+    background: #FFF;
+    border: 5px solid #f0f0f0;
+    float: left;
+    box-shadow: 1px 1px 1px 0px #e9e9e9;
 
+    ion-icon {
+      font-size: 3rem;
+      &.rate-down {
+        color: color($colors, "danger");
+      }
+      &.rate-up {
+        color: color($colors, "secondary");
+      }
+    }
+  }
 }

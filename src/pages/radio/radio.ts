@@ -5,17 +5,18 @@ import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { LoadingController, Loading } from 'ionic-angular';
+import { GlobalVars } from '../../providers/global-variables';
 
 declare let cordova: any;
 
 @Component({
     selector: 'page-radio',
     templateUrl: 'radio.html',
-    providers: [InitService, BackgroundMode, MusicControls]
+    providers: [InitService, BackgroundMode, MusicControls, GlobalVars]
 })
 export class RadioPage {
 
-    private streaming_url:string = 'http://91.121.65.131:1337/faubourgsimone';
+    private streaming_url:string;
     private loop_interval:Number = 3000;
     private timer:any;
     private hasLeft:boolean = false;
@@ -24,6 +25,7 @@ export class RadioPage {
     private isButtonActive:boolean = true;
     // private volume:number = 50;
     private loader:Loading;
+    private playerReady:boolean = false;
 
     private currentSong = {
         cover_url: 'assets/images/cover-default.jpg',
@@ -37,6 +39,7 @@ export class RadioPage {
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
+                private vars: GlobalVars,
                 private player: RadioPlayer,
                 private initService: InitService,
                 private backgroundMode: BackgroundMode,
@@ -48,23 +51,17 @@ export class RadioPage {
         this.initService.getInitData().subscribe(
             // Success
             data => {
-                console.log('Data received ', data.loop_interval);
-                this.streaming_url = data.streaming_url ? data.streaming_url : this.streaming_url;
+                this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
                 this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
-                // this.goOn();
-            }
-            // Failure
-            // err => this.goOn()
+                this.player.init(this.streaming_url);
+                this.playerReady = true;
+            },
+            err => console.log(err)
         );
     }
 
     ngOnInit() {
-        console.log('NG INIT');
-
         this.manageBackground();
-
-        this.player.init(this.streaming_url);
-
     }
 
     manageBackground(){
@@ -89,33 +86,13 @@ export class RadioPage {
         catch(e) {}
     }
 
-    ionViewDidLoad() {
-        console.log('ION VIEW DID LOAD');
-    }
-
     ionViewDidEnter() {
-        console.log('ionViewDidEnter');
         this.hasLeft = false;
         this.loopData();
     }
     ionViewDidLeave() {
         this.hasLeft = true;
-        // if(this.timer && !this.isPlaying) {
-        //     clearTimeout(this.timer);
-        // }
     }
-
-    // setVolume() {
-    //     console.log('RadioPage.setVolume ', this.volume/100);
-    //     // if (typeof cordova !== 'undefined') {
-    //     //     // console.log(cordova.plugins.VolumeControl);
-    //     //     console.log("volume : ", cordova.plugins.VolumeControl.getVolume());
-    //     //     cordova.plugins.VolumeControl.setVolume(this.volume/100);
-    //     // }
-    //     // else{
-    //     //     console.log("NOT FOUND");
-    //     // }
-    // }
 
     presentLoading() {
         this.loader = this.loadingCtrl.create({
@@ -133,14 +110,11 @@ export class RadioPage {
 
     loopData() {
         if(this.timer) {
-            // console.log('clear timer');
             clearTimeout(this.timer);
         }
-        // console.log('loopdata ', this);
         // Cherche les informations sur la piste en cours de lecture
         this.initService.getCurrentSongs().subscribe(
             data => {
-                console.log('############################################################');
                 let hasChanged = (this.currentSong.title !== data.songs[0].title);
 
                 if(hasChanged) {
@@ -151,18 +125,7 @@ export class RadioPage {
                         artist: data.songs[0].title.split(" - ")[0],
                         track: data.songs[0].title.split(" - ")[1]
                     };
-
-                    let lastSongsData = data.songs;
-
-
-
-                    // let lastSongsData = data.songs.reduce(function(map, obj) {
-                    //     map[obj.key] = obj.val;
-                    //     return map;
-                    // }, {});
-                    // console.log(lastSongsData);
-
-                    this.lastSongs = lastSongsData.map((song)=> {
+                    this.lastSongs = data.songs.map((song)=> {
                         let result = {
                             cover_url: song.album_cover || '',
                             title: song.title || '',
@@ -172,10 +135,6 @@ export class RadioPage {
                         return result;
                     });
                     this.lastSongs.shift();
-
-                    console.log(this.lastSongs);
-                    console.log('#####################################################');
-
                     this.destroyMusicControls();
                     this.createMusicControls();
                 }
@@ -197,7 +156,6 @@ export class RadioPage {
     play() {
         this.isButtonActive = false;
         this.presentLoading();
-        console.log('Waiting For Streaming');
         if(this.player.isPlaying) {
             return false;
         }
@@ -205,7 +163,6 @@ export class RadioPage {
         this.player.play()
             .catch(error => this.handlePlayError(error))
             .then(() => {
-                console.log('Start Playing');
                 this.isPlaying = true;
                 this.isButtonActive = true;
                 this.dismissLoading();
@@ -216,7 +173,6 @@ export class RadioPage {
     }
 
     pause() {
-        console.log('RadioPage.pause');
         this.playPauseButton = 'play';
         this.isPlaying = false;
         this.player.pause();
@@ -233,7 +189,6 @@ export class RadioPage {
     }
 
     createMusicControls() {
-        // console.log('CREATE MUSIC CONTROLS');
         if (typeof cordova !== 'undefined') {
             this.musicControls.create({
                 track: this.currentSong.track,

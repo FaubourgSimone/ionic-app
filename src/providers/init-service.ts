@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { GlobalVars } from '../providers/global-variables';
 
-/*
-  Generated class for the InitService provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class InitService {
 
-  constructor(public http: Http) {
-    console.log('Hello InitService Provider');
-  }
+  constructor(public http: Http, private vars:GlobalVars) {}
 
   getInitData() {
-    console.log('InitService.getInitData');
     return this.http
-        .get('http://fbrgsmn.proustib.at/ionic-app/info.json')
+        .get(this.vars.URL_INFO)
         .map(res => {
           // If request fails, throw an Error that will be caught
           if(res.status < 200 || res.status >= 300) {
@@ -33,7 +26,7 @@ export class InitService {
 
   getCurrentSongs() {
     return this.http
-        .get('http://ks25555.kimsufi.com/fsapi/cacheapi.json')
+        .get(this.vars.URL_COVERS_API)
         .map(res => {
           // If request fails, throw an Error that will be caught
           if(res.status < 200 || res.status >= 300) {
@@ -47,7 +40,6 @@ export class InitService {
   }
 
   filterDefaultCovers(data) {
-    console.log('InitService.filterDefaultCovers ', data);
     let defaultCoverUrl = "assets/images/cover-default.jpg";
     let defaultTags = [
       "sample",
@@ -71,12 +63,9 @@ export class InitService {
 
       let checkIfTagFor = function(titleToCompare, tagArray, urlIfFound) {
         var coverToGet = null;
-        // Vérifie si le tableau de tags comprend une expression dans le titre courant
-        // si c'est le cas, renvoie l'url associée
+        // Vérifie si le tableau de tags comprend une expression dans le titre courant si c'est le cas, renvoie l'url associée
         tagArray.forEach((tag, index)=> {
-          // console.log('------->', index, tag);
           if (titleToCompare.toLowerCase().indexOf(tag.toLowerCase()) > -1) {
-            // console.log('---------------------> ', urlIfFound);
             coverToGet = urlIfFound;
             return false;
           }
@@ -85,11 +74,9 @@ export class InitService {
       };
 
       let coverToGet = null;
-
       if(song.album_cover.indexOf('pochette-default') > -1) {
         song.album_cover = defaultCoverUrl;
       }
-
       // url de friday wear
       if (coverToGet === null) {
         coverToGet = checkIfTagFor(song.title, defaultTagsFridayWear, defaultCoverFridayWearUrl);
@@ -106,8 +93,6 @@ export class InitService {
       if (coverToGet === null) {
         coverToGet = song.album_cover;
       }
-
-
 
       return {
         album_cover: coverToGet,

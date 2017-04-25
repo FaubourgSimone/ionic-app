@@ -5,11 +5,9 @@ export class RadioPlayer {
     public isPlaying:boolean = false;
 
     constructor() {
-        console.log('Hello RadioPlayer');
     }
 
     init(url:string) {
-        console.log('RadioPlayer.init: ', url);
         this.url = url;
         // TODO : verifier que l'url est accessible
     }
@@ -17,7 +15,6 @@ export class RadioPlayer {
     play() {
         this.isPlaying = true;
         this.stream = new Audio(this.url);
-        console.log(this.stream);
         this.promise = new Promise((resolve,reject) => {
             this.stream.addEventListener('playing', () => {
                 resolve(true);
@@ -33,7 +30,6 @@ export class RadioPlayer {
     }
 
     pause() {
-        console.log('pause');
         this.isPlaying = false;
         this.stream.pause();
     }
