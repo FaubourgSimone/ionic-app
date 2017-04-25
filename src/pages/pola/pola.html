@@ -1,9 +1,35 @@
-<!--<ion-header>-->
-  <!--<ion-navbar>-->
-    <!--<ion-title>Faubourg Simone</ion-title>-->
-  <!--</ion-navbar>-->
-<!--</ion-header>-->
-
+<ion-header>
+  <ion-navbar>
+    <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
+    <ion-row class="toggle-buttons" align-items-center>
+      <h1>Les polas du jour</h1>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
 <ion-content padding>
-  <h2>Hello Pola!</h2>
+
+  <!-- to get different behaviors use (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)"  -->
+  <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwout)="voteUp(true)" id="card-stack">
+    <ion-card #mycards1 swing-card *ngFor="let card of cards" class="td-card">
+      <ion-item *ngIf="card.image">
+        <img *ngIf="card.image" [src]="card.image">
+        <h2 text-wrap>{{ card.title }}</h2>
+      </ion-item>
+      <ion-card-content *ngIf="card.date">
+        {{ card.date }}
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
+<!-- TODO : remplacer par des like sur reseau sociaux par exemple ou dans des favoris de l'application -->
+<!--<ion-footer>-->
+  <!--<div class="pola-footer">-->
+    <!--<button id="swipe_dislike" class="rate" (click)="voteUp(false)">-->
+      <!--<ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>-->
+    <!--</button>-->
+
+    <!--<button id="swipe_like" class="rate" (click)="voteUp(true)">-->
+      <!--<ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>-->
+    <!--</button>-->
+  <!--</div>-->
+<!--</ion-footer>-->

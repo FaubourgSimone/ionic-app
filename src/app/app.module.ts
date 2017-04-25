@@ -15,6 +15,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RadioPlayer } from '../providers/radioplayer';
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+
+import { SwingModule } from 'angular2-swing';
+
+import { GlobalVars } from '../providers/global-variables';
+
+
+
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '0f7b6934'
@@ -33,7 +40,8 @@ const cloudSettings: CloudSettings = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    SwingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,6 +55,7 @@ const cloudSettings: CloudSettings = {
   providers: [
     StatusBar,
     SplashScreen,
+    GlobalVars,
     RadioPlayer,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -1,25 +1,22 @@
-<!--<ion-header>-->
-<!--<ion-navbar>-->
-<!--<ion-title>Faubourg Simone</ion-title>-->
-<!--</ion-navbar>-->
-<!--</ion-header>-->
+<ion-header>
+    <ion-navbar>
+        <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
+
+        <ion-row class="toggle-buttons" align-items-center>
+            <button style="padding: 0; width: 44px;  height: 44px;" ion-button round color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive && playerReady">
+                <ion-icon [name]="playPauseButton"></ion-icon>
+            </button>
+            <button ion-button round outline style="padding: 0; width: 44px; height: 44px;" *ngIf="!isButtonActive">
+                <ion-spinner name="dots" color="primary" *ngIf="!isButtonActive"></ion-spinner>
+            </button>
+            <button style="padding: 0; width: 44px;  height: 44px;" ion-button round outline color="primary" icon-only>
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-row>
+    </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-
-
-    <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
-
-    <ion-row class="toggle-buttons" align-items-center>
-        <button style="padding: 0; width: 44px;  height: 44px;" ion-button round color="primary" icon-only (click)="togglePlayPause()" *ngIf="isButtonActive">
-            <ion-icon [name]="playPauseButton"></ion-icon>
-        </button>
-        <button ion-button round outline style="padding: 0; width: 44px; height: 44px;" *ngIf="!isButtonActive">
-            <ion-spinner name="dots" color="primary" *ngIf="!isButtonActive"></ion-spinner>
-        </button>
-        <button style="padding: 0; width: 44px;  height: 44px;" ion-button round outline color="primary" icon-only>
-            <ion-icon name="share"></ion-icon>
-        </button>
-    </ion-row>
 
 
     <ion-card>

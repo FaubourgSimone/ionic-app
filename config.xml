@@ -6,7 +6,9 @@
   <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="http://faubourgsimone.local/*"/>
+  <allow-navigation href="http://faubourgsimone.paris/*"/>
   <allow-navigation href="http://192.168.1.21:8100"/>
+  <allow-navigation href="http://localhost:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
