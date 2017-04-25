@@ -1,10 +1,9 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, LoadingController, Loading } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
 import { MusicControls } from '@ionic-native/music-controls';
-import { LoadingController, Loading } from 'ionic-angular';
 import { GlobalVars } from '../../providers/global-variables';
 
 declare let cordova: any;

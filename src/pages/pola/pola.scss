@@ -5,10 +5,8 @@ page-pola {
     float: left;
   }
 
-
   #card-stack {
     padding-top: 12px;
-    padding-left: 8px;
   }
   ion-card  {
     display: block;
@@ -16,9 +14,10 @@ page-pola {
 
   }
   .stack-style-1 {
+    padding-left: 0px;
     ion-card {
       $var: 0;
-      @for $i from 1 through 10 {
+      @for $i from 1 through 20 {
         &:nth-child(#{$i}) {
           margin-top: -#{$var}px!important;
           margin-left: #{$var}px!important;
@@ -28,9 +27,10 @@ page-pola {
     }
   }
   .stack-style-2 {
+    padding-left: 15px;
     ion-card {
       $var: 0;
-      @for $i from 1 through 10 {
+      @for $i from 1 through 20 {
         &:nth-child(#{$i}) {
           margin-top: -#{$var}px!important;
           margin-left: -#{$var}px!important;
@@ -51,36 +51,40 @@ page-pola {
     //border-radius: 5% 5% 0px 0px;
     max-width: 100%;
   }
+  .date {
+    font-size: 1.8rem;
+  }
+
   .fade {
     -webkit-transition: 0.2s opacity linear;
     transition: 0.2s opacity linear;
     opacity: 0;
   }
-  ion-footer {
-    height: 15%;
-  }
-  .pola-footer {
-    width: 50%;
-    margin: auto;
-    padding-top: 6px;
-  }
-  .rate {
-    width: 70px;
-    height: 70px;
-    border-radius: 70px;
-    background: #FFF;
-    border: 5px solid #f0f0f0;
-    float: left;
-    box-shadow: 1px 1px 1px 0px #e9e9e9;
-
-    ion-icon {
-      font-size: 3rem;
-      &.rate-down {
-        color: color($colors, "danger");
-      }
-      &.rate-up {
-        color: color($colors, "secondary");
-      }
-    }
-  }
+  //ion-footer {
+  //  height: 15%;
+  //}
+  //.pola-footer {
+  //  width: 50%;
+  //  margin: auto;
+  //  padding-top: 6px;
+  //}
+  //.rate {
+  //  width: 70px;
+  //  height: 70px;
+  //  border-radius: 70px;
+  //  background: #FFF;
+  //  border: 5px solid #f0f0f0;
+  //  float: left;
+  //  box-shadow: 1px 1px 1px 0px #e9e9e9;
+  //
+  //  ion-icon {
+  //    font-size: 3rem;
+  //    &.rate-down {
+  //      color: color($colors, "danger");
+  //    }
+  //    &.rate-up {
+  //      color: color($colors, "secondary");
+  //    }
+  //  }
+  //}
 }

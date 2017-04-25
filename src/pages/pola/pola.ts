@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
 import { GlobalVars } from '../../providers/global-variables';
@@ -25,10 +25,14 @@ export class PolaPage {
   recentCard: string = '';
   currentQueryPage:number;
   totalQueryPage:number;
-  polaGapForRequest:number = 10;
+  polaGapForRequest:number = 15;
   stackStyle:string = 'stack-style-1';
+  private loader:Loading;
 
-  constructor(public navCtrl: NavController, public http: Http, private vars:GlobalVars) {
+  constructor(public navCtrl: NavController,
+              public http: Http,
+              private vars:GlobalVars,
+              public loadingCtrl: LoadingController) {
 
     this.stackConfig = {
       throwOutConfidence: (offset, element) => {
@@ -74,7 +78,7 @@ export class PolaPage {
   // Connected through HTML
   voteUp(like: boolean) {
     let removedCard = this.cards.pop();
-    console.log('Removed: ', removedCard.name);
+    console.log('Removed: ', removedCard.title);
     if(this.cards.length === 0) {
       this.addNewCards(this.polaGapForRequest);
     }
@@ -87,6 +91,8 @@ export class PolaPage {
 
   // Add new cards to our array
   addNewCards(count: number) {
+    console.log("WAITING FOR NEW CARDS...");
+    this.presentLoading();
     let url = this.vars.URL_POLA.baseUrl + this.vars.URL_POLA.params.count + count;
     if(typeof this.currentQueryPage !== 'undefined') {
       // TODO verifier qu'on atteint pas le nombre total de pages
@@ -106,24 +112,44 @@ export class PolaPage {
           this.currentQueryPage = 1;
         }
 
-        let posts = result.posts.map(post => {
-          let img = null;
-          if( post.attachments.length > 0
-              && post.attachments[0]
-              && post.attachments[0].images
-              && post.attachments[0].images.full
-              && post.attachments[0].images.full.url) {
-            img = post.attachments[0].images.full.url;
-          }
-          return {
-            id: post.id,
-            title: post.title,
-            image: img,
-            date: post.date
-          };
-        }).filter(post=>{
-          return (post.image !== null);
-        });
+        let posts = result.posts
+            .map(post => {
+              let img = null;
+              if( post.attachments.length > 0
+                  && post.attachments[0]
+                  && post.attachments[0].images
+                  && post.attachments[0].images.full
+                  && post.attachments[0].images.full.url) {
+                img = post.attachments[0].images.full.url;
+              }
+
+              // TODO sortir ca d'ici et utiliser moment js ?
+              let formatDate = (date)=>{
+                let monthNames = [
+                  "Janvier", "Février", "Mars",
+                  "Avril", "Mai", "Juin", "Juillet",
+                  "Aout", "Septembre", "Octobre",
+                  "Novembre", "Décembre"
+                ];
+
+                let day = date.getDate();
+                let monthIndex = date.getMonth();
+                let year = date.getFullYear();
+
+                return day + ' ' + monthNames[monthIndex] + ' ' + year;
+              };
+
+              return {
+                id: post.id,
+                title: post.title,
+                image: img,
+                date: formatDate(new Date(post.date))
+              };
+            })
+            .filter(post=>{
+              return (post.image !== null);
+            })
+            .reverse();
 
         for (let val of posts) {
           this.cards.push(val);
@@ -133,7 +159,9 @@ export class PolaPage {
           this.addNewCards(5);
         }
         else {
+          console.log('GOT NEW CARDS');
             this.switchStyle();
+            this.dismissLoading();
         }
 
       });
@@ -157,5 +185,26 @@ export class PolaPage {
   //   }
   //   return hex;
   // }
+
+  presentLoading() {
+    let message = 'Recherche les polas précédents';
+    if(typeof this.currentQueryPage === 'undefined') {
+      // premiere fois que le loader s'acchiche
+      message = 'Recherche les polas du jour';
+    }
+
+    this.loader = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: message
+    });
+    this.loader.present();
+  }
+
+  dismissLoading() {
+    if(this.loader) {
+      this.loader.dismiss();
+    }
+  }
+
 
 }
