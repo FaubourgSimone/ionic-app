@@ -160,7 +160,10 @@ export class RadioPage {
         }
         this.playPauseButton = 'pause';
         this.player.play()
-            .catch(error => this.handlePlayError(error))
+            .catch(error => {
+                this.dismissLoading();
+                this.handlePlayError(error);
+            })
             .then(() => {
                 this.isPlaying = true;
                 this.isButtonActive = true;
@@ -242,6 +245,7 @@ export class RadioPage {
     }
 
     handleCurrentError(error) {
+        alert('Verifier votre connexion à internet');
         console.log('Radio.handleCurrentError: ', error);
         // TODO: display message
     }

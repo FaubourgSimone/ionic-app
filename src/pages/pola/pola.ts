@@ -36,14 +36,17 @@ export class PolaPage {
 
     this.stackConfig = {
       throwOutConfidence: (offset, element) => {
-        return Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1);
+        console.log(Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1));
+        // return Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1);
+        return Math.min((2 * Math.abs(offset) / (element.offsetWidth / 2)), 1);
+        // return 1;
       },
       transform: (element, x, y, r) => {
         this.onItemMove(element, x, y, r);
-      },
-      throwOutDistance: (d) => {
-        return 800;
       }
+      // throwOutDistance: (d) => {
+      //   return 800;
+      // }
     };
   }
 
@@ -164,6 +167,11 @@ export class PolaPage {
             this.dismissLoading();
         }
 
+      },
+      err=>{
+        // TODO AFFICHER UN MESSAGE D'ERREUR
+        alert('Verifier votre connexion à internet');
+        this.dismissLoading();
       });
   }
 

@@ -1,10 +1,15 @@
 page-radio {
-  .logo {
-    width: 160px;
-    float: left;
+
+  ion-card {
+    margin-top: 2rem!important;
   }
-  .toggle-buttons {
-    margin-top: 22px;
+
+  .list-header-md {
+    border-bottom: 0.55px solid #c8c7cc!important;
+    font-weight: 500!important;
+    letter-spacing: 0.1rem!important;
+    color: #333!important;
+    background: transparent!important;
   }
   .cover {
     width: 180px;
@@ -13,23 +18,25 @@ page-radio {
   }
 
   .current-song {
-    font-weight: bold;
+    border-top: 1px solid color($colors, "primary");
+    border-bottom: 1px solid color($colors, "primary");
+    margin-top: 0px!important;
+    padding: 1rem 0;
+    text-align: center;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem!important;
   }
 
-  //ion-card .item-ios ion-icon[item-left] + .item-inner,
-  ion-card .item-md ion-icon[item-left] + .item-inner {
-    margin-left: 10px;
-  }
-  ion-card .item-ios ion-icon[item-left] + .item-inner {
-    margin-left: 0px;
-  }
 
-  ion-card ion-icon {
-    color: color($colors, "primary");
+  .last-songs {
+    margin-top: 5rem;
+    h3, h4 {
+      margin-top: 0!important;
+    }
+    h3 {
+      font-weight: bold!important;
+    }
   }
-
-  .spinner {
-    padding-left: 50px;
-  }
-
 }

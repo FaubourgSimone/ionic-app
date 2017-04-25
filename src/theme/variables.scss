@@ -24,17 +24,15 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
-        primary:    #135A76,
-        secondary:  #32db64,
-        danger:     #f53d3d,
-        light:      #f4f4f4,
-        dark:       #222,
-        foggy-gray: #ceccbf,
-        westar:     #e6e4de,
-        carrara:    #f2f1ee
+  primary:    #480a0f,
+  secondary:  #135A76,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  foggy-gray: #ceccbf,
+  westar:     #e6e4de,
+  carrara:    #f2f1ee
 );
-
-
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
@@ -85,3 +83,7 @@ $colors: (
 // --------------------------------------------------
 @import "font-lato";
 $font-family-base: 'Lato', $font-family-base;
+
+// Common style
+// --------------------------------------------------
+@import "ion-header";
