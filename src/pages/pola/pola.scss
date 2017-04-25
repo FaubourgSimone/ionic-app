@@ -1,10 +1,43 @@
 page-pola {
+
   .logo {
     width: 160px;
     float: left;
   }
-  ion-card {
+
+
+  #card-stack {
+    padding-top: 12px;
+    padding-left: 8px;
+  }
+  ion-card  {
     display: block;
+    //margin-top: 0!important;
+
+  }
+  .stack-style-1 {
+    ion-card {
+      $var: 0;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          margin-top: -#{$var}px!important;
+          margin-left: #{$var}px!important;
+          $var: $var + 2;
+        }
+      }
+    }
+  }
+  .stack-style-2 {
+    ion-card {
+      $var: 0;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          margin-top: -#{$var}px!important;
+          margin-left: -#{$var}px!important;
+          $var: $var + 2;
+        }
+      }
+    }
   }
   ion-card.td-card {
     border: 1px solid #999;

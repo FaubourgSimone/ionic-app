@@ -20,12 +20,13 @@ export class PolaPage {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
-  cards: Array<any>;
+  cards: Array<any> = [];
   stackConfig: StackConfig;
   recentCard: string = '';
   currentQueryPage:number;
   totalQueryPage:number;
   polaGapForRequest:number = 10;
+  stackStyle:string = 'stack-style-1';
 
   constructor(public navCtrl: NavController, public http: Http, private vars:GlobalVars) {
 
@@ -48,23 +49,22 @@ export class PolaPage {
       event.target.style.background = '#ffffff';
     });
 
-    this.cards = [{ email: '' }];
     this.addNewCards(this.polaGapForRequest);
   }
 
   // Called whenever we drag an element
   // Change background color depending on left or right movement
   onItemMove(element, x, y, r) {
-    var color = '';
-    var abs = Math.abs(x);
-    let min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
-    let hexCode = this.decimalToHex(min, 2);
+    // var color = '';
+    // var abs = Math.abs(x);
+    // let min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
+    // let hexCode = this.decimalToHex(min, 2);
 
-    if (x > 0) {
-      color = '#' + hexCode + 'FF' + hexCode;
-    } else {
-      color = '#FF' + hexCode + hexCode;
-    }
+    // if (x > 0) {
+    //   color = '#' + hexCode + 'FF' + hexCode;
+    // } else {
+    //   color = '#FF' + hexCode + hexCode;
+    // }
 
     // temporarly disabled
     // element.style.background = color;
@@ -74,7 +74,8 @@ export class PolaPage {
   // Connected through HTML
   voteUp(like: boolean) {
     let removedCard = this.cards.pop();
-    if(this.cards.length === 1) {
+    console.log('Removed: ', removedCard.name);
+    if(this.cards.length === 0) {
       this.addNewCards(this.polaGapForRequest);
     }
     // if (like) {
@@ -110,9 +111,9 @@ export class PolaPage {
           if( post.attachments.length > 0
               && post.attachments[0]
               && post.attachments[0].images
-              && post.attachments[0].images.medium
-              && post.attachments[0].images.medium.url) {
-            img = post.attachments[0].images.medium.url;
+              && post.attachments[0].images.full
+              && post.attachments[0].images.full.url) {
+            img = post.attachments[0].images.full.url;
           }
           return {
             id: post.id,
@@ -131,19 +132,30 @@ export class PolaPage {
         if(posts.length === 0) {
           this.addNewCards(5);
         }
-      })
+        else {
+            this.switchStyle();
+        }
+
+      });
   }
 
-  // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
-  decimalToHex(d, padding) {
-    var hex = Number(d).toString(16);
-    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
-
-    while (hex.length < padding) {
-      hex = "0" + hex;
+  switchStyle() {
+    if(this.stackStyle === 'stack-style-1') {
+      this.stackStyle = 'stack-style-2';
     }
-
-    return hex;
+    else {
+      this.stackStyle = 'stack-style-1';
+    }
+    console.log('STYLE = ', this.stackStyle);
   }
+  // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
+  // decimalToHex(d, padding) {
+  //   var hex = Number(d).toString(16);
+  //   padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+  //   while (hex.length < padding) {
+  //     hex = "0" + hex;
+  //   }
+  //   return hex;
+  // }
 
 }
