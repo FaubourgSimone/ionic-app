@@ -5,9 +5,10 @@ import { MyApp } from './app.component';
 
 import { PolaPage } from '../pages/pola/pola';
 import { CalepinsPage } from '../pages/calepins/calepins';
+import { CasquesPage } from '../pages/casques/casques';
 import { RadioPage } from '../pages/radio/radio';
-import { CasquePage } from '../pages/casque/casque';
 import { TabsPage } from '../pages/tabs/tabs';
+import { CasquePage } from '../pages/casque/casque';
 
 import { StatusBar,  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,9 +34,10 @@ const cloudSettings: CloudSettings = {
 @NgModule({
   declarations: [
     MyApp,
+    RadioPage,
     PolaPage,
     CalepinsPage,
-    RadioPage,
+    CasquesPage,
     CasquePage,
     TabsPage
   ],
@@ -48,9 +50,10 @@ const cloudSettings: CloudSettings = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    RadioPage,
     PolaPage,
     CalepinsPage,
-    RadioPage,
+    CasquesPage,
     CasquePage,
     TabsPage
   ],

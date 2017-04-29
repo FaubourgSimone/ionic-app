@@ -1,9 +1,29 @@
-<ion-header ion-header-common>
-  <ion-navbar text-center>
-    <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
-  </ion-navbar>
-</ion-header>
+<ion-header>
 
+  <ion-navbar>
+    <ion-title><img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/><span>Les derniers calepins</span></ion-title>
+  </ion-navbar>
+
+</ion-header>
 <ion-content padding>
-  <h1>Hello Calepins!</h1>
+
+  <ion-list>
+    <ion-list-header>
+      <h1>Les derniers Calepins</h1>
+    </ion-list-header>
+    <div *ngFor="let calepin of calepins">
+      <button ion-item (click)="navToCalepin(calepin.id)">
+        <ion-avatar item-left>
+          <img src={{calepin.thumbnail}}/>
+        </ion-avatar>
+        <h2>{{calepin.title}}</h2>
+        <p>{{calepin.subtitle}}</p>
+        <ion-note item-right>3:43 pm</ion-note>
+      </button>
+
+    </div>
+
+  </ion-list>
+
+
 </ion-content>
