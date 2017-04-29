@@ -4,12 +4,6 @@ import 'rxjs/add/operator/map';
 import { GlobalService } from "./global-service";
 
 
-/*
- Generated class for the CalepinsService provider.
-
- See https://angular.io/docs/ts/latest/guide/dependency-injection.html
- for more info on providers and Angular 2 DI.
- */
 @Injectable()
 export class CalepinsService {
 
@@ -58,11 +52,34 @@ export class CalepinsService {
                 resolve(calepins);
               },
               error => {
-                // TODO AFFICHER UN MESSAGE D'ERREUR
                 reject(new Error(error.toString()));
               }
           );
     });
+  }
+
+  getCalepin(postId:string) {
+      console.log('CalepinService.getCalepin: ', postId);
+
+      return new Promise((resolve, reject) => {
+          let url = this.vars.URL_CALEPIN + postId;
+
+          this.http.get(url)
+              .map(res => res.json())
+              .subscribe(
+                  data => {
+                      let calepin = {
+                          title:    data.title.rendered,
+                          subtitle: data.acf.cal_subtitle,
+                          content:  data.content.rendered
+                      };
+                      resolve(calepin);
+                  },
+                  error => {
+                      reject(new Error(error.toString()));
+                  }
+              );
+      });
   }
 
 }

@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-navbar></ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="calepin">
+    <h1 [innerHTML] = calepin.title></h1>
+    <h2 [innerHTML] = calepin.subtitle></h2>
+    <article [innerHTML] = calepin.content></article>
+  </div>
+</ion-content>

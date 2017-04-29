@@ -22,6 +22,7 @@ import { InitService } from "../providers/init-service";
 import { RadioService } from "../providers/radio-service";
 import { CalepinsService } from "../providers/calepins-service";
 import { RadioPlayer } from '../providers/radioplayer';
+import {CalepinPage} from "../pages/calepin/calepin";
 
 
 
@@ -38,6 +39,7 @@ const cloudSettings: CloudSettings = {
     PolaPage,
     CalepinsPage,
     CasquesPage,
+    CalepinPage,
     CasquePage,
     TabsPage
   ],
@@ -54,6 +56,7 @@ const cloudSettings: CloudSettings = {
     PolaPage,
     CalepinsPage,
     CasquesPage,
+    CalepinPage,
     CasquePage,
     TabsPage
   ],
