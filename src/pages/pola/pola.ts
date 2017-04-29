@@ -36,7 +36,6 @@ export class PolaPage {
 
     this.stackConfig = {
       throwOutConfidence: (offset, element) => {
-        console.log(Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1));
         // return Math.min(Math.abs(offset) / (element.offsetWidth / 2), 1);
         return Math.min((2 * Math.abs(offset) / (element.offsetWidth / 2)), 1);
         // return 1;
@@ -81,7 +80,7 @@ export class PolaPage {
   // Connected through HTML
   voteUp(like: boolean) {
     let removedCard = this.cards.pop();
-    console.log('Removed: ', removedCard.title);
+    // console.log('Removed: ', removedCard.title);
     if(this.cards.length === 0) {
       this.addNewCards(this.polaGapForRequest);
     }
@@ -94,7 +93,7 @@ export class PolaPage {
 
   // Add new cards to our array
   addNewCards(count: number) {
-    console.log("WAITING FOR NEW CARDS...");
+    // console.log("WAITING FOR NEW CARDS...");
     this.presentLoading();
     let url = this.vars.URL_POLA.baseUrl + this.vars.URL_POLA.params.count + count;
     if(typeof this.currentQueryPage !== 'undefined') {
@@ -162,7 +161,7 @@ export class PolaPage {
           this.addNewCards(5);
         }
         else {
-          console.log('GOT NEW CARDS');
+          // console.log('GOT NEW CARDS');
             this.switchStyle();
             this.dismissLoading();
         }
@@ -182,7 +181,6 @@ export class PolaPage {
     else {
       this.stackStyle = 'stack-style-1';
     }
-    console.log('STYLE = ', this.stackStyle);
   }
   // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
   // decimalToHex(d, padding) {

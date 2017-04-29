@@ -30,8 +30,16 @@ page-radio {
   }
 
 
+  .toggle-buttons {
+    //margin-top: 22px;
+    .spinner {
+      padding-left: 50px;
+      color: color($colors, "secondary");
+    }
+  }
+
   .last-songs {
-    margin-top: 5rem;
+    margin-top: 2rem;
     h3, h4 {
       margin-top: 0!important;
     }

@@ -1,23 +1,6 @@
 <ion-header ion-header-common>
-    <ion-navbar>
+    <ion-navbar text-center>
         <img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>
-        <ion-row class="toggle-buttons" align-items-center>
-            <button ion-button round icon-only
-                    color="secondary" style="padding: 0; width: 44px; height: 44px;"
-                    *ngIf="isButtonActive && playerReady"
-                    (click)="togglePlayPause()">
-                <ion-icon [name]="playPauseButton"></ion-icon>
-            </button>
-            <button ion-button round outline
-                    color="secondary" style="padding: 0; width: 44px; height: 44px;"
-                    *ngIf="!isButtonActive">
-                <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
-            </button>
-            <button ion-button round outline icon-only
-                    color="secondary" style="padding: 0; width: 44px;  height: 44px;">
-                <ion-icon name="share"></ion-icon>
-            </button>
-        </ion-row>
     </ion-navbar>
 </ion-header>
 
@@ -29,6 +12,24 @@
             <h2 class="current-song" no-margin no-padding color="primary"><span>{{currentSong.artist}}</span> • <span>{{currentSong.track}}</span></h2>
         </ion-item>
     </ion-card>
+
+    <ion-row class="toggle-buttons" justify-content-center>
+        <button ion-button round icon-only
+                color="secondary" style="padding: 0; width: 44px; height: 44px;"
+                *ngIf="isButtonActive && playerReady"
+                (click)="togglePlayPause()">
+            <ion-icon [name]="playPauseButton"></ion-icon>
+        </button>
+        <button ion-button round outline
+                color="secondary" style="padding: 0; width: 44px; height: 44px;"
+                *ngIf="!isButtonActive">
+            <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
+        </button>
+        <!--<button ion-button round outline icon-only-->
+                <!--color="secondary" style="padding: 0; width: 44px;  height: 44px;">-->
+            <!--<ion-icon name="share"></ion-icon>-->
+        <!--</button>-->
+    </ion-row>
 
     <ion-list class="last-songs">
         <ion-list-header>
