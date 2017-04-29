@@ -25,7 +25,7 @@ export class PolaPage {
   recentCard: string = '';
   currentQueryPage:number;
   totalQueryPage:number;
-  polaGapForRequest:number = 15;
+  polaGapForRequest:number = 10;
   stackStyle:string = 'stack-style-1';
   private loader:Loading;
 
@@ -95,11 +95,11 @@ export class PolaPage {
   addNewCards(count: number) {
     // console.log("WAITING FOR NEW CARDS...");
     this.presentLoading();
-    let url = this.vars.URL_POLA.baseUrl + this.vars.URL_POLA.params.count + count;
+    let url = this.vars.URL_POLAS.baseUrl + this.vars.URL_POLAS.params.count + count;
     if(typeof this.currentQueryPage !== 'undefined') {
       // TODO verifier qu'on atteint pas le nombre total de pages
       this.currentQueryPage++;
-      url = url + this.vars.URL_POLA.params.page + this.currentQueryPage;
+      url = url + this.vars.URL_POLAS.params.page + this.currentQueryPage;
     }
 
     this.http.get(url)
@@ -117,12 +117,11 @@ export class PolaPage {
         let posts = result.posts
             .map(post => {
               let img = null;
-              if( post.attachments.length > 0
-                  && post.attachments[0]
-                  && post.attachments[0].images
-                  && post.attachments[0].images.full
-                  && post.attachments[0].images.full.url) {
-                img = post.attachments[0].images.full.url;
+              if( post.custom_fields
+                  && post.custom_fields.pola_picture
+                  && post.custom_fields.pola_picture.sizes
+                  && post.custom_fields.pola_picture.sizes.medium) {
+                  img = post.custom_fields.pola_picture.sizes.medium;
               }
 
               // TODO sortir ca d'ici et utiliser moment js ?
