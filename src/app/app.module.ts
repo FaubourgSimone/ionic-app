@@ -9,16 +9,18 @@ import { RadioPage } from '../pages/radio/radio';
 import { CasquePage } from '../pages/casque/casque';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar,  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { RadioPlayer } from '../providers/radioplayer';
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { SwingModule } from 'angular2-swing';
 
-import { GlobalVars } from '../providers/global-variables';
+import { GlobalService } from '../providers/global-service';
+import { InitService } from "../providers/init-service";
+import { RadioService } from "../providers/radio-service";
+import { CalepinsService } from "../providers/calepins-service";
+import { RadioPlayer } from '../providers/radioplayer';
 
 
 
@@ -39,7 +41,7 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, []),
     CloudModule.forRoot(cloudSettings),
     SwingModule
   ],
@@ -55,8 +57,11 @@ const cloudSettings: CloudSettings = {
   providers: [
     StatusBar,
     SplashScreen,
-    GlobalVars,
+    GlobalService,
+    InitService,
+    RadioService,
     RadioPlayer,
+    CalepinsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

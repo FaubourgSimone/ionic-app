@@ -2,7 +2,7 @@ import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
-import { GlobalVars } from '../../providers/global-variables';
+import { GlobalService } from '../../providers/global-service';
 
 import {
   StackConfig,
@@ -14,7 +14,7 @@ import {
 @Component({
   selector: 'page-pola',
   templateUrl: 'pola.html',
-  providers: [ GlobalVars ]
+  providers: []
 })
 export class PolaPage {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
@@ -30,9 +30,9 @@ export class PolaPage {
   private loader:Loading;
 
   constructor(public navCtrl: NavController,
-              public http: Http,
-              private vars:GlobalVars,
-              public loadingCtrl: LoadingController) {
+              private http: Http,
+              private vars:GlobalService,
+              private loadingCtrl: LoadingController) {
 
     this.stackConfig = {
       throwOutConfidence: (offset, element) => {
@@ -194,7 +194,7 @@ export class PolaPage {
   presentLoading() {
     let message = 'Recherche les polas précédents';
     if(typeof this.currentQueryPage === 'undefined') {
-      // premiere fois que le loader s'acchiche
+      // premiere fois que le loader s'affiche
       message = 'Recherche les polas du jour';
     }
 

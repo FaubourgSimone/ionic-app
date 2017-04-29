@@ -5,6 +5,7 @@ export class RadioPlayer {
     public isPlaying:boolean = false;
 
     constructor() {
+        console.log("HELLO RADIOPLAYER");
     }
 
     init(url:string) {

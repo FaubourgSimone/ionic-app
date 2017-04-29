@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class GlobalVars {
+export class GlobalService {
 
     public DEVMODE:boolean = true;
 
@@ -23,6 +23,7 @@ export class GlobalVars {
 
 
     constructor() {
+        console.log('Hello GlobalService Provider');
         if(!this.DEVMODE) {
             this.BASE_URL = this.BASE_URL_API_PROD;
             this.URL_INFO =  this.URL_INFO_PROD;

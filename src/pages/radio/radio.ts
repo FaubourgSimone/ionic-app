@@ -3,15 +3,16 @@ import { NavController, ViewController, LoadingController, Loading } from 'ionic
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
+import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
-import { GlobalVars } from '../../providers/global-variables';
+import { GlobalService } from '../../providers/global-service';
 
 declare let cordova: any;
 
 @Component({
     selector: 'page-radio',
     templateUrl: 'radio.html',
-    providers: [InitService, BackgroundMode, MusicControls, GlobalVars]
+    providers: [BackgroundMode, MusicControls]
 })
 export class RadioPage {
 
@@ -38,9 +39,10 @@ export class RadioPage {
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
-                private vars: GlobalVars,
+                private vars: GlobalService,
                 private player: RadioPlayer,
                 private initService: InitService,
+                private radioService: RadioService,
                 private backgroundMode: BackgroundMode,
                 private zone: NgZone,
                 private musicControls: MusicControls,
@@ -112,7 +114,7 @@ export class RadioPage {
             clearTimeout(this.timer);
         }
         // Cherche les informations sur la piste en cours de lecture
-        this.initService.getCurrentSongs().subscribe(
+        this.radioService.getCurrentSongs().subscribe(
             data => {
                 let hasChanged = (this.currentSong.title !== data.songs[0].title);
 
