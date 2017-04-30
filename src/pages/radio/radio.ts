@@ -6,6 +6,7 @@ import { InitService } from '../../providers/init-service';
 import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
+import { CustomErrorHandler } from "../../components/custom-error-handler";
 
 declare let cordova: any;
 
@@ -46,19 +47,19 @@ export class RadioPage {
                 private backgroundMode: BackgroundMode,
                 private zone: NgZone,
                 private musicControls: MusicControls,
-                public loadingCtrl: LoadingController) {
+                private loadingCtrl: LoadingController,
+                private errorHandler:CustomErrorHandler) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-        this.initService.getInitData().subscribe(
-            // Success
-            data => {
-                this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
-                this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
-                this.player.init(this.streaming_url);
-                this.playerReady = true;
-            },
-            err => console.log(err)
-        );
+
+        this.initService.getInitData().then((data:any)=>{
+            this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
+            this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
+            this.player.init(this.streaming_url);
+            this.playerReady = true;
+        }).catch((error)=>{
+            this.errorHandler.handleError(error);
+        });
     }
 
     ngOnInit() {
@@ -141,7 +142,7 @@ export class RadioPage {
                 }
                 this.timer = setTimeout(()=>this.loopData(), this.loop_interval);
             },
-            err => this.handleCurrentError(err)
+            error => this.errorHandler.handleError(error)
         );
     }
 
@@ -164,7 +165,7 @@ export class RadioPage {
         this.player.play()
             .catch(error => {
                 this.dismissLoading();
-                this.handlePlayError(error);
+                this.errorHandler.handleError(error)
             })
             .then(() => {
                 this.isPlaying = true;
@@ -241,14 +242,4 @@ export class RadioPage {
         }
     }
 
-    handlePlayError(error) {
-        console.log('Radio.handlePlayError: ', error);
-        // TODO: display message
-    }
-
-    handleCurrentError(error) {
-        alert('Verifier votre connexion à internet');
-        console.log('Radio.handleCurrentError: ', error);
-        // TODO: display message
-    }
 }

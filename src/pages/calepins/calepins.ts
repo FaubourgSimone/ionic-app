@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
+import { CustomErrorHandler } from "../../components/custom-error-handler";
 
 @Component({
   selector: 'page-calepins',
@@ -9,13 +10,16 @@ import { CalepinPage } from "../calepin/calepin";
 })
 export class CalepinsPage {
 
-  private calepins:{ id:number, title:string, subtitle:string, thumbnail:string, date:string }[];
+  private calepins:any;
 
-  constructor(public navCtrl: NavController, private api:CalepinsService) {
+  constructor(public navCtrl: NavController,
+              private api:CalepinsService,
+              private errorHandler:CustomErrorHandler) {
     this.api.getCalepins().then((data)=>{
       this.calepins = data;
-      console.log(this.calepins);
-    }).catch((error)=>this.errorHandling(error));
+    }).catch((error)=>{
+      this.errorHandler.handleError(error);
+    });
   }
 
   navToCalepin(id:number) {
@@ -23,11 +27,6 @@ export class CalepinsPage {
     this.navCtrl.push(CalepinPage, {
       postId: id
     });
-  }
-
-  errorHandling(error:Error) {
-    // TODO Afficher un message d'erreur
-    console.log('CalepinsPage.errorHandling: ', error.message);
   }
 
 }

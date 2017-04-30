@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { DomSanitizer } from "@angular/platform-browser";
+import { CustomErrorHandler } from "../../components/custom-error-handler";
 
 
 @Component({
@@ -16,21 +17,16 @@ import { DomSanitizer } from "@angular/platform-browser";
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private api:CalepinsService,
-              private domSanitizer:DomSanitizer) {
+              private domSanitizer:DomSanitizer,
+              private errorHandler:CustomErrorHandler) {
     this.postId = this.navParams.get('postId');
     this.api.getCalepin(this.postId).then((data:any)=>{
       data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
       this.calepin = data;
-    }).catch((error)=>this.errorHandling(error));
+    }).catch((error)=>this.errorHandler.handleError(error));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalepinPage: ', this.postId);
   }
-
-  errorHandling(error:Error) {
-    // TODO Afficher un message d'erreur
-    console.log('CalepinPage.errorHandling: ', error.message);
-  }
-
 }

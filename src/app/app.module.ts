@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { PolaPage } from '../pages/pola/pola';
@@ -24,7 +24,7 @@ import { CalepinsService } from "../providers/calepins-service";
 import { RadioPlayer } from '../providers/radioplayer';
 import { CalepinPage } from "../pages/calepin/calepin";
 
-
+import { CustomErrorHandler } from "../components/custom-error-handler"
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -68,6 +68,7 @@ const cloudSettings: CloudSettings = {
     RadioService,
     RadioPlayer,
     CalepinsService,
+    CustomErrorHandler,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

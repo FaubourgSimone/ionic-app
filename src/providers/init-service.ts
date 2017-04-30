@@ -10,17 +10,16 @@ export class InitService {
   constructor(public http: Http, private vars:GlobalService) {}
 
   getInitData() {
-    return this.http
-        .get(this.vars.URL_INFO)
-        .map(res => {
-          // If request fails, throw an Error that will be caught
-          if(res.status < 200 || res.status >= 300) {
-            return new Error('This request has failed ' + res.status);
-          }
-          // If everything went fine, return the response
-          else {
-            return res.json();
-          }
-        });
+
+
+      return new Promise((resolve, reject) => {
+
+          this.http.get(this.vars.URL_INFO)
+              .map(res => res.json())
+              .subscribe(
+                  data => resolve(data),
+                  error =>reject('Erreur lors du chargement de ' + this.vars.URL_INFO + ': ' + error)
+              );
+      });
   }
 }

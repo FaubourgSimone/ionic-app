@@ -10,6 +10,7 @@ import {
     SwingCardComponent
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
+import { CustomErrorHandler } from "../../components/custom-error-handler";
 
 @Component({
     selector: 'page-pola',
@@ -32,7 +33,8 @@ export class PolaPage {
                 private http: Http,
                 private vars:GlobalService,
                 private loadingCtrl: LoadingController,
-                private api:PolaService) {
+                private api:PolaService,
+                private errorHandler:CustomErrorHandler) {
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {
@@ -58,8 +60,14 @@ export class PolaPage {
         this.addNewCards();
     }
 
-    // Called whenever we drag an element
-    // Change background color depending on left or right movement
+    /**
+     * Called whenever we drag an element
+     * Change background color depending on left or right movement
+     * @param element
+     * @param x
+     * @param y
+     * @param r
+     */
     onItemMove(element, x, y, r) {
         // var color = '';
         // var abs = Math.abs(x);
@@ -77,7 +85,7 @@ export class PolaPage {
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
-    // Connected through HTML
+
     voteUp(like: boolean) {
         let removedCard = this.cards.pop();
         // console.log('Removed: ', removedCard.title);
@@ -91,20 +99,24 @@ export class PolaPage {
         // }
     }
 
-    // Add new cards to our array
+
     addNewCards() {
         // console.log("WAITING FOR NEW CARDS...");
         this.presentLoading();
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
-                this.errorHandling(new Error('Pas de pola pour cette request'));
+                this.errorHandler.handleError(new Error('Pas de pola pour cette request'));
+                this.dismissLoading();
             }
             else {
                 this.switchStyle();
                 this.dismissLoading();
             }
-        }).catch((error)=>this.errorHandling(error));
+        }).catch((error)=>{
+            this.errorHandler.handleError(error);
+            this.dismissLoading();
+        });
     }
 
     switchStyle() {
@@ -143,12 +155,5 @@ export class PolaPage {
         if(this.loader) {
             this.loader.dismiss();
         }
-    }
-
-    errorHandling(error:Error) {
-        // TODO Afficher un message d'erreur
-        console.log('PolaPage.errorHandling: ', error.message);
-        alert('Verifier votre connexion à internet');
-        this.dismissLoading();
     }
 }
