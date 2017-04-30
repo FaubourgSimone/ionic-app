@@ -9,7 +9,7 @@ import { CalepinPage } from "../calepin/calepin";
 })
 export class CalepinsPage {
 
-  private calepins:{ id:number, title:string, subtitle:string, thumbnail:string }[];
+  private calepins:{ id:number, title:string, subtitle:string, thumbnail:string, date:string }[];
 
   constructor(public navCtrl: NavController, private api:CalepinsService) {
     this.api.getCalepins().then((data)=>{

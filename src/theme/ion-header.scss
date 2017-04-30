@@ -6,26 +6,27 @@ page-casques {
   ion-header {
 
     .toolbar {
-      min-height: 110px!important;
+      min-height: 84px!important;
     }
 
     .title {
       width: 100%;
       padding: 0;
-      height: 110px!important;
+      height: 84px!important;
       max-height: none;
     }
 
     .toolbar-title {
-      min-height: 123px;
+      min-height: 61px;
       text-align: left;
     }
 
     .logo {
-      width: 120px;
+      width: 100px;
       position: relative;
-      top: 30px;
-      margin: 0 20px;
+      //top: 20px;
+      vertical-align: middle;
+      margin: 0 10px;
     }
   }
 }

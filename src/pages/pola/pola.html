@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title><img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/><span>Les polas du jour</span></ion-title>
+    <ion-title><img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/><span color="secondary" text-uppercase>Les polas du jour</span></ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -16,12 +14,12 @@
       </ion-item>
       <ion-card-content *ngIf="card.date">
         <h2 class="title" text-wrap text-uppercase color="foggy-gray">{{ card.title }}</h2>
-        <h3 class="date" text-uppercase color="carrara">{{ card.date }}</h3>
+        <h3 class="date" text-uppercase color="carrara">{{ card.date | date:'longDate'}}</h3>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
-<!-- TODO : remplacer par des like sur reseau sociaux par exemple ou dans des favoris de l'application -->
+<!-- TODO : remplacer par des likes sur reseaux sociaux par exemple ou dans des favoris de l'application -->
 <!--<ion-footer>-->
   <!--<div class="pola-footer">-->
     <!--<button id="swipe_dislike" class="rate" (click)="voteUp(false)">-->

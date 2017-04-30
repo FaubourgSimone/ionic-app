@@ -7,79 +7,86 @@ import { GlobalService } from "./global-service";
 @Injectable()
 export class CalepinsService {
 
-  private calepins:any;
-  private requestCount:number = 10;
-  private requestCurrentPage:number;
-  private totalPages:number;
+    private calepins:any;
+    private requestCount:number = 10;
+    private requestCurrentPage:number;
+    private totalPages:number;
 
-  constructor(public http: Http, private vars:GlobalService) {
-    console.log('Hello CalepinsService Provider');
-    // this.calepins = null;
-  }
-
-  getCalepins() {
-    console.log('CalepinsService.getCalepins');
-    if (this.calepins) {
-      return Promise.resolve(this.calepins);
+    constructor(public http: Http, private vars:GlobalService) {
+        console.log('Hello CalepinsService Provider');
+        // this.calepins = null;
     }
 
-    return new Promise((resolve, reject) => {
-      let url = this.vars.URL_CALEPINS.baseUrl + this.vars.URL_CALEPINS.params.count + this.requestCount;
+    getCalepins() {
+        console.log('CalepinsService.getCalepins');
+        if (this.calepins) {
+            return Promise.resolve(this.calepins);
+        }
 
-      if(typeof this.requestCurrentPage !== 'undefined') {
-        // TODO verifier qu'on atteint pas le nombre total de pages
-        this.requestCurrentPage++;
-        url = url + this.vars.URL_CALEPINS.params.page + this.requestCurrentPage;
-      }
+        return new Promise((resolve, reject) => {
+            let url = this.vars.URL_CALEPINS.baseUrl + this.vars.URL_CALEPINS.params.count + this.requestCount;
 
-      this.http.get(url)
-          .map(res => res.json())
-          .subscribe(
-              data => {
-                // c'est la premiere fois que la requete a lieu on ne sait pas quelle est la page et le nombre total de page
-                if(typeof this.requestCurrentPage === 'undefined') {
-                  this.totalPages = parseInt(data.pages, 10);
-                  this.requestCurrentPage = 1;
-                }
-                let calepins = data.posts.map((post)=> {
-                  return {
-                    id: post.id,
-                    title: post.title,
-                    subtitle: post.custom_fields.cal_subtitle,
-                    thumbnail: post.thumbnail
-                  }
-                });
-                resolve(calepins);
-              },
-              error => {
-                reject(new Error(error.toString()));
-              }
-          );
-    });
-  }
+            if(typeof this.requestCurrentPage !== 'undefined') {
+                // TODO verifier qu'on atteint pas le nombre total de pages
+                this.requestCurrentPage++;
+                url = url + this.vars.URL_CALEPINS.params.page + this.requestCurrentPage;
+            }
 
-  getCalepin(postId:string) {
-      console.log('CalepinService.getCalepin: ', postId);
+            this.http.get(url)
+                .map(res => res.json())
+                .subscribe(
+                    data => {
+                        // c'est la premiere fois que la requete a lieu on ne sait pas quelle est la page et le nombre total de page
+                        if(typeof this.requestCurrentPage === 'undefined') {
+                            this.totalPages = parseInt(data.pages, 10);
+                            this.requestCurrentPage = 1;
+                        }
+                        const calepins = data.posts.map((post)=> {
+                            return {
+                                id: post.id,
+                                title: post.title,
+                                subtitle: post.custom_fields.cal_subtitle,
+                                thumbnail: post.thumbnail,
+                                date: new Date(post.date)
+                            }
+                        });
+                        resolve(calepins);
+                    },
+                    error => {
+                        reject(new Error(error.toString()));
+                    }
+                );
+        });
+    }
 
-      return new Promise((resolve, reject) => {
-          let url = this.vars.URL_CALEPIN + postId;
+    getCalepin(postId:string) {
+        console.log('CalepinService.getCalepin: ', postId);
 
-          this.http.get(url)
-              .map(res => res.json())
-              .subscribe(
-                  data => {
-                      let calepin = {
-                          title:    data.title.rendered,
-                          subtitle: data.acf.cal_subtitle,
-                          content:  data.content.rendered
-                      };
-                      resolve(calepin);
-                  },
-                  error => {
-                      reject(new Error(error.toString()));
-                  }
-              );
-      });
-  }
+        return new Promise((resolve, reject) => {
+            const url = this.vars.URL_CALEPIN + postId;
+
+            this.http.get(url)
+                .map(res => res.json())
+                .subscribe(
+                    data => {
+                        console.log(data);
+                        const content = data.content.rendered
+                            .replace(/<p>\&nbsp;<\/p>/g,' ')
+                            .replace(/<p style="text-align: center;"><strong>_________________________________________________________________________<\/strong><\/p>/g,'<hr>');
+                        const calepin = {
+                            title:    data.title.rendered,
+                            subtitle: data.acf.cal_subtitle,
+                            content:  content,
+                            date: new Date(data.date),
+                            permalink: data.link
+                        };
+                        resolve(calepin);
+                    },
+                    error => {
+                        reject(new Error(error.toString()));
+                    }
+                );
+        });
+    }
 
 }

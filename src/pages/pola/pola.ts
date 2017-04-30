@@ -124,27 +124,11 @@ export class PolaPage {
                   img = post.custom_fields.pola_picture.sizes.medium;
               }
 
-              // TODO sortir ca d'ici et utiliser moment js ?
-              let formatDate = (date)=>{
-                let monthNames = [
-                  "Janvier", "Février", "Mars",
-                  "Avril", "Mai", "Juin", "Juillet",
-                  "Aout", "Septembre", "Octobre",
-                  "Novembre", "Décembre"
-                ];
-
-                let day = date.getDate();
-                let monthIndex = date.getMonth();
-                let year = date.getFullYear();
-
-                return day + ' ' + monthNames[monthIndex] + ' ' + year;
-              };
-
               return {
                 id: post.id,
                 title: post.title,
                 image: img,
-                date: formatDate(new Date(post.date))
+                date: new Date(post.date)
               };
             })
             .filter(post=>{
