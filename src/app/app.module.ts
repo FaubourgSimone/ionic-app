@@ -5,10 +5,12 @@ import { MyApp } from './app.component';
 
 import { PolaPage } from '../pages/pola/pola';
 import { CalepinsPage } from '../pages/calepins/calepins';
+import { CalepinPage } from "../pages/calepin/calepin";
 import { CasquesPage } from '../pages/casques/casques';
+import { CasquePage } from '../pages/casque/casque';
 import { RadioPage } from '../pages/radio/radio';
 import { TabsPage } from '../pages/tabs/tabs';
-import { CasquePage } from '../pages/casque/casque';
+import { ConcertsPage } from "../pages/concerts/concerts";
 
 import { StatusBar,  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +24,6 @@ import { InitService } from "../providers/init-service";
 import { RadioService } from "../providers/radio-service";
 import { CalepinsService } from "../providers/calepins-service";
 import { RadioPlayer } from '../providers/radioplayer';
-import { CalepinPage } from "../pages/calepin/calepin";
 
 import { CustomErrorHandler } from "../components/custom-error-handler";
 
@@ -42,6 +43,7 @@ const cloudSettings: CloudSettings = {
     CasquesPage,
     CalepinPage,
     CasquePage,
+    ConcertsPage,
     TabsPage
   ],
   imports: [
@@ -59,6 +61,7 @@ const cloudSettings: CloudSettings = {
     CasquesPage,
     CalepinPage,
     CasquePage,
+      ConcertsPage,
     TabsPage
   ],
   providers: [

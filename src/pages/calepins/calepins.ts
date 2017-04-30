@@ -20,13 +20,19 @@ export class CalepinsPage {
   }
 
   ionViewDidLoad() {
-    this.presentLoading();
+    // this.presentLoading();
     this.api.getCalepins().then((data)=>{
       this.calepins = data;
       this.dismissLoading();
     }).catch((error)=>{
       this.errorHandler.handleError(error);
     });
+  }
+
+  ionViewDidEnter() {
+    if(typeof this.calepins === 'undefined') {
+      this.presentLoading();
+    }
   }
 
   navToCalepin(id:number) {

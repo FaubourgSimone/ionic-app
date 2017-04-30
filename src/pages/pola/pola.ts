@@ -105,7 +105,7 @@ export class PolaPage {
 
     addNewCards() {
         // console.log("WAITING FOR NEW CARDS...");
-        this.presentLoading();
+
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
@@ -121,6 +121,10 @@ export class PolaPage {
             this.errorHandler.handleError(error);
             this.dismissLoading();
         });
+
+        if(typeof this.cards === 'undefined' || this.cards.length === 0) {
+            this.presentLoading();
+        }
     }
 
     switchStyle() {

@@ -27,12 +27,17 @@ import { CustomErrorHandler } from "../../components/custom-error-handler";
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalepinPage: ', this.postId);
-    this.presentLoading();
-    this.api.getCalepin(this.postId).then((data:any)=>{
-      data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
-      this.calepin = data;
-      this.dismissLoading();
-    }).catch((error)=>this.errorHandler.handleError(error));
+      this.api.getCalepin(this.postId).then((data:any)=>{
+        data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
+        this.calepin = data;
+        this.dismissLoading();
+      }).catch((error)=>this.errorHandler.handleError(error));
+  }
+
+  ionViewDidEnter() {
+    if(typeof this.calepin === 'undefined') {
+      this.presentLoading();
+    }
   }
 
   presentLoading() {
