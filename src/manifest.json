@@ -1,11 +1,11 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "Faubourg Simone",
+  "short_name": "Faubourg Simone",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/imgs/logo.png",
-    "sizes": "512x512",
+    "src": "assets/images/logo/faubourg-simone-logo-ios@2x.png",
+    "sizes": "938x564",
     "type": "image/png"
   }],
   "background_color": "#4e8ef7",
