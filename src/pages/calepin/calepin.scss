@@ -11,9 +11,26 @@ page-calepin {
     color: color($colors, 'primary');
   }
 
+
   .article-content {
     border-bottom: 1px solid color($colors, 'foggy-gray');
+    .aligncenter {
+      display: block;
+      margin: 0 auto;
+    }
+    hr {
+      height: 1px;
+      background: color($colors, 'foggy-gray');
+    }
+    iframe,
+    figure,
+    .wp-caption {
+      width: 100%!important;
+      height: auto;
+    }
   }
+
+
 
   ion-icon {
     display: block;

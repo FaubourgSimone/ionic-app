@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {CalepinsService} from "../../providers/calepins-service";
+import { CalepinsService } from "../../providers/calepins-service";
+import { DomSanitizer } from "@angular/platform-browser";
 
-/*
-  Generated class for the Calepin page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-calepin',
   templateUrl: 'calepin.html'
@@ -17,12 +13,14 @@ import {CalepinsService} from "../../providers/calepins-service";
   private postId:string;
   private calepin:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api:CalepinsService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private api:CalepinsService,
+              private domSanitizer:DomSanitizer) {
     this.postId = this.navParams.get('postId');
-    this.api.getCalepin(this.postId).then((data)=>{
-      console.log(data);
+    this.api.getCalepin(this.postId).then((data:any)=>{
+      data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
       this.calepin = data;
-      // console.log(this.calepin);
     }).catch((error)=>this.errorHandling(error));
   }
 

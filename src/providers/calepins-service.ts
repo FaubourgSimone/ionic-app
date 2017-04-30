@@ -65,18 +65,30 @@ export class CalepinsService {
         return new Promise((resolve, reject) => {
             const url = this.vars.URL_CALEPIN + postId;
 
+            console.log(url);
             this.http.get(url)
                 .map(res => res.json())
                 .subscribe(
                     data => {
-                        console.log(data);
-                        const content = data.content.rendered
+                        // TODO : WTF trouver une regex
+                        let content = data.content.rendered
                             .replace(/<p>\&nbsp;<\/p>/g,' ')
-                            .replace(/<p style="text-align: center;"><strong>_________________________________________________________________________<\/strong><\/p>/g,'<hr>');
+                            .replace(/<p style="text-align: center;"><strong>_________________________________________________________________________<\/strong><\/p>/g,'<hr>')
+                            .replace(/<p><strong>_________________________________________________________________________<\/strong><\/p>/g,'<hr>')
+                            .replace(/<p style="text-align: center;"><strong>________________________________________________________________<\/strong><\/p>/g,'<hr>')
+                            .replace(/<p><strong>________________________________________________________________<\/strong><\/p>/g,'<hr>')
+                            .replace(/<strong>________________________________________________________________<\/strong>/g,'<hr>')
+                            .replace(/<strong> ________________________________________________________________<\/strong>/g,'<hr>')
+                            .replace(/<p><\/p>/g,' ')
+                            .replace(/<p style="text-align: center;><\/p>/g,' ')
+                            .replace(/<hr><br \/>/g,'<hr>')
+                            .replace(/<p style="text-align: center;"><hr>/g,'<hr><p>')
+                            .replace(/<hr><\/p>/g,'<\/p><hr>');
+                        // content = decodeURIComponent(content);
                         const calepin = {
                             title:    data.title.rendered,
                             subtitle: data.acf.cal_subtitle,
-                            content:  content,
+                            content: content,
                             date: new Date(data.date),
                             permalink: data.link
                         };
