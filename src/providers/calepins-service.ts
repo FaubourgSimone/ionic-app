@@ -19,9 +19,9 @@ export class CalepinsService {
 
     getCalepins() {
         console.log('CalepinsService.getCalepins');
-        if (this.calepins) {
-            return Promise.resolve(this.calepins);
-        }
+        // if (this.calepins) {
+        //     return Promise.resolve(this.calepins);
+        // }
 
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_CALEPINS.baseUrl + this.vars.URL_CALEPINS.params.count + this.requestCount;

@@ -35,6 +35,20 @@ export class CalepinsPage {
     }
   }
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    this.api.getCalepins().then((data:any)=>{
+      console.log(data);
+      for (let i = 0, l=data.length; i < l; i++) {
+        this.calepins.push( data[i] );
+      }
+      infiniteScroll.complete();
+    }).catch((error)=>{
+      this.errorHandler.handleError(error);
+    });
+  }
+
   navToCalepin(id:number) {
     console.log('CalepinsPage.navToCalepin: ', id);
     this.navCtrl.push(CalepinPage, {
