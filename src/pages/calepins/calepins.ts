@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Loading, LoadingController } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
 import { CustomErrorHandler } from "../../components/custom-error-handler";
@@ -11,12 +11,19 @@ import { CustomErrorHandler } from "../../components/custom-error-handler";
 export class CalepinsPage {
 
   private calepins:any;
+  private loader:Loading;
 
   constructor(public navCtrl: NavController,
               private api:CalepinsService,
+              private loadingCtrl: LoadingController,
               private errorHandler:CustomErrorHandler) {
+  }
+
+  ionViewDidLoad() {
+    this.presentLoading();
     this.api.getCalepins().then((data)=>{
       this.calepins = data;
+      this.dismissLoading();
     }).catch((error)=>{
       this.errorHandler.handleError(error);
     });
@@ -27,6 +34,24 @@ export class CalepinsPage {
     this.navCtrl.push(CalepinPage, {
       postId: id
     });
+  }
+
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Recherche les calepins'
+    });
+    this.loader.present();
+  }
+
+  ionViewWillLeave() {
+    this.dismissLoading();
+  }
+
+  dismissLoading() {
+    if(this.loader) {
+      this.loader.dismiss();
+    }
   }
 
 }

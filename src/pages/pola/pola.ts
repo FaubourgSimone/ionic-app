@@ -51,7 +51,7 @@ export class PolaPage {
         };
     }
 
-    ngOnInit() {
+    ionViewDidLoad() {
         // Either subscribe in controller or set in HTML
         this.swingStack.throwin.subscribe((event: DragEvent) => {
             event.target.style.background = '#ffffff';
@@ -149,6 +149,10 @@ export class PolaPage {
             content: message
         });
         this.loader.present();
+    }
+
+    ionViewWillLeave() {
+        this.dismissLoading();
     }
 
     dismissLoading() {

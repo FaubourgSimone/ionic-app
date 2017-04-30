@@ -24,7 +24,8 @@ import { CalepinsService } from "../providers/calepins-service";
 import { RadioPlayer } from '../providers/radioplayer';
 import { CalepinPage } from "../pages/calepin/calepin";
 
-import { CustomErrorHandler } from "../components/custom-error-handler"
+import { CustomErrorHandler } from "../components/custom-error-handler";
+
 
 const cloudSettings: CloudSettings = {
   'core': {
