@@ -14,14 +14,15 @@
     <ion-card *ngFor="let casque of casques" no-padding margin-bottom>
       <ion-card-content (click)="navToCasque(casque.id)">
         <img no-padding src="{{casque.thumbnail}}"/>
-        <h1 text-uppercase class="card-title" [innerHTML] = casque.artist></h1>
+        <h1 color="verylight" class="card-title" no-margin>
+          <span class="title" text-uppercase [innerHTML] = casque.artist></span>
+          <span class="subtitle" text-capitalize [innerHTML] = casque.title (click)="navToCasque(casque.id)"></span>
+        </h1>
       </ion-card-content>
       <ion-note>{{casque.date | date:'shortDate'}}</ion-note>
-      <div>
-        <h2 color="secondary" class="card-subtitle" text-uppercase padding-horizontal padding-top [innerHTML] = casque.title (click)="navToCasque(casque.id)"></h2>
-        <p color="primary" class="card-excerpt" padding-horizontal [innerHTML] = casque.excerpt (click)="navToCasque(casque.id)"></p>
-        <!--<p color="foggy-gray" padding-horizontal padding-top>{{casque.date | date:'shortDate'}}</p>-->
-      </div>
+
+      <p color="primary" class="card-excerpt" padding [innerHTML] = casque.excerpt (click)="navToCasque(casque.id)"></p>
+      <!--<p color="foggy-gray" padding-horizontal padding-top>{{casque.date | date:'shortDate'}}</p>-->
 
 
       <ion-row no-padding>
@@ -29,7 +30,7 @@
           <button ion-button clear small color="secondary" icon-left>
             <a color="secondary" *ngIf="casque.preview" href="{{casque.preview}}" target="_blank">
               <ion-icon name='musical-notes'></ion-icon>
-              Écouter
+              Listen
             </a>
           </button>
         </ion-col>
@@ -37,14 +38,14 @@
           <button *ngIf="casque.buyLink" ion-button clear small color="secondary" icon-left>
             <a color="secondary" href="{{casque.buyLink}}" target="_blank">
               <ion-icon name='logo-euro'></ion-icon>
-              Acheter
+              Buy
             </a>
           </button>
         </ion-col>
         <ion-col text-right no-padding>
           <button ion-button clear small color="secondary" icon-left>
             <ion-icon name='share-alt'></ion-icon>
-            Partager
+            Share
           </button>
         </ion-col>
       </ion-row>

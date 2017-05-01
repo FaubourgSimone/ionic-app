@@ -1,63 +1,9 @@
+@-webkit-keyframes opacity {
+  0%, 100% {opacity:0.05;}
+  50% {opacity:1;}
+}
+
 page-radio {
-
-  .radio-page-classic {
-
-    ion-card {
-      margin-top: 2rem!important;
-    }
-
-    .list-header-md {
-      border-bottom: 0.55px solid #c8c7cc!important;
-      font-weight: 500!important;
-      letter-spacing: 0.1rem!important;
-      color: #333!important;
-      background: transparent!important;
-    }
-    .cover {
-      width: 180px;
-      display: block;
-      margin: 4rem auto 2rem auto;
-    }
-
-    .current-song {
-      border-top: 1px solid color($colors, "primary");
-      border-bottom: 1px solid color($colors, "primary");
-      margin-top: 0px!important;
-      padding: 1rem 0;
-      text-align: center;
-      font-weight: normal;
-      text-transform: uppercase;
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem!important;
-    }
-
-
-    .toggle-buttons {
-      //margin-top: 22px;
-      .spinner {
-        padding-left: 50px;
-        ion-icon {
-          //todo : pas pris en compte wtf
-          color: color($colors, "secondary");
-        }
-      }
-    }
-
-    .last-songs {
-      margin-top: 2rem;
-      h3, h4 {
-        margin-top: 0!important;
-      }
-      h3 {
-        font-weight: bold!important;
-      }
-    }
-  }
-
-
-
-
-  ////////////////////////////////////
   .radio-page-cover {
 
     &.content {
@@ -73,7 +19,7 @@ page-radio {
       width: 94%;
       margin: 0 auto;
       position: relative;
-      top: -3rem;
+      top: -4rem;
       //border: 2px solid color($colors, 'secondary');
       //box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
       box-shadow:0px 1px 10px 2px rgba(206, 204, 191, 0.5);
@@ -110,8 +56,8 @@ page-radio {
     .btn-last {
       position: relative;
       margin: 0 0 0 15px;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       ion-icon {
         font-size: 3.3rem;
       }
@@ -129,6 +75,14 @@ page-radio {
       top: -2.4rem;
       height: 2.2rem;
       left: 0;
+      .txt {
+        -webkit-animation-name: opacity;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        animation-name: opacity;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
     }
 
     .toggle-buttons {
@@ -159,5 +113,28 @@ page-radio {
         }
       }
     }
+
+
+    .last-songs {
+      //margin-top: 2rem;
+
+      ion-thumbnail img {
+        border: 1px solid #c8c7cc;
+      }
+
+      ion-list-header {
+        border:none;
+        background: transparent;
+      }
+
+      ion-item {
+        background: color($colors, 'westar');
+      }
+      h3 {
+        font-weight: bold!important;
+      }
+    }
   }
 }
+
+

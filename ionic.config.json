@@ -3,10 +3,5 @@
   "app_id": "0f7b6934",
   "v2": true,
   "typescript": true,
-  "proxies": [
-    {
-      "path": "/api",
-      "proxyUrl": "http://faubourgsimone.paris"
-    }
-  ]
+  "proxies": []
 }

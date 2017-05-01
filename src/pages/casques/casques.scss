@@ -11,29 +11,37 @@ page-casques {
     text-align: center;
     padding: 0;
     img {
-      width: 80%;
-      margin: 3rem auto 0;
+      width: 100%;
+      margin: 0 auto;
     }
   }
 
   .card-title {
     position: absolute;
     bottom: 0;
-    top: 40%;
-    font-size: 2.0em;
     width: 100%;
     font-weight: bold;
     color: #fff;
     padding: 10px;
     //background: rgba(19, 90, 118, 0.5);
     font-weight: bold;
+    background:linear-gradient(to top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
+    padding-top: 4rem;
+    .title {
+      font-size: 2.0rem;
+      display: block;
+    }
+    .subtitle {
+      font-size: 1.6rem;
+      display: block;
+    }
   }
 
-  .card-subtitle {
-    font-weight: bold;
-    width: 70%;
-    padding-bottom: 5px;
-  }
+  //.card-subtitle {
+  //  font-weight: bold;
+  //  width: 70%;
+  //  padding-bottom: 5px;
+  //}
   .card-excerpt,
   .card-excerpt * {
     color: color($colors, 'primary');
