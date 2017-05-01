@@ -8,8 +8,6 @@
     <img no-padding no-margin class="cover" src="{{currentSong.cover_url}}"/>
     <div class="meta-info" padding>
         <span class="label-now-playing" color="secondary" text-uppercase><span>•&nbsp;</span> En ce moment</span>
-        <h1 class="artist" color="primary" text-uppercase no-margin padding><span>{{currentSong.artist}}</span></h1>
-        <h2 class="track" color="primary" text-capitalize padding-horizontal padding-bottom><span>{{currentSong.track}}</span></h2>
         <ion-row class="toggle-buttons" justify-content-center>
             <button class="btn-play-pause" ion-button round icon-only
                     color="verylight"
@@ -22,12 +20,15 @@
                     *ngIf="!isButtonActive">
                 <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
             </button>
-
-            <button class="btn-share" clear ion-button small color="secondary" icon-only>
-                <ion-icon name='share-alt'></ion-icon>
-            </button>
         </ion-row>
-
+        <h1 class="artist" color="primary" text-uppercase no-margin padding-horizontal><span>{{currentSong.artist}}</span></h1>
+        <h2 class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>
+        <button class="btn-last" clear ion-button small color="secondary" icon-only>
+            <ion-icon name='md-disc'></ion-icon>
+        </button>
+        <button class="btn-share" clear ion-button small color="secondary" icon-only>
+            <ion-icon name='share-alt'></ion-icon>
+        </button>
     </div>
 
 

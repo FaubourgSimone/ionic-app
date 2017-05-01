@@ -14,9 +14,11 @@
         <h1 text-uppercase class="card-title" [innerHTML] = casque.artist></h1>
       </ion-card-content>
       <ion-note>{{casque.date | date:'shortDate'}}</ion-note>
-      <h2 color="primary" class="card-subtitle" text-uppercase padding [innerHTML] = casque.title (click)="navToCasque(casque.id)"></h2>
-      <p color="primary" class="card-excerpt" padding-horizontal [innerHTML] = casque.excerpt (click)="navToCasque(casque.id)"></p>
-      <!--<p color="foggy-gray" padding-horizontal padding-top>{{casque.date | date:'shortDate'}}</p>-->
+      <div>
+        <h2 color="secondary" class="card-subtitle" text-uppercase padding [innerHTML] = casque.title (click)="navToCasque(casque.id)"></h2>
+        <p color="primary" class="card-excerpt" padding-horizontal [innerHTML] = casque.excerpt (click)="navToCasque(casque.id)"></p>
+        <!--<p color="foggy-gray" padding-horizontal padding-top>{{casque.date | date:'shortDate'}}</p>-->
+      </div>
 
 
       <ion-row no-padding padding-bottom padding-top>

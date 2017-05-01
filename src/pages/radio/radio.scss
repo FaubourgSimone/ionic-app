@@ -73,21 +73,45 @@ page-radio {
       top: -3rem;
       //border: 2px solid color($colors, 'secondary');
       //box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
-      box-shadow:0px 1px 10px 2px rgba(206, 204, 191, 0.5)
+      box-shadow:0px 1px 10px 2px rgba(206, 204, 191, 0.5);
       //box-shadow: 0px 0px 4px 1px rgba(19, 90, 118, 0.4);
     }
 
     .artist {
       font-weight: bold;
-      font-size: 2rem;
+      font-size: 1.6rem;
       width: 80%;
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
       color: color($colors, 'secondary');
     }
     .track {
       color: color($colors, 'secondary');
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       width: 80%;
+    }
+
+    .btn-share {
+      position: relative;
+      margin: 0 0 0 15px;
+      width: 26px;
+      height: 26px;
+      border: 1px solid color($colors, 'secondary');
+      border-radius: 13px;
+      ion-icon {
+        font-size: 1.4rem;
+        color: color($colors, 'secondary')!important;
+
+      }
+    }
+
+    .btn-last {
+      position: relative;
+      margin: 0 0 0 15px;
+      width: 28px;
+      height: 28px;
+      ion-icon {
+        font-size: 3.3rem;
+      }
     }
 
     .label-now-playing {
@@ -124,20 +148,6 @@ page-radio {
         }
       }
 
-    }
-    .btn-share {
-      position: absolute;
-      top: 80px;
-      right: 17px;
-      width: 30px;
-      height: 30px;
-      border: 1px solid color($colors, 'secondary');
-      border-radius: 15px;
-      ion-icon {
-        font-size: 2rem;
-        color: color($colors, 'secondary')!important;
-
-      }
     }
   }
 }
