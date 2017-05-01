@@ -1,50 +1,114 @@
 page-radio {
 
-  ion-card {
-    margin-top: 2rem!important;
-  }
+  .radio-page-classic {
 
-  .list-header-md {
-    border-bottom: 0.55px solid #c8c7cc!important;
-    font-weight: 500!important;
-    letter-spacing: 0.1rem!important;
-    color: #333!important;
-    background: transparent!important;
-  }
-  .cover {
-    width: 180px;
-    display: block;
-    margin: 4rem auto 2rem auto;
-  }
+    ion-card {
+      margin-top: 2rem!important;
+    }
 
-  .current-song {
-    border-top: 1px solid color($colors, "primary");
-    border-bottom: 1px solid color($colors, "primary");
-    margin-top: 0px!important;
-    padding: 1rem 0;
-    text-align: center;
-    font-weight: normal;
-    text-transform: uppercase;
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem!important;
-  }
+    .list-header-md {
+      border-bottom: 0.55px solid #c8c7cc!important;
+      font-weight: 500!important;
+      letter-spacing: 0.1rem!important;
+      color: #333!important;
+      background: transparent!important;
+    }
+    .cover {
+      width: 180px;
+      display: block;
+      margin: 4rem auto 2rem auto;
+    }
+
+    .current-song {
+      border-top: 1px solid color($colors, "primary");
+      border-bottom: 1px solid color($colors, "primary");
+      margin-top: 0px!important;
+      padding: 1rem 0;
+      text-align: center;
+      font-weight: normal;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem!important;
+    }
 
 
-  .toggle-buttons {
-    //margin-top: 22px;
-    .spinner {
-      padding-left: 50px;
-      color: color($colors, "secondary");
+    .toggle-buttons {
+      //margin-top: 22px;
+      .spinner {
+        padding-left: 50px;
+        color: color($colors, "secondary");
+      }
+    }
+
+    .last-songs {
+      margin-top: 2rem;
+      h3, h4 {
+        margin-top: 0!important;
+      }
+      h3 {
+        font-weight: bold!important;
+      }
     }
   }
 
-  .last-songs {
-    margin-top: 2rem;
-    h3, h4 {
-      margin-top: 0!important;
+
+
+
+  ////////////////////////////////////
+  .radio-page-cover {
+
+    &.content {
+      background: color($colors, 'pampas');
     }
-    h3 {
-      font-weight: bold!important;
+
+    .cover {
+      width: 100%;
+    }
+    .meta-info {
+      background: #fff;
+      position: relative;
+      top: -6px;
+      border-top: 1px solid color($colors, 'secondary');
+    }
+
+    .artist {
+      font-weight: bold;
+      font-size: 2rem;
+      width: 80%;
+    }
+    .track {
+      font-size: 1.5rem;
+      width: 80%;
+    }
+
+    .toggle-buttons {
+      ion-icon {
+        font-size: 3rem;
+          color: color($colors, 'secondary')!important;
+      }
+      position: absolute;
+      top: -38px;
+      right: 28px;
+      //box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.5);
+      .btn-play-pause {
+        //box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+        &[color="verylight"] {
+          background: color($colors, 'verylight');
+        }
+      }
+
+      .btn-share {
+        position: absolute;
+        right:0;
+        top: 95px;
+        right: 15px;
+        //box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+        border: 1px solid color($colors, 'secondary');
+        ion-icon {
+          font-size: 2.2rem;
+        }
+      }
     }
   }
 }

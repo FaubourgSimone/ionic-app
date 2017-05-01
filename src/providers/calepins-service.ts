@@ -7,7 +7,6 @@ import { GlobalService } from "./global-service";
 @Injectable()
 export class CalepinsService {
 
-    private calepins:any;
     private requestCount:number = 10;
     private requestCurrentPage:number;
     private totalPages:number;
@@ -19,10 +18,6 @@ export class CalepinsService {
 
     getCalepins() {
         console.log('CalepinsService.getCalepins');
-        // if (this.calepins) {
-        //     return Promise.resolve(this.calepins);
-        // }
-
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_CALEPINS.baseUrl + this.vars.URL_CALEPINS.params.count + this.requestCount;
 
@@ -64,8 +59,6 @@ export class CalepinsService {
 
         return new Promise((resolve, reject) => {
             const url = this.vars.URL_CALEPIN + postId;
-
-            console.log(url);
             this.http.get(url)
                 .map(res => res.json())
                 .subscribe(

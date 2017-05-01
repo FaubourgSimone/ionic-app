@@ -14,7 +14,7 @@
         <ion-avatar item-left>
           <img src={{calepin.thumbnail}}/>
         </ion-avatar>
-        <h2 text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h2>
+        <h2 text-uppercase text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h2>
         <p text-wrap color="foggy-gray" class="item-subtitle" [innerHTML] = calepin.subtitle></p>
         <ion-note color="foggy-gray">{{calepin.date | date:'shortDate'}}</ion-note>
       </button>

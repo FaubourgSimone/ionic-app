@@ -1,7 +1,7 @@
 page-pola {
 
   .content {
-    background: #f2f0ed;
+    background: color($colors, 'pampas');
   }
 
   #card-stack {
@@ -39,7 +39,7 @@ page-pola {
     }
   }
   ion-card.td-card {
-    border: 1px solid #999;
+    border: 1px solid color($colors, 'foggy-gray');
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     width: 85%;

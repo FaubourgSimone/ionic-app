@@ -23,6 +23,7 @@ import { GlobalService } from '../providers/global-service';
 import { InitService } from "../providers/init-service";
 import { RadioService } from "../providers/radio-service";
 import { CalepinsService } from "../providers/calepins-service";
+import { CasquesService } from "../providers/casques-service";
 import { RadioPlayer } from '../providers/radioplayer';
 
 import { CustomErrorHandler } from "../components/custom-error-handler";
@@ -61,7 +62,7 @@ const cloudSettings: CloudSettings = {
     CasquesPage,
     CalepinPage,
     CasquePage,
-      ConcertsPage,
+    ConcertsPage,
     TabsPage
   ],
   providers: [
@@ -72,6 +73,7 @@ const cloudSettings: CloudSettings = {
     RadioService,
     RadioPlayer,
     CalepinsService,
+    CasquesService,
     CustomErrorHandler,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }

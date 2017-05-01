@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title><img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/><span color="secondary" text-uppercase>La radio</span></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="radio-page-classic">
+
+    <ion-card>
+        <img class="cover" src="{{currentSong.cover_url}}"/>
+        <ion-item no-margin text-wrap>
+            <h2 class="current-song" no-margin no-padding color="primary"><span>{{currentSong.artist}}</span> • <span>{{currentSong.track}}</span></h2>
+        </ion-item>
+    </ion-card>
+
+    <ion-row class="toggle-buttons" justify-content-center>
+        <button ion-button round icon-only
+                color="secondary" style="padding: 0; width: 44px; height: 44px;"
+                *ngIf="isButtonActive && playerReady"
+                (click)="togglePlayPause()">
+            <ion-icon [name]="playPauseButton"></ion-icon>
+        </button>
+        <button ion-button round outline
+                color="secondary" style="padding: 0; width: 44px; height: 44px;"
+                *ngIf="!isButtonActive">
+            <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
+        </button>
+        <!--<button ion-button round outline icon-only-->
+                <!--color="secondary" style="padding: 0; width: 44px;  height: 44px;">-->
+            <!--<ion-icon name="share"></ion-icon>-->
+        <!--</button>-->
+    </ion-row>
+
+    <ion-list class="last-songs">
+        <ion-list-header>
+            <h3 color="primary" no-margin no-padding text-uppercase>Derniers morceaux: </h3>
+        </ion-list-header>
+        <ion-item *ngFor="let song of lastSongs" text-wrap>
+            <ion-thumbnail item-left>
+                <img src={{song.cover_url}}>
+            </ion-thumbnail>
+            <h4 color="primary" no-margin no-padding text-uppercase="">{{song.artist}}</h4>
+            <p no-margin no-padding color="primary">{{song.track}}</p>
+            <!--<button ion-button clear item-right>See More</button>-->
+        </ion-item>
+    </ion-list>
+
+</ion-content>

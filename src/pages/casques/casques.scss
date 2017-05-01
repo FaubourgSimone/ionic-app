@@ -1,3 +1,45 @@
 page-casques {
+  .content {
+    background: color($colors, 'pampas');
+  }
+  ion-card-content.card-content {
+    position: relative;
+    text-align: center;
+    padding: 0;
+  }
 
+  .card-title {
+    position: absolute;
+    bottom: 0;
+    top: 40%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    padding: 10px;
+    //background: rgba(19, 90, 118, 0.5);
+    font-weight: bold;
+  }
+
+  .card-subtitle {
+    font-weight: bold;
+  }
+  .card-excerpt,
+  .card-excerpt * {
+    color: color($colors, 'primary');
+  }
+
+  ion-note {
+    float: right;
+    position: relative;
+    top: 1.6rem;
+    right: 1em;
+  }
+  //.card-subtitle {
+  //  font-size: 1.0em;
+  //  position: absolute;
+  //  top: 52%;
+  //  width: 100%;
+  //  color: #fff;
+  //}
 }
