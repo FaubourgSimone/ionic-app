@@ -36,7 +36,10 @@ page-radio {
       //margin-top: 22px;
       .spinner {
         padding-left: 50px;
-        color: color($colors, "secondary");
+        ion-icon {
+          //todo : pas pris en compte wtf
+          color: color($colors, "secondary");
+        }
       }
     }
 
@@ -141,13 +144,20 @@ page-radio {
         padding: 0;
         &[color="verylight"] {
           background: color($colors, 'verylight');
+          ion-icon {
+            color: color($colors, 'secondary')!important;
+          }
+        }
+        &[color="secondary"] {
+          background: color($colors, 'secondary');
+          ion-icon {
+            color: color($colors, 'verylight')!important;
+          }
         }
         ion-icon {
           font-size: 3rem;
-          color: color($colors, 'secondary')!important;
         }
       }
-
     }
   }
 }

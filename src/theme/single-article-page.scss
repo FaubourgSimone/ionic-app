@@ -1,0 +1,58 @@
+//page-casque {
+  .single-article-page {
+    .article-content,
+    .article-content * {
+      color: color($colors, 'primary');
+    }
+
+
+    .article-content {
+      img {
+        height: auto;
+      }
+
+      .aligncenter {
+        display: block;
+        margin: 0 auto;
+      }
+      hr {
+        height: 1px;
+        background: color($colors, 'foggy-gray');
+      }
+      iframe,
+      figure,
+      .wp-caption {
+        width: 100%!important;
+        height: auto;
+      }
+    }
+
+    .meta {
+      align-items: center;
+      border-top: 1px solid color($colors, 'foggy-gray');
+      border-bottom: 1px solid color($colors, 'foggy-gray');
+      ion-icon {
+        display: block;
+        &[name="link"]:before {
+          vertical-align: middle;
+        }
+        span {
+          font-family: $font-family-base;
+          font-size: 1.5rem;
+        }
+        a {
+          font-size: 1rem;
+        }
+      }
+    }
+    .audio-links ion-icon {
+      vertical-align: top;
+    }
+
+    ion-icon, button {
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+//}

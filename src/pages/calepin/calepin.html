@@ -2,21 +2,25 @@
   <ion-navbar><ion-title *ngIf="calepin"><span text-wrap class="ion-title-header" color="secondary"[innerHTML] = calepin.title></span></ion-title></ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="single-article-page">
   <div *ngIf="calepin">
     <!--<h1 [innerHTML] = calepin.title></h1>-->
     <h1 color="primary" [innerHTML] = calepin.subtitle></h1>
 
     <article class="article-content" color="primary" [innerHTML] = calepin.content></article>
-    <ion-icon name="calendar" icon-left color="foggy-gray">
-      <span>{{calepin.date | date:'longDate'}}</span>
-    </ion-icon>
 
-
-    <ion-icon name="link" icon-left color="foggy-gray">
-      <span><a color="foggy-gray" href="{{calepin.permalink}}" target="_blank">Consulter l'article sur le site</a></span>
-    </ion-icon>
-
+    <ion-row class="meta" padding-vertical>
+      <ion-col no-padding text-left>
+        <ion-icon name="calendar" icon-left color="foggy-gray">
+          <span>{{calepin.date | date:'longDate'}}</span>
+        </ion-icon>
+      </ion-col>
+      <ion-col no-padding text-right>
+        <ion-icon name="link" icon-left color="foggy-gray">
+          <span><a color="foggy-gray" href="{{calepin.permalink}}" target="_blank">Consulter l'article sur le site</a></span>
+        </ion-icon>
+      </ion-col>
+    </ion-row>
 
   </div>
 </ion-content>

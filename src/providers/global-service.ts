@@ -24,6 +24,25 @@ export class GlobalService {
     public URL_CASQUE:string;
     public URL_CASQUE_FIELDS:string;
 
+    public loadingMsgPosts:Array<string> = [
+        "Tout doux beau prince !",
+        "Patience beauté !",
+        "Quelques secondes minouche !",
+        "Effeuillage imminent",
+        "On prépare les magrets",
+        "On vous beurre les tartines"
+    ];
+
+    public loadingMsgRadio:Array<string> = [
+        "Paris ne s'est pas faite en un jour !",
+        "En voiture Simone !",
+        "Préparation du café !",
+        "Préchauffage du transistor !",
+        "Mixage du son et de l'avoine en cours !",
+        "Déploiement de l'antenne !",
+        "On cherche la prise Jack !",
+        "On vous envoie la sauce !"
+    ];
 
     constructor() {
         console.log('Hello GlobalService Provider');

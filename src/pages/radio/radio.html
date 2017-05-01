@@ -10,13 +10,13 @@
         <span class="label-now-playing" color="secondary" text-uppercase><span>•&nbsp;</span> En ce moment</span>
         <ion-row class="toggle-buttons" justify-content-center>
             <button class="btn-play-pause" ion-button round icon-only
-                    color="verylight"
+                    color="secondary"
                     *ngIf="isButtonActive && playerReady"
                     (click)="togglePlayPause()">
                 <ion-icon [name]="playPauseButton"></ion-icon>
             </button>
             <button class="btn-play-pause" ion-button round icon-only
-                    color="verylight"
+                    color="secondary"
                     *ngIf="!isButtonActive">
                 <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
             </button>
@@ -24,7 +24,7 @@
         <h1 class="artist" color="primary" text-uppercase no-margin padding-horizontal><span>{{currentSong.artist}}</span></h1>
         <h2 class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>
         <button class="btn-last" clear ion-button small color="secondary" icon-only>
-            <ion-icon name='md-disc'></ion-icon>
+            <ion-icon name='ios-disc-outline'></ion-icon>
         </button>
         <button class="btn-share" clear ion-button small color="secondary" icon-only>
             <ion-icon name='share-alt'></ion-icon>

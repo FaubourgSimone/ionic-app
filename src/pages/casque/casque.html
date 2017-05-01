@@ -2,7 +2,51 @@
   <ion-navbar><ion-title><span text-wrap class="ion-title-header" color="secondary">Article Dans Le Casque</span></ion-title></ion-navbar>
 </ion-header>
 
+<ion-content padding class="single-article-page">
+  <div *ngIf="casque">
 
-<ion-content padding>
+    <h1 color="primary" [innerHTML] = casque.title></h1>
+    <h2 color="primary" [innerHTML] = casque.artist></h2>
 
+    <article class="article-content" color="primary" [innerHTML] = casque.content></article>
+
+    <ion-row class="meta" padding-vertical>
+      <ion-col no-padding text-left>
+        <ion-icon name="calendar" icon-left color="foggy-gray">
+          <span>{{casque.date | date:'longDate'}}</span>
+        </ion-icon>
+      </ion-col>
+      <ion-col no-padding text-right>
+        <ion-icon name="link" icon-left color="foggy-gray">
+          <span><a color="foggy-gray" href="{{casque.permalink}}" target="_blank">Consulter l'article sur le site</a></span>
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="audio-links" padding-vertical>
+      <ion-col no-padding>
+        <button ion-button clear small color="secondary" icon-left>
+          <a color="secondary" *ngIf="casque.preview" href="{{casque.preview}}" target="_blank">
+            <ion-icon name='musical-notes'></ion-icon>
+            Écouter
+          </a>
+        </button>
+      </ion-col>
+      <ion-col text-center no-padding>
+        <button *ngIf="casque.buyLink" ion-button clear small color="secondary" icon-left>
+          <a color="secondary" href="{{casque.buyLink}}" target="_blank">
+            <ion-icon name='logo-euro'></ion-icon>
+            Acheter
+          </a>
+        </button>
+      </ion-col>
+      <ion-col text-right no-padding>
+        <button ion-button clear small color="secondary" icon-left>
+          <ion-icon name='share-alt'></ion-icon>
+          Partager
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </div>
 </ion-content>

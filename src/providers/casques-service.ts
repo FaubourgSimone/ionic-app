@@ -41,6 +41,8 @@ export class CasquesService {
                                 id: post.id,
                                 title: post.title,
                                 artist: post.custom_fields.dlc_artist,
+                                buyLink: post.custom_fields.dlc_buy_link || null,
+                                preview: post.custom_fields.dlc_preview_link || null,
                                 thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
                                 excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
                                 date: new Date(post.date)
@@ -65,7 +67,20 @@ export class CasquesService {
                 .map(res => res.json())
                 .subscribe(
                     data => {
-                        resolve(data);
+                        console.log(data);
+                        const result = {
+                            title:    data.title.rendered,
+                            artist: data.acf.dlc_artist,
+                            buyLink: data.acf.dlc_buy_link || null,
+                            preview: data.acf.dlc_preview_link || null,
+                            video: data.acf.dlc_video || null,
+                            content: data.content.rendered,
+                            date: new Date(data.date),
+                            permalink: data.link
+                        };
+
+                        // console.log(result);
+                        resolve(result);
                     },
                     error => {
                         reject(new Error(error.toString()));

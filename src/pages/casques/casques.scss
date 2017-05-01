@@ -2,10 +2,18 @@ page-casques {
   .content {
     background: color($colors, 'pampas');
   }
+
+  ion-card {
+    width: 100%;
+  }
   ion-card-content.card-content {
     position: relative;
     text-align: center;
     padding: 0;
+    img {
+      width: 80%;
+      margin: 3rem auto 0;
+    }
   }
 
   .card-title {
@@ -23,6 +31,8 @@ page-casques {
 
   .card-subtitle {
     font-weight: bold;
+    width: 70%;
+    padding-bottom: 5px;
   }
   .card-excerpt,
   .card-excerpt * {
@@ -34,6 +44,10 @@ page-casques {
     position: relative;
     top: 1.6rem;
     right: 1em;
+  }
+
+  button a {
+    text-decoration: none;
   }
   //.card-subtitle {
   //  font-size: 1.0em;
