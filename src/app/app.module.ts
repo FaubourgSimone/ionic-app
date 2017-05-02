@@ -3,14 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { TabsPage } from '../pages/tabs/tabs';
+import { RadioPage } from '../pages/radio/radio';
 import { PolaPage } from '../pages/pola/pola';
 import { CalepinsPage } from '../pages/calepins/calepins';
 import { CalepinPage } from "../pages/calepin/calepin";
 import { CasquesPage } from '../pages/casques/casques';
 import { CasquePage } from '../pages/casque/casque';
-import { RadioPage } from '../pages/radio/radio';
-import { TabsPage } from '../pages/tabs/tabs';
 import { ConcertsPage } from "../pages/concerts/concerts";
+import { ConcertPage } from "../pages/concert/concert";
 
 import { StatusBar,  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,6 +29,7 @@ import { RadioPlayer } from '../providers/radioplayer';
 
 import { CustomErrorHandler } from "../components/custom-error-handler";
 
+import { IonicAudioModule } from 'ionic-audio';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -45,13 +47,15 @@ const cloudSettings: CloudSettings = {
     CalepinPage,
     CasquePage,
     ConcertsPage,
+    ConcertPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, []),
     CloudModule.forRoot(cloudSettings),
-    SwingModule
+    SwingModule,
+    IonicAudioModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,6 +67,7 @@ const cloudSettings: CloudSettings = {
     CalepinPage,
     CasquePage,
     ConcertsPage,
+    ConcertPage,
     TabsPage
   ],
   providers: [

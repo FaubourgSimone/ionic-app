@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import { NavController, ViewController, LoadingController, Loading } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
@@ -7,6 +7,7 @@ import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
 import { CustomErrorHandler } from "../../components/custom-error-handler";
+import { AudioProvider } from "ionic-audio";
 
 declare let cordova: any;
 
@@ -16,6 +17,13 @@ declare let cordova: any;
     providers: [BackgroundMode, MusicControls]
 })
 export class RadioPage {
+
+    // @ViewChild('audio')
+    // set myAudio(ref: any) {
+    //     // console.log('#########################################');
+    //     // console.log(ref);
+    //     this.myAudioTrackComponent = ref;
+    // }
 
     private streaming_url:string;
     private loop_interval:Number = 3000;
@@ -35,8 +43,8 @@ export class RadioPage {
         track: ''
     };
 
+    private myOnlyTrack:any;
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
-
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
@@ -48,22 +56,30 @@ export class RadioPage {
                 private zone: NgZone,
                 private musicControls: MusicControls,
                 private loadingCtrl: LoadingController,
-                private errorHandler:CustomErrorHandler) {
+                private errorHandler:CustomErrorHandler,
+                private _audioProvider: AudioProvider) {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-
         this.initService.getInitData().then((data:any)=>{
             this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
             this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
             this.player.init(this.streaming_url);
             this.playerReady = true;
+            this.myOnlyTrack = {
+                src: this.streaming_url
+            };
         }).catch((error)=>{
             this.errorHandler.handleError(error);
         });
     }
 
-    ngOnInit() {
+    ionViewDidLoad() {
         this.manageBackground();
+    }
+
+    ionViewDidEnter() {
+        this.hasLeft = false;
+        this.loopData();
     }
 
     manageBackground(){
@@ -88,18 +104,11 @@ export class RadioPage {
         catch(e) {}
     }
 
-    ionViewDidEnter() {
-        this.hasLeft = false;
-        this.loopData();
-    }
-    ionViewDidLeave() {
-        this.hasLeft = true;
-    }
-
     presentLoading() {
         this.loader = this.loadingCtrl.create({
             spinner: 'dots',
-            content: 'Paris ne s\'est pas faite en un jour...'
+            content: 'Paris ne s\'est pas faite en un jour...',
+            dismissOnPageChange: true
         });
         this.loader.present();
     }
@@ -158,38 +167,48 @@ export class RadioPage {
     play() {
         this.isButtonActive = false;
         this.presentLoading();
-        if(this.player.isPlaying) {
+        if(this._audioProvider.tracks[0] &&
+            this._audioProvider.tracks[0].isPlaying) {
             return false;
         }
+
+        if(typeof this._audioProvider.current !== 'undefined') {
+            return false;
+        }
+        this.isPlaying = true;
+        this._audioProvider.play(0);
         this.playPauseButton = 'pause';
-        this.player.play()
-            .catch(error => {
-                this.dismissLoading();
-                this.errorHandler.handleError(error)
-            })
-            .then(() => {
-                this.isPlaying = true;
-                this.isButtonActive = true;
-                this.dismissLoading();
-                if (typeof cordova !== 'undefined') {
-                    this.musicControls.updateIsPlaying(true);
-                }
-            });
+
+        // this.player.play()
+        //     .catch(error => {
+        //         this.dismissLoading();
+        //         this.errorHandler.handleError(error)
+        //     })
+        //     .then(() => {
+        //         this.isPlaying = true;
+        //         this.isButtonActive = true;
+        //         this.dismissLoading();
+        //         if (typeof cordova !== 'undefined') {
+        //             this.musicControls.updateIsPlaying(true);
+        //         }
+        //     });
+    }
+
+    onTrackLoaded(event) {
+        this.dismissLoading();
+        this.isPlaying = true;
+        this.isButtonActive = true;
+        if (typeof cordova !== 'undefined') {
+            this.musicControls.updateIsPlaying(true);
+        }
     }
 
     pause() {
         this.playPauseButton = 'play';
         this.isPlaying = false;
-        this.player.pause();
+        this._audioProvider.stop();
         if (typeof cordova !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
-        }
-    }
-
-
-    destroyMusicControls() {
-        if (typeof cordova !== 'undefined') {
-            this.musicControls.destroy();
         }
     }
 
@@ -240,6 +259,16 @@ export class RadioPage {
 
             this.musicControls.listen(); // activates the observable above
         }
+    }
+
+    destroyMusicControls() {
+        if (typeof cordova !== 'undefined') {
+            this.musicControls.destroy();
+        }
+    }
+
+    ionViewDidLeave() {
+        this.hasLeft = true;
     }
 
 }

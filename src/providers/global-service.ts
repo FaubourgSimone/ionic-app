@@ -5,7 +5,6 @@ export class GlobalService {
 
     public DEVMODE:boolean = true;
 
-
     public  BASE_URL:string;
     public  URL_INFO:string;
 

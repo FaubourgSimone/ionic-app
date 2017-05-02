@@ -94,4 +94,8 @@
   <engine name="windows" spec="~4.4.3"/>
   <engine name="android" spec="~6.1.0"/>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
+  <feature name="BackgroundAudio">
+    <param name="ios-package" value="BackgroundAudio" />
+    <param name="onload" value="true" />
+  </feature>
 </widget>
