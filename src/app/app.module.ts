@@ -52,7 +52,10 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp, []),
+    IonicModule.forRoot(MyApp, {
+      // tabsLayout: 'title-hide',
+      tabsHighlight: true
+    }),
     CloudModule.forRoot(cloudSettings),
     SwingModule,
     IonicAudioModule.forRoot()

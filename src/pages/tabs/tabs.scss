@@ -1,6 +1,24 @@
 ion-tabs {
-  .tab-button-icon,
-  .tab-button {
-    color: color($colors, 'secondary')!important;
+
+  &.tabs {
+
+    .tab-button .tab-button-icon,
+    .tab-button[aria-selected=true] .tab-button-icon {
+      color: color($colors, 'secondary');
+    }
+    .tab-button-text {
+      display: none;
+    }
+
+    .tab-button[aria-selected=true] {
+      color: color($colors, 'secondary');
+      .tab-button-text {
+        display: block;
+      }
+    }
+
+    &[tabsHighlight=true] .tab-highlight {
+      background: color($colors, 'secondary');
+    }
   }
 }
