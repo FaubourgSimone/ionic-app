@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, Loading, LoadingController } from 'ionic-angular';
+import { NavController, Loading, LoadingController, ViewController, Platform } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
 import { CustomErrorHandler } from "../../components/custom-error-handler";
-import {GlobalService} from "../../providers/global-service";
+import { GlobalService } from "../../providers/global-service";
 
 @Component({
   selector: 'page-calepins',
@@ -15,10 +15,27 @@ export class CalepinsPage {
   private loader:Loading;
 
   constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
+              public plt: Platform,
               private api:CalepinsService,
               private loadingCtrl: LoadingController,
               private errorHandler:CustomErrorHandler,
               private vars: GlobalService) {
+    // this.plt.ready().then((readySource) => {
+    //   console.log('Platform ready from', readySource);
+    //   // Platform now ready, execute any required native code
+    //   this.plt.registerBackButtonAction(()=> {
+    //     let nav = this.viewCtrl.getNav();
+    //     // let activeView: ViewController = nav.getActiveChildNav();
+    //     if(this.viewCtrl != null){
+    //       if(nav.canGoBack()) {
+    //         nav.pop();
+    //       }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
+    //         this.viewCtrl.instance.backButtonAction();
+    //       else nav.parent.select(0); // goes to the first tab
+    //     }
+    //   })
+    // });
   }
 
   ionViewDidLoad() {

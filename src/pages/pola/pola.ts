@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, Loading, Platform, ViewController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
 import { GlobalService } from '../../providers/global-service';
@@ -29,12 +29,30 @@ export class PolaPage {
     stackStyle:string = 'stack-style-1';
     private loader:Loading;
 
-    constructor(public navCtrl: NavController,
+    constructor(public viewCtrl: ViewController,
+                public navCtrl: NavController,
+                public plt: Platform,
                 private http: Http,
                 private vars:GlobalService,
                 private loadingCtrl: LoadingController,
                 private api:PolaService,
                 private errorHandler:CustomErrorHandler) {
+
+        // this.plt.ready().then((readySource) => {
+        //     console.log('Platform ready from', readySource);
+        //     // Platform now ready, execute any required native code
+        //     this.plt.registerBackButtonAction(()=> {
+        //         let nav = this.viewCtrl.getNav();
+        //         // let activeView: ViewController = nav.getActiveChildNav();
+        //         if(this.viewCtrl != null){
+        //             if(nav.canGoBack()) {
+        //                 nav.pop();
+        //             }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
+        //                 this.viewCtrl.instance.backButtonAction();
+        //             else nav.parent.select(0); // goes to the first tab
+        //         }
+        //     })
+        // });
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {

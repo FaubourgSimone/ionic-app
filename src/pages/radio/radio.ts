@@ -1,5 +1,5 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
-import { NavController, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, ViewController, LoadingController, Loading, Platform } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
@@ -48,6 +48,7 @@ export class RadioPage {
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
+                public plt: Platform,
                 private vars: GlobalService,
                 private player: RadioPlayer,
                 private initService: InitService,
@@ -58,6 +59,22 @@ export class RadioPage {
                 private loadingCtrl: LoadingController,
                 private errorHandler:CustomErrorHandler,
                 private _audioProvider: AudioProvider) {
+
+        this.plt.ready().then((readySource) => {
+            console.log('Platform ready from', readySource);
+            // Platform now ready, execute any required native code
+            this.plt.registerBackButtonAction(()=> {
+                let nav = this.viewCtrl.getNav();
+                // let activeView: ViewController = nav.getActiveChildNav();
+                if(this.viewCtrl != null){
+                    if(nav.canGoBack()) {
+                        nav.pop();
+                    }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
+                        this.viewCtrl.instance.backButtonAction();
+                    else nav.parent.select(0); // goes to the first tab
+                }
+            })
+        });
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.initService.getInitData().then((data:any)=>{
