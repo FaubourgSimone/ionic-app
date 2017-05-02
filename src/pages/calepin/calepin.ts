@@ -3,6 +3,7 @@ import { NavController, NavParams, Loading, LoadingController } from 'ionic-angu
 import { CalepinsService } from "../../providers/calepins-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { CustomErrorHandler } from "../../components/custom-error-handler";
+import { GlobalService } from "../../providers/global-service";
 
 
 @Component({
@@ -17,10 +18,11 @@ import { CustomErrorHandler } from "../../components/custom-error-handler";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private api:CalepinsService,
-              private domSanitizer:DomSanitizer,
-              private errorHandler:CustomErrorHandler,
-              private loadingCtrl: LoadingController) {
+              private api: CalepinsService,
+              private domSanitizer: DomSanitizer,
+              private errorHandler: CustomErrorHandler,
+              private loadingCtrl: LoadingController,
+              private vars: GlobalService) {
     this.postId = this.navParams.get('postId');
 
   }
@@ -43,7 +45,7 @@ import { CustomErrorHandler } from "../../components/custom-error-handler";
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
-      content: 'Patience beauté !'
+      content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
   }

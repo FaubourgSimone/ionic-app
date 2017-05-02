@@ -3,6 +3,7 @@ import { NavController, NavParams, Loading, LoadingController } from 'ionic-angu
 import { CasquesService } from "../../providers/casques-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { CustomErrorHandler } from "../../components/custom-error-handler";
+import {GlobalService} from "../../providers/global-service";
 
 /*
   Generated class for the Casque page.
@@ -25,7 +26,8 @@ export class CasquePage {
               private api:CasquesService,
               private domSanitizer:DomSanitizer,
               private errorHandler:CustomErrorHandler,
-              private loadingCtrl: LoadingController) {
+              private loadingCtrl: LoadingController,
+              private vars: GlobalService) {
     this.postId = this.navParams.get('postId');
   }
 
@@ -47,7 +49,7 @@ export class CasquePage {
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
-      content: 'Quelques secondes minouche !'
+      content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
   }

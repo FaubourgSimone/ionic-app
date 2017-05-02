@@ -3,6 +3,7 @@ import { NavController, Loading, LoadingController } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
 import { CustomErrorHandler } from "../../components/custom-error-handler";
+import {GlobalService} from "../../providers/global-service";
 
 @Component({
   selector: 'page-calepins',
@@ -16,7 +17,8 @@ export class CalepinsPage {
   constructor(public navCtrl: NavController,
               private api:CalepinsService,
               private loadingCtrl: LoadingController,
-              private errorHandler:CustomErrorHandler) {
+              private errorHandler:CustomErrorHandler,
+              private vars: GlobalService) {
   }
 
   ionViewDidLoad() {
@@ -59,7 +61,7 @@ export class CalepinsPage {
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
-      content: 'Recherche les calepins'
+      content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
   }

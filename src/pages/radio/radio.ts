@@ -107,7 +107,7 @@ export class RadioPage {
     presentLoading() {
         this.loader = this.loadingCtrl.create({
             spinner: 'dots',
-            content: 'Paris ne s\'est pas faite en un jour...',
+            content: this.vars.getRandomMessageRadio(),
             dismissOnPageChange: true
         });
         this.loader.present();

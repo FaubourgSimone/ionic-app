@@ -3,6 +3,7 @@ import { NavController, Loading, LoadingController } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import {CustomErrorHandler} from "../../components/custom-error-handler";
 import {CasquePage} from "../casque/casque";
+import {GlobalService} from "../../providers/global-service";
 
 @Component({
   selector: 'page-casques',
@@ -16,7 +17,8 @@ export class CasquesPage {
   constructor(public navCtrl: NavController,
               private api:CasquesService,
               private loadingCtrl: LoadingController,
-              private errorHandler:CustomErrorHandler) {
+              private errorHandler:CustomErrorHandler,
+              private vars: GlobalService) {
   }
 
   ionViewDidLoad() {
@@ -57,7 +59,7 @@ export class CasquesPage {
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
-      content: 'Recherche les articles Dans Le Casque'
+      content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
   }

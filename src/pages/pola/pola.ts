@@ -28,7 +28,6 @@ export class PolaPage {
     totalQueryPage:number;
     stackStyle:string = 'stack-style-1';
     private loader:Loading;
-    private messageLoader:string;
 
     constructor(public navCtrl: NavController,
                 private http: Http,
@@ -50,8 +49,6 @@ export class PolaPage {
             //   return 800;
             // }
         };
-
-        this.messageLoader = 'On cherche les derniers polas du jour';
     }
 
     ionViewDidLoad() {
@@ -115,7 +112,6 @@ export class PolaPage {
             else {
                 this.switchStyle();
                 this.dismissLoading();
-                this.messageLoader = 'À la recherche des polas précédents';
             }
         }).catch((error)=>{
             this.errorHandler.handleError(error);
@@ -148,7 +144,7 @@ export class PolaPage {
     presentLoading() {
         this.loader = this.loadingCtrl.create({
             spinner: 'dots',
-            content: this.messageLoader
+            content: this.vars.getRandomMessagePosts()
         });
         this.loader.present();
     }

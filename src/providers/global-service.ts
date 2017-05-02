@@ -83,4 +83,12 @@ export class GlobalService {
         this.URL_CASQUE = this.BASE_URL + '/wp-json/wp/v2/nouveaute/'; // + {id}
         this.URL_CASQUE_FIELDS = this.BASE_URL + '/wp-json/acf/v2/nouveaute/'; // + {id}
     }
+
+    getRandomMessageRadio() {
+        return this.loadingMsgRadio[Math.floor(Math.random() * (this.loadingMsgRadio.length-1))];
+    }
+
+    getRandomMessagePosts() {
+        return this.loadingMsgPosts[Math.floor(Math.random() * (this.loadingMsgPosts.length-1))];
+    }
 }
