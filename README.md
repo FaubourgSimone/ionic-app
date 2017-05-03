@@ -1,6 +1,6 @@
 Faubourg Simone: mobile applications
 ========
-Sources of our ionic 2 app web radio.
+Sources of our web radio applications: android and ios with Ionic 2.
 
 
 Features
