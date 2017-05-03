@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
-/*
-  Generated class for the Concert page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-concert',
   templateUrl: 'concert.html'
 })
 export class ConcertPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private alertCtrl:AlertController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConcertPage');
+  }
+
+  presentError(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['Moki Doki!']
+    });
+    alert.present();
   }
 
 }

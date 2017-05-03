@@ -36,7 +36,6 @@ export class CasquesService {
                             this.requestCurrentPage = 1;
                         }
                         const casques = data.posts.map((post)=> {
-                            console.log(post);
                             return {
                                 id: post.id,
                                 title: post.title,
@@ -67,7 +66,6 @@ export class CasquesService {
                 .map(res => res.json())
                 .subscribe(
                     data => {
-                        console.log(data);
                         const result = {
                             title:    data.title.rendered,
                             artist: data.acf.dlc_artist,

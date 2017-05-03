@@ -1,12 +1,11 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
-import { NavController, ViewController, LoadingController, Loading, Platform } from 'ionic-angular';
+import { NavController, ViewController, LoadingController, Loading, Platform, AlertController } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
 import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
-import { CustomErrorHandler } from "../../components/custom-error-handler";
 import { AudioProvider } from "ionic-audio";
 
 declare let cordova: any;
@@ -57,9 +56,9 @@ export class RadioPage {
                 private zone: NgZone,
                 private musicControls: MusicControls,
                 private loadingCtrl: LoadingController,
-                private errorHandler:CustomErrorHandler,
-                private _audioProvider: AudioProvider) {
-
+                private _audioProvider: AudioProvider,
+                private alertCtrl:AlertController) {
+        super();
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             // Platform now ready, execute any required native code
@@ -83,10 +82,14 @@ export class RadioPage {
             this.initPlayer();
 
         }).catch((error)=>{
-            this.errorHandler.handleError(error);
             this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.initPlayer();
+            this.presentError(error.toString());
         });
+    }
+
+    coucou() {
+        super.coucou();
     }
 
     initPlayer() {
@@ -175,7 +178,7 @@ export class RadioPage {
                 }
                 this.timer = setTimeout(()=>this.loopData(), this.loop_interval);
             },
-            error => this.errorHandler.handleError(error)
+            error => this.presentError(error.toString())
         );
     }
 
@@ -202,20 +205,6 @@ export class RadioPage {
         this.isPlaying = true;
         this._audioProvider.play(0);
         this.playPauseButton = 'pause';
-
-        // this.player.play()
-        //     .catch(error => {
-        //         this.dismissLoading();
-        //         this.errorHandler.handleError(error)
-        //     })
-        //     .then(() => {
-        //         this.isPlaying = true;
-        //         this.isButtonActive = true;
-        //         this.dismissLoading();
-        //         if (typeof cordova !== 'undefined') {
-        //             this.musicControls.updateIsPlaying(true);
-        //         }
-        //     });
     }
 
     onTrackLoaded(event) {
@@ -293,6 +282,15 @@ export class RadioPage {
 
     ionViewDidLeave() {
         this.hasLeft = true;
+    }
+
+    presentError(message) {
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: message,
+            buttons: ['Moki Doki!']
+        });
+        alert.present();
     }
 
 }

@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, AlertController } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -26,10 +26,8 @@ import { RadioService } from "../providers/radio-service";
 import { CalepinsService } from "../providers/calepins-service";
 import { CasquesService } from "../providers/casques-service";
 import { RadioPlayer } from '../providers/radioplayer';
-
-import { CustomErrorHandler } from "../components/custom-error-handler";
-
 import { IonicAudioModule } from 'ionic-audio';
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -76,13 +74,13 @@ const cloudSettings: CloudSettings = {
   providers: [
     StatusBar,
     SplashScreen,
+    AlertController,
     GlobalService,
     InitService,
     RadioService,
     RadioPlayer,
     CalepinsService,
     CasquesService,
-    CustomErrorHandler,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

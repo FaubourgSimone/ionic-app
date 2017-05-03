@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, Loading, LoadingController, ViewController, Platform } from 'ionic-angular';
+import { NavController, Loading, LoadingController, ViewController, Platform, AlertController } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
-import { CustomErrorHandler } from "../../components/custom-error-handler";
 import { GlobalService } from "../../providers/global-service";
 
 @Component({
@@ -19,32 +18,17 @@ export class CalepinsPage {
               public plt: Platform,
               private api:CalepinsService,
               private loadingCtrl: LoadingController,
-              private errorHandler:CustomErrorHandler,
-              private vars: GlobalService) {
-    // this.plt.ready().then((readySource) => {
-    //   console.log('Platform ready from', readySource);
-    //   // Platform now ready, execute any required native code
-    //   this.plt.registerBackButtonAction(()=> {
-    //     let nav = this.viewCtrl.getNav();
-    //     // let activeView: ViewController = nav.getActiveChildNav();
-    //     if(this.viewCtrl != null){
-    //       if(nav.canGoBack()) {
-    //         nav.pop();
-    //       }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
-    //         this.viewCtrl.instance.backButtonAction();
-    //       else nav.parent.select(0); // goes to the first tab
-    //     }
-    //   })
-    // });
+              private vars: GlobalService,
+              private alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
-    // this.presentLoading();
     this.api.getCalepins().then((data)=>{
       this.calepins = data;
       this.dismissLoading();
     }).catch((error)=>{
-      this.errorHandler.handleError(error);
+      this.presentError(error.toString());
+      this.dismissLoading();
     });
   }
 
@@ -64,7 +48,7 @@ export class CalepinsPage {
       }
       infiniteScroll.complete();
     }).catch((error)=>{
-      this.errorHandler.handleError(error);
+      this.presentError(error.toString());
     });
   }
 
@@ -92,5 +76,12 @@ export class CalepinsPage {
       this.loader.dismiss();
     }
   }
-
+  presentError(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['Moki Doki!']
+    });
+    alert.present();
+  }
 }

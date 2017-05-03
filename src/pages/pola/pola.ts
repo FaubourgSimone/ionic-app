@@ -1,7 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController, LoadingController, Loading, Platform, ViewController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import 'rxjs/Rx';
+import { LoadingController, Loading, AlertController } from 'ionic-angular';
 import { GlobalService } from '../../providers/global-service';
 import {
     StackConfig,
@@ -10,7 +8,6 @@ import {
     SwingCardComponent
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
-import { CustomErrorHandler } from "../../components/custom-error-handler";
 
 @Component({
     selector: 'page-pola',
@@ -23,36 +20,13 @@ export class PolaPage {
 
     cards: any;
     stackConfig: StackConfig;
-    recentCard: string = '';
-    // currentQueryPage:number;
-    totalQueryPage:number;
     stackStyle:string = 'stack-style-1';
     private loader:Loading;
 
-    constructor(public viewCtrl: ViewController,
-                public navCtrl: NavController,
-                public plt: Platform,
-                private http: Http,
-                private vars:GlobalService,
+    constructor(private vars:GlobalService,
                 private loadingCtrl: LoadingController,
                 private api:PolaService,
-                private errorHandler:CustomErrorHandler) {
-
-        // this.plt.ready().then((readySource) => {
-        //     console.log('Platform ready from', readySource);
-        //     // Platform now ready, execute any required native code
-        //     this.plt.registerBackButtonAction(()=> {
-        //         let nav = this.viewCtrl.getNav();
-        //         // let activeView: ViewController = nav.getActiveChildNav();
-        //         if(this.viewCtrl != null){
-        //             if(nav.canGoBack()) {
-        //                 nav.pop();
-        //             }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
-        //                 this.viewCtrl.instance.backButtonAction();
-        //             else nav.parent.select(0); // goes to the first tab
-        //         }
-        //     })
-        // });
+                private alertCtrl:AlertController) {
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {
@@ -124,7 +98,7 @@ export class PolaPage {
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
-                this.errorHandler.handleError(new Error('Pas de pola pour cette request'));
+                this.presentError('Pas de pola pour cette request');
                 this.dismissLoading();
             }
             else {
@@ -132,7 +106,7 @@ export class PolaPage {
                 this.dismissLoading();
             }
         }).catch((error)=>{
-            this.errorHandler.handleError(error);
+            this.presentError(error.toString());
             this.dismissLoading();
         });
 
@@ -175,5 +149,14 @@ export class PolaPage {
         if(this.loader) {
             this.loader.dismiss();
         }
+    }
+
+    presentError(message) {
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: message,
+            buttons: ['Moki Doki!']
+        });
+        alert.present();
     }
 }

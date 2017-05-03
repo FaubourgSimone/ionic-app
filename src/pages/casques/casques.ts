@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, Loading, LoadingController } from 'ionic-angular';
+import { NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
-import {CustomErrorHandler} from "../../components/custom-error-handler";
-import {CasquePage} from "../casque/casque";
-import {GlobalService} from "../../providers/global-service";
+import { CasquePage } from "../casque/casque";
+import { GlobalService } from "../../providers/global-service";
 
 @Component({
   selector: 'page-casques',
@@ -17,8 +16,8 @@ export class CasquesPage {
   constructor(public navCtrl: NavController,
               private api:CasquesService,
               private loadingCtrl: LoadingController,
-              private errorHandler:CustomErrorHandler,
-              private vars: GlobalService) {
+              private vars: GlobalService,
+              private alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
@@ -27,7 +26,8 @@ export class CasquesPage {
       console.log(this.casques);
       this.dismissLoading();
     }).catch((error)=>{
-      this.errorHandler.handleError(error);
+      this.presentError(error.toString());
+      this.dismissLoading();
     });
   }
 
@@ -45,7 +45,7 @@ export class CasquesPage {
       }
       infiniteScroll.complete();
     }).catch((error)=>{
-      this.errorHandler.handleError(error);
+      this.presentError(error.toString());
     });
   }
 
@@ -72,5 +72,14 @@ export class CasquesPage {
     if(this.loader) {
       this.loader.dismiss();
     }
+  }
+
+  presentError(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['Moki Doki!']
+    });
+    alert.present();
   }
 }

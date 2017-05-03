@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { DomSanitizer } from "@angular/platform-browser";
-import { CustomErrorHandler } from "../../components/custom-error-handler";
-import {GlobalService} from "../../providers/global-service";
+import { GlobalService } from "../../providers/global-service";
 
-/*
-  Generated class for the Casque page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-casque',
   templateUrl: 'casque.html'
@@ -25,9 +18,9 @@ export class CasquePage {
               public navParams: NavParams,
               private api:CasquesService,
               private domSanitizer:DomSanitizer,
-              private errorHandler:CustomErrorHandler,
               private loadingCtrl: LoadingController,
-              private vars: GlobalService) {
+              private vars: GlobalService,
+              private alertCtrl:AlertController) {
     this.postId = this.navParams.get('postId');
   }
 
@@ -37,7 +30,10 @@ export class CasquePage {
       data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
       this.casque = data;
       this.dismissLoading();
-    }).catch((error)=>this.errorHandler.handleError(error));
+    }).catch((error)=>{
+      this.presentError(error.toString());
+      this.dismissLoading();
+    });
   }
 
   ionViewDidEnter() {
@@ -62,5 +58,13 @@ export class CasquePage {
     if(this.loader) {
       this.loader.dismiss();
     }
+  }
+  presentError(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['Moki Doki!']
+    });
+    alert.present();
   }
 }
