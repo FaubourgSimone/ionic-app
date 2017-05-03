@@ -83,8 +83,8 @@ export class RadioPage {
             this.initPlayer();
 
         }).catch((error)=>{
-            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.errorHandler.handleError(error);
+            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.initPlayer();
         });
     }
