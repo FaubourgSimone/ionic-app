@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class GlobalService {
 
-    public DEVMODE:boolean = false;
+    public DEVMODE:boolean = true;
 
     public  BASE_URL:string;
     public  URL_INFO:string;
@@ -12,7 +12,6 @@ export class GlobalService {
     private BASE_URL_API_DEV:string     = 'http://faubourgsimone.local';
     public  URL_INFO_PROD:string        = 'http://faubourgsimone.paris/ionic-app/info.json';
     public  URL_INFO_DEV:string         = 'http://fbrgsmn.proustib.at/ionic-app/info.json';
-
     public URL_STREAMING_DEFAULT        = 'http://91.121.65.131:1337/faubourgsimone';
     public URL_COVERS_API               = 'http://ks25555.kimsufi.com/fsapi/cacheapi.json';
 

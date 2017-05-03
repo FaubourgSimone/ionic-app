@@ -80,14 +80,21 @@ export class RadioPage {
         this.initService.getInitData().then((data:any)=>{
             this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
             this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
-            this.player.init(this.streaming_url);
-            this.playerReady = true;
-            this.myOnlyTrack = {
-                src: this.streaming_url
-            };
+            this.initPlayer();
+
         }).catch((error)=>{
+            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.errorHandler.handleError(error);
+            this.initPlayer();
         });
+    }
+
+    initPlayer() {
+        this.player.init(this.streaming_url);
+        this.playerReady = true;
+        this.myOnlyTrack = {
+            src: this.streaming_url
+        };
     }
 
     ionViewDidLoad() {

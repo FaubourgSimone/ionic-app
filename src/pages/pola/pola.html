@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>
       <!--<img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>-->
-      <span color="secondary" text-uppercase>Les polas du jour</span>
+      <span ion-text color="secondary" text-uppercase>Les polas du jour</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -16,8 +16,8 @@
         <img *ngIf="card.image" [src]="card.image">
       </ion-item>
       <ion-card-content *ngIf="card.date">
-        <h2 class="title" text-wrap text-uppercase color="foggy-gray">{{ card.title }}</h2>
-        <h3 class="date" text-uppercase color="carrara">{{ card.date | date:'longDate'}}</h3>
+        <h2 ion-text class="title" text-wrap text-uppercase color="foggy-gray">{{ card.title }}</h2>
+        <h3 ion-text class="date" text-uppercase color="carrara">{{ card.date | date:'longDate'}}</h3>
       </ion-card-content>
     </ion-card>
   </div>

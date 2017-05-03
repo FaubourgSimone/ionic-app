@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>
       <!--<img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>-->
-      <span color="secondary" text-uppercase>Les calepins</span>
+      <span ion-text color="secondary" text-uppercase>Les calepins</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,9 +17,9 @@
         <ion-avatar item-left>
           <img src={{calepin.thumbnail}}/>
         </ion-avatar>
-        <h2 text-uppercase text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h2>
-        <p text-wrap color="foggy-gray" class="item-subtitle" [innerHTML] = calepin.subtitle></p>
-        <ion-note color="foggy-gray">{{calepin.date | date:'shortDate'}}</ion-note>
+        <h2 ion-text text-uppercase text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h2>
+        <p ion-text text-wrap color="foggy-gray" class="item-subtitle" [innerHTML] = calepin.subtitle></p>
+        <ion-note ion-text color="foggy-gray">{{calepin.date | date:'shortDate'}}</ion-note>
       </button>
     </div>
   </ion-list>
