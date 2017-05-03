@@ -12,7 +12,6 @@ Features
 Installation
 ------------
 Install the app by running:
-
 ```
 npm i
 ionic state restore
@@ -20,9 +19,11 @@ ionic state restore
 
 Feel free to improve the app with us
 ------------------------------------
-Run `ionic serve -l` or `ionic run android` or `ionic run ios`, depending on the aim.
 
-Please read the Ionic documentation: [https://ionicframework.com/docs/](https://ionicframework.com/docs/)
+- Run `ionic serve -l`
+- We recommand to test your code by running `ionic run android` or `ionic run ios` to see results on simulators. If you're not familiar with Ionic framework, please read the Ionic documentation: [https://ionicframework.com/docs/](https://ionicframework.com/docs/)
+- We use [commitizen](https://github.com/commitizen/cz-cli), so if you wanna contribute to the project and create a pull request, use it by running `git cz` instead of `git commit`.
+
 
 Contribute
 ----------
