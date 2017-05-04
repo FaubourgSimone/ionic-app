@@ -13,6 +13,7 @@ Installation
 ------------
 Install the app by running:
 ```
+npm install -g ionic cordova
 npm i
 ionic state restore
 ```
