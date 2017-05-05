@@ -219,12 +219,14 @@ export class RadioPage {
     onTrackError(event) {
         console.log('RadioPage.onTrackError', event);
         this.dismissLoading();
-        this.isPlaying = false;
+        this.pause();
         this.isButtonActive = true;
+        // this.isPlaying = false;
+        // this.isButtonActive = false;
         if (typeof cordova !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
-        this.presentError(event.toString())
+        this.presentError(event.toString());
     }
 
     pause() {
