@@ -58,7 +58,6 @@ export class RadioPage {
                 private loadingCtrl: LoadingController,
                 private _audioProvider: AudioProvider,
                 private alertCtrl:AlertController) {
-        super();
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             // Platform now ready, execute any required native code
@@ -86,10 +85,6 @@ export class RadioPage {
             this.initPlayer();
             this.presentError(error.toString());
         });
-    }
-
-    coucou() {
-        super.coucou();
     }
 
     initPlayer() {
@@ -203,7 +198,12 @@ export class RadioPage {
             return false;
         }
         this.isPlaying = true;
-        this._audioProvider.play(0);
+        try {
+            this._audioProvider.play(0);
+        }
+        catch(e) {
+            console.log('#######################');
+        }
         this.playPauseButton = 'pause';
     }
 
@@ -214,6 +214,17 @@ export class RadioPage {
         if (typeof cordova !== 'undefined') {
             this.musicControls.updateIsPlaying(true);
         }
+    }
+
+    onTrackError(event) {
+        console.log('RadioPage.onTrackError', event);
+        this.dismissLoading();
+        this.isPlaying = false;
+        this.isButtonActive = true;
+        if (typeof cordova !== 'undefined') {
+            this.musicControls.updateIsPlaying(false);
+        }
+        this.presentError(event.toString())
     }
 
     pause() {

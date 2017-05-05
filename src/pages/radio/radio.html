@@ -16,7 +16,7 @@
         <span ion-text class="label-now-playing" color="secondary" text-uppercase><span class="txt"><span>•&nbsp;</span> En ce moment</span></span>
         <ion-row class="toggle-buttons" justify-content-center>
 
-            <audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)">
+            <audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)" (onError)="onTrackError($event)">
 
                 <!--<audio-track-play [audioTrack]="audio">-->
                     <!--<ion-spinner name="dots"></ion-spinner>-->
