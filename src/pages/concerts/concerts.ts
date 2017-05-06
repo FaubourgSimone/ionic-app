@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import {NavController, NavParams, AlertController, ViewController} from 'ionic-angular';
+import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
-/*
-  Generated class for the Concerts page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-concerts',
   templateUrl: 'concerts.html'
@@ -14,8 +9,13 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 export class ConcertsPage {
 
   constructor(public navCtrl: NavController,
+              private viewCtrl:ViewController,
               public navParams: NavParams,
-              private alertCtrl:AlertController) {}
+              private alertCtrl:AlertController,
+              private ga: GoogleAnalytics) {
+
+    this.ga.trackView(this.viewCtrl.name);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConcertsPage');

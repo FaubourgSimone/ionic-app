@@ -104,6 +104,7 @@
         <variable name="XWALK_MULTIPLEAPK" value="true" />
     </plugin>
     <plugin name="cordova-plugin-device" spec="~1.1.5" />
+    <plugin name="cordova-plugin-google-analytics" spec="^1.8.2" />
     <plugin name="cordova-plugin-media" spec="~3.0.0">
         <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" " />
     </plugin>

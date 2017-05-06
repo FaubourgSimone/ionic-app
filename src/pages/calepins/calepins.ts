@@ -3,6 +3,7 @@ import { NavController, Loading, LoadingController, ViewController, Platform, Al
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
 import { GlobalService } from "../../providers/global-service";
+import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
   selector: 'page-calepins',
@@ -12,6 +13,7 @@ export class CalepinsPage {
 
   private calepins:any;
   private loader:Loading;
+  private reloadNb:number = 0;
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
@@ -19,7 +21,10 @@ export class CalepinsPage {
               private api:CalepinsService,
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
-              private alertCtrl:AlertController) {
+              private alertCtrl:AlertController,
+              private ga: GoogleAnalytics) {
+
+    this.ga.trackView(this.viewCtrl.name);
   }
 
   ionViewDidLoad() {
@@ -40,6 +45,8 @@ export class CalepinsPage {
 
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
+    this.reloadNb++;
+    this.ga.trackEvent('Charger les calepins suivants', 'Naviguer dans les calepins', 'refill-calepin-' + this.reloadNb.toString());
 
     this.api.getCalepins().then((data:any)=>{
       console.log(data);
@@ -54,6 +61,7 @@ export class CalepinsPage {
 
   navToCalepin(id:number) {
     console.log('CalepinsPage.navToCalepin: ', id);
+    this.ga.trackEvent('Ouvrir un calepin', 'Naviguer dans les calepins', 'calepin-' + id.toString());
     this.navCtrl.push(CalepinPage, {
       postId: id
     });

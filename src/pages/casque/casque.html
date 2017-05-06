@@ -18,7 +18,7 @@
       </ion-col>
       <ion-col no-padding text-right>
         <ion-icon ion-text name="link" icon-left color="foggy-gray">
-          <span><a ion-text color="foggy-gray" href="{{casque.permalink}}" target="_blank">Consulter l'article sur le site</a></span>
+          <span><a (click)="onExternalLink()" ion-text color="foggy-gray" href="{{casque.permalink}}" target="_blank">Consulter l'article sur le site</a></span>
         </ion-icon>
       </ion-col>
     </ion-row>

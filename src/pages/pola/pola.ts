@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { LoadingController, Loading, AlertController } from 'ionic-angular';
+import {LoadingController, Loading, AlertController, ViewController} from 'ionic-angular';
 import { GlobalService } from '../../providers/global-service';
 import {
     StackConfig,
@@ -9,6 +9,7 @@ import {
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
 import { SocialSharing } from "@ionic-native/social-sharing";
+import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
     selector: 'page-pola',
@@ -23,12 +24,18 @@ export class PolaPage {
     stackConfig: StackConfig;
     stackStyle:string = 'stack-style-1';
     private loader:Loading;
+    private displayedCardNb:number = 0;
+    private refillNb:number = 0;
 
     constructor(private vars:GlobalService,
+                private viewCtrl:ViewController,
                 private loadingCtrl: LoadingController,
                 private api:PolaService,
                 private alertCtrl:AlertController,
-                private socialSharing: SocialSharing) {
+                private socialSharing: SocialSharing,
+                private ga: GoogleAnalytics) {
+
+        this.ga.trackView(this.viewCtrl.name);
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {
@@ -81,16 +88,21 @@ export class PolaPage {
 
 
     voteUp(like: boolean) {
+
         let removedCard = this.cards.pop();
         // console.log('Removed: ', removedCard.title);
         if(this.cards.length === 0) {
+            this.refillNb++;
+            this.ga.trackEvent('Charger d\'autres polas', 'Naviguer dans les polas', 'refill-calepin-' + this.refillNb.toString());
             this.addNewCards();
         }
+        this.ga.trackEvent('pola-' + this.displayedCardNb.toString(), 'Naviguer dans les polas');
         // if (like) {
         //   console.log('You liked: ');
         // } else {
         //   console.log('You disliked: ');
         // }
+        this.displayedCardNb++;
     }
 
 
@@ -100,7 +112,7 @@ export class PolaPage {
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
-                this.presentError('Pas de pola pour cette request');
+                this.presentError('Pas de polas pour cette request');
                 this.dismissLoading();
             }
             else {
@@ -157,9 +169,9 @@ export class PolaPage {
             chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
         };
         this.socialSharing.shareWithOptions( options ).then(() => {
-            console.log("Shared !")
+            this.ga.trackEvent('Partager un pola', 'Partager', options.url);
         }).catch(() => {
-            console.log("Not Shared !")
+            this.ga.trackEvent('Partager un pola', 'Erreur', options.url);
         });
     }
 

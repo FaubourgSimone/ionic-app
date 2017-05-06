@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
+import {NavController, NavParams, Loading, LoadingController, AlertController, ViewController} from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { GlobalService } from "../../providers/global-service";
 import { SocialSharing } from "@ionic-native/social-sharing";
+import {GoogleAnalytics} from "@ionic-native/google-analytics";
 
 @Component({
   selector: 'page-casque',
@@ -16,14 +17,18 @@ export class CasquePage {
   private loader:Loading;
 
   constructor(public navCtrl: NavController,
+              private viewCtrl:ViewController,
               public navParams: NavParams,
               private api:CasquesService,
               private domSanitizer:DomSanitizer,
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
               private alertCtrl:AlertController,
-              private socialSharing: SocialSharing) {
+              private socialSharing: SocialSharing,
+              private ga: GoogleAnalytics) {
     this.postId = this.navParams.get('postId');
+
+    this.ga.trackView(this.viewCtrl.name);
   }
 
   ionViewDidLoad() {
@@ -65,10 +70,14 @@ export class CasquePage {
       chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
     };
     this.socialSharing.shareWithOptions( options ).then(() => {
-      console.log("Shared !")
+      this.ga.trackEvent('Partager un casque', 'Partager', this.casque.permalink, 1);
     }).catch(() => {
-      console.log("Not Shared !")
+      this.ga.trackEvent('Partager un casque', 'Erreur', this.casque.permalink, 1);
     });
+  }
+
+  onExternalLink() {
+    this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
   }
 
   ionViewWillLeave() {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
+import {NavController, Loading, LoadingController, AlertController, ViewController} from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { CasquePage } from "../casque/casque";
 import { GlobalService } from "../../providers/global-service";
 import { SocialSharing } from "@ionic-native/social-sharing";
+import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
   selector: 'page-casques',
@@ -13,13 +14,17 @@ export class CasquesPage {
 
   private casques:any;
   private loader:Loading;
+  private reloadNb:number = 0;
 
   constructor(public navCtrl: NavController,
+              private viewCtrl:ViewController,
               private api:CasquesService,
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
               private alertCtrl:AlertController,
-              private socialSharing: SocialSharing) {
+              private socialSharing: SocialSharing,
+              private ga: GoogleAnalytics) {
+    this.ga.trackView(this.viewCtrl.name);
   }
 
   ionViewDidLoad() {
@@ -40,6 +45,8 @@ export class CasquesPage {
   }
 
   doInfinite(infiniteScroll) {
+    this.reloadNb++;
+    this.ga.trackEvent('Charger les casques suivants', 'Naviguer dans les casques', 'refill-casque-' + this.reloadNb.toString());
     this.api.getCasques().then((data:any)=>{
       console.log(data);
       for (let i = 0, l=data.length; i < l; i++) {
@@ -53,6 +60,7 @@ export class CasquesPage {
 
   navToCasque(id:number) {
     console.log('CasquesPage.navToCasque: ', id);
+    this.ga.trackEvent('Ouvrir un casque', 'Naviguer dans les casques', 'casque-' + id.toString());
     this.navCtrl.push(CasquePage, {
       postId: id
     });
@@ -79,9 +87,9 @@ export class CasquesPage {
       chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
     };
     this.socialSharing.shareWithOptions( options ).then(() => {
-      console.log("Shared !")
+      this.ga.trackEvent('Partager un casque', 'Partager', casque.permalink, 0);
     }).catch(() => {
-      console.log("Not Shared !")
+      this.ga.trackEvent('Partager un casque', 'Erreur', casque.permalink, 0);
     });
   }
 

@@ -29,6 +29,8 @@ import { IonicAudioModule } from 'ionic-audio';
 
 import { SocialSharing } from '@ionic-native/social-sharing';
 
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -82,6 +84,7 @@ const cloudSettings: CloudSettings = {
     CalepinsService,
     CasquesService,
     SocialSharing,
+    GoogleAnalytics,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

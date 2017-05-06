@@ -7,6 +7,8 @@ import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
 import { AudioProvider } from "ionic-audio";
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { DatePipe } from "@angular/common";
 
 declare let cordova: any;
 
@@ -27,7 +29,6 @@ export class RadioPage {
     // private volume:number = 50;
     private loader:Loading;
     private playerReady:boolean = false;
-
     private currentSong = {
         cover_url: 'assets/images/cover-default.jpg',
         title: '',
@@ -37,6 +38,8 @@ export class RadioPage {
 
     private myOnlyTrack:any;
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
+
+    private datePipe:DatePipe;
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
@@ -50,9 +53,16 @@ export class RadioPage {
                 private loadingCtrl: LoadingController,
                 private _audioProvider: AudioProvider,
                 private alertCtrl:AlertController,
-                private socialSharing: SocialSharing) {
+                private socialSharing: SocialSharing,
+                private ga: GoogleAnalytics) {
+
+        this.datePipe = new DatePipe('fr-FR');
+
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
+
+           this.ga.trackView(this.viewCtrl.name);
+
             // Platform now ready, execute any required native code
             this.plt.registerBackButtonAction(()=> {
                 let nav = this.viewCtrl.getNav();
@@ -171,10 +181,13 @@ export class RadioPage {
     }
 
     togglePlayPause() {
+        // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
         if(this.isPlaying) {
+            this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
             this.pause();
         }
         else {
+            this.ga.trackEvent('play', 'Utiliser la radio', 'player-button', Date.now());
             this.play();
         }
     }
@@ -249,15 +262,18 @@ export class RadioPage {
             });
 
             this.musicControls.subscribe().subscribe(action => {
-
+                // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
                 switch (action) {
                     case 'music-controls-play':
+                        this.ga.trackEvent('play', 'Utiliser la radio', 'music-controls-play', Date.now());
                         this.play();
                         break;
                     case 'music-controls-pause':
+                        this.ga.trackEvent('pause', 'Utiliser la radio', 'music-controls-pause' + Date.now());
                         this.pause();
                         break;
                     case 'music-controls-destroy':
+                        this.ga.trackEvent('close', 'Utiliser la radio', 'music-controls-destroy' + Date.now());
                         this.destroyMusicControls();
                         break;
                     // Headset events (Android only)
@@ -290,9 +306,9 @@ export class RadioPage {
             chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
         };
         this.socialSharing.shareWithOptions( options ).then(() => {
-            console.log("Shared !")
+            this.ga.trackEvent('Partager la musique en cours', 'Partager', this.currentSong.title);
         }).catch(() => {
-            console.log("Not Shared !")
+            this.ga.trackEvent('Partager la musique en cours', 'Erreur', this.currentSong.title);
         });
     }
 

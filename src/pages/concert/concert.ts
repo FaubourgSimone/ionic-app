@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import {NavController, NavParams, AlertController, ViewController} from 'ionic-angular';
+import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
   selector: 'page-concert',
@@ -8,8 +9,13 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 export class ConcertPage {
 
   constructor(public navCtrl: NavController,
+              private viewCtrl:ViewController,
               public navParams: NavParams,
-              private alertCtrl:AlertController) {}
+              private alertCtrl:AlertController,
+              private ga: GoogleAnalytics) {
+
+    this.ga.trackView(this.viewCtrl.name);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConcertPage');
