@@ -10,8 +10,6 @@ export class InitService {
   constructor(public http: Http, private vars:GlobalService) {}
 
   getInitData() {
-
-
       return new Promise((resolve, reject) => {
 
           this.http.get(this.vars.URL_INFO)

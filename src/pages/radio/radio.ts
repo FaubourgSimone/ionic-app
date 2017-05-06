@@ -1,7 +1,6 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, ViewController, LoadingController, Loading, Platform, AlertController } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
-import { RadioPlayer } from '../../providers/radioplayer';
 import { InitService } from '../../providers/init-service';
 import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
@@ -16,13 +15,6 @@ declare let cordova: any;
     providers: [BackgroundMode, MusicControls]
 })
 export class RadioPage {
-
-    // @ViewChild('audio')
-    // set myAudio(ref: any) {
-    //     // console.log('#########################################');
-    //     // console.log(ref);
-    //     this.myAudioTrackComponent = ref;
-    // }
 
     private streaming_url:string;
     private loop_interval:Number = 3000;
@@ -49,7 +41,6 @@ export class RadioPage {
                 public navCtrl: NavController,
                 public plt: Platform,
                 private vars: GlobalService,
-                private player: RadioPlayer,
                 private initService: InitService,
                 private radioService: RadioService,
                 private backgroundMode: BackgroundMode,
@@ -88,7 +79,7 @@ export class RadioPage {
     }
 
     initPlayer() {
-        this.player.init(this.streaming_url);
+        // this.player.init(this.streaming_url);
         this.playerReady = true;
         this.myOnlyTrack = {
             src: this.streaming_url

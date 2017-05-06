@@ -25,7 +25,6 @@ import { InitService } from "../providers/init-service";
 import { RadioService } from "../providers/radio-service";
 import { CalepinsService } from "../providers/calepins-service";
 import { CasquesService } from "../providers/casques-service";
-import { RadioPlayer } from '../providers/radioplayer';
 import { IonicAudioModule } from 'ionic-audio';
 
 
@@ -78,7 +77,6 @@ const cloudSettings: CloudSettings = {
     GlobalService,
     InitService,
     RadioService,
-    RadioPlayer,
     CalepinsService,
     CasquesService,
     { provide: LOCALE_ID, useValue: "fr-FR" },
