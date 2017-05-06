@@ -44,7 +44,8 @@ export class CasquesService {
                                 preview: post.custom_fields.dlc_preview_link || null,
                                 thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
                                 excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
-                                date: new Date(post.date)
+                                date: new Date(post.date),
+                                permalink: post.url
                             };
                         });
                         resolve(casques);

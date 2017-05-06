@@ -3,6 +3,7 @@ import { NavController, Loading, LoadingController, AlertController } from 'ioni
 import { CasquesService } from "../../providers/casques-service";
 import { CasquePage } from "../casque/casque";
 import { GlobalService } from "../../providers/global-service";
+import { SocialSharing } from "@ionic-native/social-sharing";
 
 @Component({
   selector: 'page-casques',
@@ -17,7 +18,8 @@ export class CasquesPage {
               private api:CasquesService,
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
-              private alertCtrl:AlertController) {
+              private alertCtrl:AlertController,
+              private socialSharing: SocialSharing) {
   }
 
   ionViewDidLoad() {
@@ -62,6 +64,25 @@ export class CasquesPage {
       content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
+  }
+
+  onShareClick(casque:any) {
+    console.log('CasquesPages.onShareClick');
+    const el:HTMLElement = document.createElement('textarea');
+    el.innerHTML = '"' + casque.title + ' - ' + casque.artist + '" sur Faubourg Simone (@FaubourgSimone)';
+    console.log(casque);
+    const options = {
+      message: el.innerHTML,
+      subject: casque.title + 'sur Faubourg Simone', // fi. for email
+      files: [], // an array of filenames either locally or remotely
+      url: casque.permalink,
+      chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
+    };
+    this.socialSharing.shareWithOptions( options ).then(() => {
+      console.log("Shared !")
+    }).catch(() => {
+      console.log("Not Shared !")
+    });
   }
 
   ionViewWillLeave() {

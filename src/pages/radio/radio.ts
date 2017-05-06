@@ -6,6 +6,7 @@ import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
 import { AudioProvider } from "ionic-audio";
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 declare let cordova: any;
 
@@ -48,7 +49,8 @@ export class RadioPage {
                 private musicControls: MusicControls,
                 private loadingCtrl: LoadingController,
                 private _audioProvider: AudioProvider,
-                private alertCtrl:AlertController) {
+                private alertCtrl:AlertController,
+                private socialSharing: SocialSharing) {
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             // Platform now ready, execute any required native code
@@ -276,6 +278,22 @@ export class RadioPage {
 
             this.musicControls.listen(); // activates the observable above
         }
+    }
+
+    onShareClick() {
+        console.log('RadioPage.onShareClick');
+        const options = {
+            message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
+            subject: 'En ce moment sur Faubourg Simone', // fi. for email
+            files: [], // an array of filenames either locally or remotely
+            url: 'http://faubourgsimone.paris',
+            chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
+        };
+        this.socialSharing.shareWithOptions( options ).then(() => {
+            console.log("Shared !")
+        }).catch(() => {
+            console.log("Not Shared !")
+        });
     }
 
     destroyMusicControls() {

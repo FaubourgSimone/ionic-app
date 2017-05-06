@@ -16,8 +16,11 @@
         <img *ngIf="card.image" [src]="card.image">
       </ion-item>
       <ion-card-content *ngIf="card.date">
-        <h2 ion-text class="title" text-wrap text-uppercase color="foggy-gray">{{ card.title }}</h2>
-        <h3 ion-text class="date" text-uppercase color="carrara">{{ card.date | date:'longDate'}}</h3>
+        <h2 ion-text class="title" text-wrap text-uppercase color="primary">{{ card.title }}</h2>
+        <h3 ion-text class="date" text-uppercase color="foggy-gray">{{ card.date | date:'longDate'}}</h3>
+        <button class="btn-share" clear ion-button small color="foggy-gray" icon-only (click)="onShareClick()">
+          <ion-icon name='share-alt'></ion-icon>
+        </button>
       </ion-card-content>
     </ion-card>
   </div>

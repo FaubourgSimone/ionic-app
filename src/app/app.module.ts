@@ -27,6 +27,8 @@ import { CalepinsService } from "../providers/calepins-service";
 import { CasquesService } from "../providers/casques-service";
 import { IonicAudioModule } from 'ionic-audio';
 
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -79,6 +81,7 @@ const cloudSettings: CloudSettings = {
     RadioService,
     CalepinsService,
     CasquesService,
+    SocialSharing,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

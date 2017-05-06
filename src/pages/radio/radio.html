@@ -34,7 +34,7 @@
         </ion-row>
         <h1 ion-text class="artist" color="primary" text-uppercase no-margin padding-horizontal><span>{{currentSong.artist}}</span></h1>
         <h2 ion-text class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>
-        <button class="btn-share" clear ion-button small color="secondary" icon-only>
+        <button class="btn-share" clear ion-button small color="secondary" icon-only (click)="onShareClick()">
             <ion-icon name='share-alt'></ion-icon>
         </button>
     </div>

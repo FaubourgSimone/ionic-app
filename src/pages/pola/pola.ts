@@ -8,6 +8,7 @@ import {
     SwingCardComponent
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
+import { SocialSharing } from "@ionic-native/social-sharing";
 
 @Component({
     selector: 'page-pola',
@@ -26,7 +27,8 @@ export class PolaPage {
     constructor(private vars:GlobalService,
                 private loadingCtrl: LoadingController,
                 private api:PolaService,
-                private alertCtrl:AlertController) {
+                private alertCtrl:AlertController,
+                private socialSharing: SocialSharing) {
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {
@@ -143,6 +145,22 @@ export class PolaPage {
 
     ionViewWillLeave() {
         this.dismissLoading();
+    }
+
+    onShareClick() {
+        console.log('PolaPage.onShareClick');
+        const options = {
+            message: this.cards[this.cards.length-1].title,
+            subject: 'Le pola du ' + this.cards[this.cards.length-1].date.toString() + ' sur Faubourg Simone', // fi. for email
+            files: [], // an array of filenames either locally or remotely
+            url: this.cards[this.cards.length-1].permalink,
+            chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
+        };
+        this.socialSharing.shareWithOptions( options ).then(() => {
+            console.log("Shared !")
+        }).catch(() => {
+            console.log("Not Shared !")
+        });
     }
 
     dismissLoading() {

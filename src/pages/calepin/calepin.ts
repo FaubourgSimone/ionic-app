@@ -3,6 +3,7 @@ import { NavController, NavParams, Loading, LoadingController, AlertController }
 import { CalepinsService } from "../../providers/calepins-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { GlobalService } from "../../providers/global-service";
+import { SocialSharing } from "@ionic-native/social-sharing";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CalepinPage {
                 private domSanitizer: DomSanitizer,
                 private loadingCtrl: LoadingController,
                 private vars: GlobalService,
-                private alertCtrl:AlertController) {
+                private alertCtrl:AlertController,
+                private socialSharing: SocialSharing) {
         this.postId = this.navParams.get('postId');
 
     }
@@ -54,6 +56,22 @@ export class CalepinPage {
 
     ionViewWillLeave() {
         this.dismissLoading();
+    }
+
+    onShareClick() {
+        console.log('CalepinPage.onShareClick');
+        const options = {
+            message: '"' + this.calepin.title + ' - ' + this.calepin.artist + '" sur Faubourg Simone (@FaubourgSimone)',
+            subject: this.calepin.title + 'sur Faubourg Simone', // fi. for email
+            files: [], // an array of filenames either locally or remotely
+            url: this.calepin.permalink,
+            chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
+        };
+        this.socialSharing.shareWithOptions( options ).then(() => {
+            console.log("Shared !")
+        }).catch(() => {
+            console.log("Not Shared !")
+        });
     }
 
     dismissLoading() {
