@@ -43,10 +43,12 @@
           </button>
         </ion-col>
         <ion-col text-right no-padding>
-          <button ion-button clear small color="secondary" icon-left (click)="onShareClick(casque)">
-            <ion-icon name='share-alt'></ion-icon>
-            Share
-          </button>
+          <share-button class="casque"
+                        [options]="casque.shareOptions"
+                        [trackingOptions]="{category:'Partager un casque', action:'Partager', label:casque.permalink}"
+                        icon-left small>
+            Partager
+          </share-button>
         </ion-col>
       </ion-row>
 

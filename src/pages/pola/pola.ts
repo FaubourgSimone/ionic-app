@@ -98,7 +98,7 @@ export class PolaPage {
             this.ga.trackEvent('Charger d\'autres polas', 'Naviguer dans les polas', 'refill-calepin-' + this.refillNb.toString());
             this.addNewCards();
         }
-        this.ga.trackEvent('pola-' + this.displayedCardNb.toString(), 'Naviguer dans les polas');
+        this.ga.trackEvent( 'Swiper un pola' ,'Naviguer dans les polas', 'pola-' + this.displayedCardNb.toString(),);
         // if (like) {
         //   console.log('You liked: ');
         // } else {

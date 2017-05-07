@@ -1,10 +1,9 @@
 share-button {
-  //display: inline-block;
-
   .button {
     margin: 0;
     padding: 0;
     position: relative;
+    color: color($colors, 'secondary');
 
     ion-icon {
       font-size: 1.4rem;

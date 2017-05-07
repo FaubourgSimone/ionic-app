@@ -38,7 +38,11 @@
             <!--<ion-icon name='share-alt'></ion-icon>-->
         <!--</button>-->
         <share-button class="current-song"
-                      [options]="currentShareData"
+                      [options]="{
+                            message: currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
+                            subject: 'En ce moment sur Faubourg Simone',
+                            url: 'http://faubourgsimone.paris'
+                        }"
                       [trackingOptions]="{category:'Partager la musique en cours', action:'Partager', label:currentSong.title}"
                       border icon-only>
         </share-button>

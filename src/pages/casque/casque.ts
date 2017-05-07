@@ -3,7 +3,6 @@ import {NavController, NavParams, Loading, LoadingController, AlertController, V
 import { CasquesService } from "../../providers/casques-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { GlobalService } from "../../providers/global-service";
-import { SocialSharing } from "@ionic-native/social-sharing";
 import {GoogleAnalytics} from "@ionic-native/google-analytics";
 
 @Component({
@@ -24,7 +23,6 @@ export class CasquePage {
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
               private alertCtrl:AlertController,
-              private socialSharing: SocialSharing,
               private ga: GoogleAnalytics) {
     this.postId = this.navParams.get('postId');
 
@@ -55,25 +53,6 @@ export class CasquePage {
       content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
-  }
-
-  onShareClick() {
-    console.log('CasquePages.onShareClick');
-    // Escape HTML content
-    const el:HTMLElement = document.createElement('textarea');
-    el.innerHTML = '"' + this.casque.title + ' - ' + this.casque.artist + '" sur Faubourg Simone (@FaubourgSimone)';
-    const options = {
-      message: el.innerHTML,
-      subject: this.casque.title + 'sur Faubourg Simone', // fi. for email
-      files: [], // an array of filenames either locally or remotely
-      url: this.casque.permalink,
-      chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
-    };
-    this.socialSharing.shareWithOptions( options ).then(() => {
-      this.ga.trackEvent('Partager un casque', 'Partager', this.casque.permalink, 1);
-    }).catch(() => {
-      this.ga.trackEvent('Partager un casque', 'Erreur', this.casque.permalink, 1);
-    });
   }
 
   onExternalLink() {

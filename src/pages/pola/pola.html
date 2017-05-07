@@ -18,10 +18,6 @@
       <ion-card-content *ngIf="card.date">
         <h2 ion-text class="title" text-wrap text-uppercase color="primary">{{ card.title }}</h2>
         <h3 ion-text class="date" text-uppercase color="foggy-gray">{{ card.date | date:'longDate'}}</h3>
-        <!--<button class="btn-share" clear ion-button small color="foggy-gray" icon-only (click)="onShareClick()">-->
-          <!--<ion-icon name='share-alt'></ion-icon>-->
-        <!--</button>-->
-
         <share-button class="pola"
                       [options]="cards[cards.length-1].shareOptions"
                       [trackingOptions]="{category:'Partager un pola', action:'Partager', label:cards[cards.length-1].permalink}"

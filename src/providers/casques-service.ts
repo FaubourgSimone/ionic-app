@@ -35,7 +35,16 @@ export class CasquesService {
                             this.totalPages = parseInt(data.pages, 10);
                             this.requestCurrentPage = 1;
                         }
+
                         const casques = data.posts.map((post)=> {
+                            // Escape HTML content
+                            const el:HTMLElement = document.createElement('textarea');
+                            el.innerHTML = '"' + post.title + ' - ' + post.custom_fields.dlc_artist + '" sur Faubourg Simone (@FaubourgSimone)';
+                            const shareOptions = {
+                                message: el.innerHTML,
+                                subject: post.title + ' sur Faubourg Simone',
+                                url: post.url
+                            };
                             return {
                                 id: post.id,
                                 title: post.title,
@@ -45,7 +54,8 @@ export class CasquesService {
                                 thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
                                 excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
                                 date: new Date(post.date),
-                                permalink: post.url
+                                permalink: post.url,
+                                shareOptions: shareOptions
                             };
                         });
                         resolve(casques);
@@ -67,6 +77,14 @@ export class CasquesService {
                 .map(res => res.json())
                 .subscribe(
                     data => {
+                        // Escape HTML content
+                        const el:HTMLElement = document.createElement('textarea');
+                        el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.dlc_artist + '" sur Faubourg Simone (@FaubourgSimone)';
+                        const shareOptions = {
+                            message: data.title.rendered,
+                            subject: data.title.rendered + ' sur Faubourg Simone',
+                            url: data.link
+                        };
                         const result = {
                             title:    data.title.rendered,
                             artist: data.acf.dlc_artist,
@@ -75,7 +93,8 @@ export class CasquesService {
                             video: data.acf.dlc_video || null,
                             content: data.content.rendered,
                             date: new Date(data.date),
-                            permalink: data.link
+                            permalink: data.link,
+                            shareOptions: shareOptions
                         };
 
                         // console.log(result);

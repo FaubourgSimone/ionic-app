@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import {NavController, Loading, LoadingController, AlertController, ViewController} from 'ionic-angular';
+import { NavController, Loading, LoadingController, AlertController, ViewController, Platform } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { CasquePage } from "../casque/casque";
 import { GlobalService } from "../../providers/global-service";
-import { SocialSharing } from "@ionic-native/social-sharing";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
@@ -22,9 +21,13 @@ export class CasquesPage {
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
               private alertCtrl:AlertController,
-              private socialSharing: SocialSharing,
-              private ga: GoogleAnalytics) {
-    this.ga.trackView(this.viewCtrl.name);
+              private ga: GoogleAnalytics,
+              private plt:Platform) {
+    this.plt.ready().then((readySource) => {
+      console.log('Platform ready from', readySource);
+      this.ga.trackView(this.viewCtrl.name);
+    });
+
   }
 
   ionViewDidLoad() {
@@ -72,25 +75,6 @@ export class CasquesPage {
       content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
-  }
-
-  onShareClick(casque:any) {
-    console.log('CasquesPages.onShareClick');
-    const el:HTMLElement = document.createElement('textarea');
-    el.innerHTML = '"' + casque.title + ' - ' + casque.artist + '" sur Faubourg Simone (@FaubourgSimone)';
-    console.log(casque);
-    const options = {
-      message: el.innerHTML,
-      subject: casque.title + 'sur Faubourg Simone', // fi. for email
-      files: [], // an array of filenames either locally or remotely
-      url: casque.permalink,
-      chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
-    };
-    this.socialSharing.shareWithOptions( options ).then(() => {
-      this.ga.trackEvent('Partager un casque', 'Partager', casque.permalink, 0);
-    }).catch(() => {
-      this.ga.trackEvent('Partager un casque', 'Erreur', casque.permalink, 0);
-    });
   }
 
   ionViewWillLeave() {
