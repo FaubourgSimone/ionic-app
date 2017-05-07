@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { GlobalService } from "./global-service";
+import { DatePipe } from "@angular/common";
 
 @Injectable()
 export class PolaService {
@@ -9,9 +10,11 @@ export class PolaService {
     private requestCount:number = 10;
     private currentQueryPage:number;
     private totalQueryPage:number;
+    private datePipe:DatePipe;
 
     constructor(public http: Http, private vars:GlobalService) {
         console.log('Hello PolaService Provider');
+        this.datePipe = new DatePipe('fr-FR');
     }
     getPolas() {
         console.log('PolaService.getPolas');
@@ -46,13 +49,18 @@ export class PolaService {
                                     && post.custom_fields.pola_picture.sizes.medium) {
                                     img = post.custom_fields.pola_picture.sizes.medium;
                                 }
-
+                                const shareOptions = {
+                                    message: post.title,
+                                    subject: 'Le pola du ' + this.datePipe.transform(new Date(post.date), 'dd/MM/yyyy').toString() + ' sur Faubourg Simone',
+                                    url: post.url
+                                };
                                 return {
                                     id: post.id,
                                     title: post.title,
                                     image: img,
                                     date: new Date(post.date),
-                                    permalink: post.url
+                                    permalink: post.url,
+                                    shareOptions: shareOptions
                                 };
                             })
                             .filter(post=>{

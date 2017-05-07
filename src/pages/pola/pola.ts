@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import {LoadingController, Loading, AlertController, ViewController} from 'ionic-angular';
+import { LoadingController, Loading, AlertController, ViewController, Platform } from 'ionic-angular';
 import { GlobalService } from '../../providers/global-service';
 import {
     StackConfig,
@@ -8,7 +8,6 @@ import {
     SwingCardComponent
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
-import { SocialSharing } from "@ionic-native/social-sharing";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
@@ -32,10 +31,13 @@ export class PolaPage {
                 private loadingCtrl: LoadingController,
                 private api:PolaService,
                 private alertCtrl:AlertController,
-                private socialSharing: SocialSharing,
-                private ga: GoogleAnalytics) {
+                private ga: GoogleAnalytics,
+                private plt: Platform) {
 
-        this.ga.trackView(this.viewCtrl.name);
+        this.plt.ready().then((readySource) => {
+            console.log('Platform ready from', readySource);
+            this.ga.trackView(this.viewCtrl.name);
+        });
 
         this.stackConfig = {
             throwOutConfidence: (offset, element) => {
@@ -157,22 +159,6 @@ export class PolaPage {
 
     ionViewWillLeave() {
         this.dismissLoading();
-    }
-
-    onShareClick() {
-        console.log('PolaPage.onShareClick');
-        const options = {
-            message: this.cards[this.cards.length-1].title,
-            subject: 'Le pola du ' + this.cards[this.cards.length-1].date.toString() + ' sur Faubourg Simone', // fi. for email
-            files: [], // an array of filenames either locally or remotely
-            url: this.cards[this.cards.length-1].permalink,
-            chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
-        };
-        this.socialSharing.shareWithOptions( options ).then(() => {
-            this.ga.trackEvent('Partager un pola', 'Partager', options.url);
-        }).catch(() => {
-            this.ga.trackEvent('Partager un pola', 'Erreur', options.url);
-        });
     }
 
     dismissLoading() {

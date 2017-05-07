@@ -12,7 +12,6 @@ import { CasquesPage } from '../pages/casques/casques';
 import { CasquePage } from '../pages/casque/casque';
 import { ConcertsPage } from "../pages/concerts/concerts";
 import { ConcertPage } from "../pages/concert/concert";
-
 import { StatusBar,  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -30,7 +29,7 @@ import { IonicAudioModule } from 'ionic-audio';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
-
+import {ShareButtonComponent} from "../components/share-button/share-button";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -49,6 +48,7 @@ const cloudSettings: CloudSettings = {
     CasquePage,
     ConcertsPage,
     ConcertPage,
+      ShareButtonComponent,
     TabsPage
   ],
   imports: [
@@ -72,6 +72,7 @@ const cloudSettings: CloudSettings = {
     CasquePage,
     ConcertsPage,
     ConcertPage,
+    ShareButtonComponent,
     TabsPage
   ],
   providers: [

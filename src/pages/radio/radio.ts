@@ -6,9 +6,8 @@ import { RadioService } from '../../providers/radio-service';
 import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
 import { AudioProvider } from "ionic-audio";
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
-import { DatePipe } from "@angular/common";
+// import { DatePipe } from "@angular/common";
 
 declare let cordova: any;
 
@@ -39,7 +38,9 @@ export class RadioPage {
     private myOnlyTrack:any;
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
 
-    private datePipe:DatePipe;
+    // private datePipe:DatePipe;
+
+    private currentShareData:any;
 
     constructor(public viewCtrl: ViewController,
                 public navCtrl: NavController,
@@ -53,10 +54,9 @@ export class RadioPage {
                 private loadingCtrl: LoadingController,
                 private _audioProvider: AudioProvider,
                 private alertCtrl:AlertController,
-                private socialSharing: SocialSharing,
                 private ga: GoogleAnalytics) {
 
-        this.datePipe = new DatePipe('fr-FR');
+        // this.datePipe = new DatePipe('fr-FR');
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -170,6 +170,13 @@ export class RadioPage {
                         };
                         return result;
                     });
+
+                    this.currentShareData = {
+                        message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
+                        subject: 'En ce moment sur Faubourg Simone',
+                        url: 'http://faubourgsimone.paris'
+                    };
+
                     this.lastSongs.shift();
                     this.destroyMusicControls();
                     this.createMusicControls();
@@ -294,22 +301,6 @@ export class RadioPage {
 
             this.musicControls.listen(); // activates the observable above
         }
-    }
-
-    onShareClick() {
-        console.log('RadioPage.onShareClick');
-        const options = {
-            message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
-            subject: 'En ce moment sur Faubourg Simone', // fi. for email
-            files: [], // an array of filenames either locally or remotely
-            url: 'http://faubourgsimone.paris',
-            chooserTitle: 'Choisis une application' // Android only, you can override the default share sheet title
-        };
-        this.socialSharing.shareWithOptions( options ).then(() => {
-            this.ga.trackEvent('Partager la musique en cours', 'Partager', this.currentSong.title);
-        }).catch(() => {
-            this.ga.trackEvent('Partager la musique en cours', 'Erreur', this.currentSong.title);
-        });
     }
 
     destroyMusicControls() {

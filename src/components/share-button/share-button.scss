@@ -1,0 +1,32 @@
+share-button {
+  //display: inline-block;
+
+  .button {
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    ion-icon {
+      font-size: 1.4rem;
+      color: color($colors, 'secondary');
+    }
+  }
+
+  &[icon-only] .button {
+    width: 26px;
+    height: 26px;
+  }
+
+
+  &[border] .button {
+    border-radius: 13px;
+    border: 1px solid color($colors, 'secondary');
+  }
+
+  //&[icon-only] .button ion-icon {
+  //  padding: 0 .5em;
+  //  line-height: .67;
+  //  pointer-events: none;
+  //}
+
+}
