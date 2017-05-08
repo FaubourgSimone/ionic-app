@@ -36,7 +36,7 @@ export class CasquePage {
             this.casque = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
             this.prompt.dismissLoading();
         });
     }

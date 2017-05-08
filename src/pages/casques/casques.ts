@@ -33,7 +33,7 @@ export class CasquesPage {
             this.casques = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
             this.prompt.dismissLoading();
         });
     }
@@ -60,7 +60,7 @@ export class CasquesPage {
             }
             infiniteScroll.complete();
         }).catch((error)=>{
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
         });
     }
 

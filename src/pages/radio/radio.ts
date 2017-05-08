@@ -78,7 +78,7 @@ export class RadioPage {
         }).catch((error)=>{
             this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.initPlayer();
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
         });
     }
 
@@ -153,7 +153,7 @@ export class RadioPage {
                 }
                 this.timer = setTimeout(()=>this.loopData(), this.loop_interval);
             },
-            error => this.prompt.presentError(error.toString())
+            error => this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'})
         );
     }
 
@@ -259,7 +259,7 @@ export class RadioPage {
         if (typeof cordova !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
-        this.prompt.presentError(event.toString());
+        this.prompt.presentMessage({message: event.toString(), classNameCss: 'error'});
     }
 
     ionViewDidLeave() {

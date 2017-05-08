@@ -29,7 +29,7 @@ export class ShareButtonComponent {
         }).catch((e) => {
 
             if(this.trackingOptions) {
-                this.prompt.presentError(`Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`);
+                this.prompt.presentMessage({message: `Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`});
                 this.ga.trackEvent(this.trackingOptions.category, 'Erreur', this.trackingOptions.label);
             }
         });

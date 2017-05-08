@@ -33,7 +33,7 @@ export class CalepinsPage {
             this.calepins = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
             this.prompt.dismissLoading();
         });
     }
@@ -61,7 +61,7 @@ export class CalepinsPage {
             }
             infiniteScroll.complete();
         }).catch((error)=>{
-            this.prompt.presentError(error.toString());
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
         });
     }
 

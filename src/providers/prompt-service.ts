@@ -28,25 +28,25 @@ export class PromptService {
     }
   }
 
-  presentError(message, callback=null) {
+  presentMessage({message, classNameCss, duration, callback}:{message:string, classNameCss?:string, duration?:number, callback?:Function}) {
 
     let toast = this.toastCtrl.create({
-      message: message,
       position: 'bottom',
-      duration: 5000,
+      dismissOnPageChange: true,
       showCloseButton: true,
       closeButtonText: 'x',
-      cssClass: 'error'
+      message: message,
+      duration: duration || 5000,
+      cssClass: classNameCss || ''
     });
 
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
-      if(callback !== null) {
+      if(callback) {
         callback();
       }
     });
 
     toast.present();
   }
-
 }
