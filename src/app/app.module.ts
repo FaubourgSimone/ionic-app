@@ -1,38 +1,26 @@
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, AlertController } from 'ionic-angular';
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-import { MyApp } from './app.component';
+// Angular libs
+import { NgModule }         from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+
+// Ionic libs
+import { IonicApp, IonicModule }        from 'ionic-angular';
+import { CloudSettings, CloudModule }   from '@ionic/cloud-angular';
+
+// Main
+import { FbrgSmnApp } from './app.component';
 
 // Pages
-import { TabsPage } from '../pages/tabs/tabs';
-import { RadioPage } from '../pages/radio/radio';
-import { PolaPage } from '../pages/pola/pola';
-import { CalepinsPage } from '../pages/calepins/calepins';
-import { CalepinPage } from "../pages/calepin/calepin";
-import { CasquesPage } from '../pages/casques/casques';
-import { CasquePage } from '../pages/casque/casque';
-import { ConcertsPage } from "../pages/concerts/concerts";
-import { ConcertPage } from "../pages/concert/concert";
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { Pages } from "../pages/index";
 
 // Providers
-import { GlobalService } from '../providers/global-service';
-import { InitService } from "../providers/init-service";
-import { RadioService } from "../providers/radio-service";
-import { CalepinsService } from "../providers/calepins-service";
-import { CasquesService } from "../providers/casques-service";
-import { IonicAudioModule } from 'ionic-audio';
-import { GoogleAnalytics } from '@ionic-native/google-analytics';
-import { PromptService } from "../providers/prompt-service";
+import { CustomProviders, ExternalProviders } from "../providers/index";
 
 // Components
-import { ShareButtonComponent } from "../components/share-button/share-button";
+import { CustomComponents, ExternalComponents } from "../components/index";
 
 // Libs
-import { SocialSharing } from '@ionic-native/social-sharing';
-import { SwingModule } from 'angular2-swing';
+import { SwingModule }      from 'angular2-swing';
+import { IonicAudioModule } from 'ionic-audio';
 
 
 const cloudSettings: CloudSettings = {
@@ -41,58 +29,35 @@ const cloudSettings: CloudSettings = {
     }
 };
 
+const tabSettings = {
+    // tabsLayout: 'title-hide',
+    tabsHighlight: true
+};
+
 @NgModule({
     declarations: [
-        MyApp,
-        RadioPage,
-        PolaPage,
-        CalepinsPage,
-        CasquesPage,
-        CalepinPage,
-        CasquePage,
-        ConcertsPage,
-        ConcertPage,
-        ShareButtonComponent,
-        TabsPage
+        FbrgSmnApp,
+        ...Pages,
+        ...CustomComponents,
+        ...ExternalComponents
     ],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(MyApp, {
-// tabsLayout: 'title-hide',
-            tabsHighlight: true
-        }),
+        IonicModule.forRoot(FbrgSmnApp, tabSettings),
         CloudModule.forRoot(cloudSettings),
         SwingModule,
         IonicAudioModule.forRoot()
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        MyApp,
-        RadioPage,
-        PolaPage,
-        CalepinsPage,
-        CasquesPage,
-        CalepinPage,
-        CasquePage,
-        ConcertsPage,
-        ConcertPage,
-        ShareButtonComponent,
-        TabsPage
+        FbrgSmnApp,
+        ...Pages,
+        ...CustomComponents,
+        ...ExternalComponents
     ],
     providers: [
-        StatusBar,
-        SplashScreen,
-        AlertController,
-        GlobalService,
-        InitService,
-        RadioService,
-        CalepinsService,
-        CasquesService,
-        SocialSharing,
-        GoogleAnalytics,
-        PromptService,
-        { provide: LOCALE_ID, useValue: "fr-FR" },
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        ...CustomProviders,
+        ...ExternalProviders
     ]
 })
 export class AppModule {}

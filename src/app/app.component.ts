@@ -8,9 +8,9 @@ import { Deploy } from '@ionic/cloud-angular';
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
 
 @Component({
-    templateUrl: 'app.html'
+    template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
-export class MyApp {
+export class FbrgSmnApp {
     rootPage:any = TabsPage;
 
     constructor(platform: Platform,
