@@ -1,4 +1,5 @@
 <button ion-button clear (click)="onClick()">
     <ion-icon name='share-alt'></ion-icon>
-    <ng-content></ng-content>
+    <div *ngIf="hasLabel">Partager</div>
+    <!--<ng-content></ng-content>-->
 </button>

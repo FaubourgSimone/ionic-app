@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
 import { SocialSharing } from "@ionic-native/social-sharing";
 
@@ -11,6 +11,7 @@ export class ShareButtonComponent {
 
   @Input() options:any;
   @Input() trackingOptions:any;
+  @Input() hasLabel:boolean;
 
   constructor(private ga: GoogleAnalytics,
               private socialSharing: SocialSharing) {

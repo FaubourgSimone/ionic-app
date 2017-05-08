@@ -78,12 +78,23 @@ export class CalepinsService {
                             .replace(/<p style="text-align: center;"><hr>/g,'<hr><p>')
                             .replace(/<hr><\/p>/g,'<\/p><hr>');
                         // content = decodeURIComponent(content);
+
+                        // Escape HTML content
+                        const el:HTMLElement = document.createElement('textarea');
+                        el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.cal_subtitle + '" sur Faubourg Simone (@FaubourgSimone)';
+                        const shareOptions = {
+                            message: el.innerHTML,
+                            subject: data.title.rendered + ' sur Faubourg Simone',
+                            url: data.link
+                        };
+
                         const calepin = {
                             title:    data.title.rendered,
                             subtitle: data.acf.cal_subtitle,
                             content: content,
                             date: new Date(data.date),
-                            permalink: data.link
+                            permalink: data.link,
+                            shareOptions: shareOptions
                         };
                         resolve(calepin);
                     },

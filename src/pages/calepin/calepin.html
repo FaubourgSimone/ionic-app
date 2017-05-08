@@ -21,10 +21,11 @@
         </ion-icon>
       </ion-col>
     </ion-row>
-
-    <button class="btn-share" clear ion-button small color="foggy-gray" icon-only (click)="onShareClick()">
-      <ion-icon name='share-alt'></ion-icon>
-    </button>
-
+    <share-button class="calepin"
+                  [options]="calepin.shareOptions"
+                  [trackingOptions]="{category:'Partager un calepin', action:'Partager', label:calepin.permalink}"
+                  [hasLabel] = true
+                  icon-left small>
+    </share-button>
   </div>
 </ion-content>
