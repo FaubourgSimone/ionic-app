@@ -26,9 +26,14 @@ export class GlobalService {
         "Tout doux beau prince !",
         "Patience beauté !",
         "Quelques secondes minouche !",
-        "Effeuillage imminent",
-        "On prépare les magrets",
-        "On vous beurre les tartines"
+        "Effeuillage imminent.",
+        "On prépare les magrets.",
+        "On vous beurre les tartines.",
+        "Bien attend qui parratend.",
+        "Patience et longueur de temps font plus que force ni que rage.",
+        "Prends patience, tu verras des miracles",
+        "Qui va piano va sano",
+        "Goutte à goutte on emplit la cuve."
     ];
 
     public loadingMsgRadio:Array<string> = [
@@ -39,7 +44,9 @@ export class GlobalService {
         "Mixage du son et de l'avoine en cours !",
         "Déploiement de l'antenne !",
         "On cherche la prise Jack !",
-        "On vous envoie la sauce !"
+        "On vous envoie la sauce !",
+        "Propagation des des ondes",
+        "Recherche de la ionosphere"
     ];
 
     constructor() {
