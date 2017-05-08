@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    NavController, NavParams, AlertController, ViewController,
+    NavController, NavParams, ViewController,
     Platform
 } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
@@ -23,7 +23,6 @@ export class CalepinPage {
                 public navParams: NavParams,
                 private api: CalepinsService,
                 private domSanitizer: DomSanitizer,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
                 private prompt: PromptService) {

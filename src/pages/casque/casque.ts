@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-    NavController, NavParams, AlertController, ViewController,
+    NavController, NavParams, ViewController,
     Platform
 } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
@@ -22,7 +22,6 @@ export class CasquePage {
                 public navParams: NavParams,
                 private api: CasquesService,
                 private domSanitizer: DomSanitizer,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
                 private prompt: PromptService) {

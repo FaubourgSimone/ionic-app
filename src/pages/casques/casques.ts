@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ViewController, Platform } from 'ionic-angular';
+import { NavController, ViewController, Platform } from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { CasquePage } from "../casque/casque";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
@@ -17,7 +17,6 @@ export class CasquesPage {
     constructor(public navCtrl: NavController,
                 private viewCtrl: ViewController,
                 private api: CasquesService,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
                 private prompt: PromptService) {

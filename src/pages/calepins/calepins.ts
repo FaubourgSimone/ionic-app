@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, Platform, AlertController } from 'ionic-angular';
+import { NavController, ViewController, Platform } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { CalepinPage } from "../calepin/calepin";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
@@ -18,7 +18,6 @@ export class CalepinsPage {
                 public viewCtrl: ViewController,
                 public plt: Platform,
                 private api: CalepinsService,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService) {
 

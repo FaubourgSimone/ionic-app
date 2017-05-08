@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ViewController, Platform, AlertController } from 'ionic-angular';
+import { NavController, ViewController, Platform } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { InitService } from '../../providers/init-service';
 import { RadioService } from '../../providers/radio-service';
@@ -48,7 +48,6 @@ export class RadioPage {
                 private zone: NgZone,
                 private musicControls: MusicControls,
                 private _audioProvider: AudioProvider,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService) {
 

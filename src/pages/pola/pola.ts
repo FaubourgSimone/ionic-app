@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { AlertController, ViewController, Platform } from 'ionic-angular';
+import { ViewController, Platform } from 'ionic-angular';
 import {
     StackConfig,
     DragEvent,
@@ -27,7 +27,6 @@ export class PolaPage {
 
     constructor(private viewCtrl: ViewController,
                 private api: PolaService,
-                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
                 private prompt: PromptService) {
