@@ -78,8 +78,8 @@ export class CasquesService {
                         const el:HTMLElement = document.createElement('textarea');
                         el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.dlc_artist + '" sur Faubourg Simone (@FaubourgSimone)';
                         const shareOptions = {
-                            message: data.title.rendered,
-                            subject: data.title.rendered + ' sur Faubourg Simone',
+                            message: el.innerHTML,
+                            subject: el.innerHTML + ' sur Faubourg Simone',
                             url: data.link
                         };
                         const result = {

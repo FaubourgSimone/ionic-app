@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, Loading, LoadingController } from "ionic-angular";
+import { Loading, LoadingController, ToastController } from "ionic-angular";
 import { GlobalService } from "./global-service";
 
 @Injectable()
@@ -9,7 +9,7 @@ export class PromptService {
 
   constructor(private loadingCtrl: LoadingController,
               private vars: GlobalService,
-              private alertCtrl: AlertController) {
+              private toastCtrl: ToastController) {
     console.log('Hello PromptService Provider');
   }
 
@@ -28,13 +28,23 @@ export class PromptService {
     }
   }
 
-  presentError(message) {
-    let alert = this.alertCtrl.create({
-      title: 'Error',
-      subTitle: message,
-      buttons: ['Moki Doki!']
+  presentError(message, callback=null) {
+
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      showCloseButton: true,
+      closeButtonText: 'x'
     });
-    alert.present();
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+      if(callback !== null) {
+        callback();
+      }
+    });
+
+    toast.present();
   }
 
 }
