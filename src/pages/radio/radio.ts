@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ViewController, LoadingController, Loading, Platform, AlertController } from 'ionic-angular';
+import { NavController, ViewController, Platform, AlertController } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { InitService } from '../../providers/init-service';
 import { RadioService } from '../../providers/radio-service';
@@ -7,7 +7,7 @@ import { MusicControls } from '@ionic-native/music-controls';
 import { GlobalService } from '../../providers/global-service';
 import { AudioProvider } from "ionic-audio";
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
-// import { DatePipe } from "@angular/common";
+import { PromptService } from "../../providers/prompt-service";
 
 declare let cordova: any;
 
@@ -26,7 +26,6 @@ export class RadioPage {
     private playPauseButton:string = 'play';
     private isButtonActive:boolean = true;
     // private volume:number = 50;
-    private loader:Loading;
     private playerReady:boolean = false;
     private currentSong = {
         cover_url: 'assets/images/cover-default.jpg',
@@ -37,9 +36,6 @@ export class RadioPage {
 
     private myOnlyTrack:any;
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
-
-    // private datePipe:DatePipe;
-
     private currentShareData:any;
 
     constructor(public viewCtrl: ViewController,
@@ -51,15 +47,15 @@ export class RadioPage {
                 private backgroundMode: BackgroundMode,
                 private zone: NgZone,
                 private musicControls: MusicControls,
-                private loadingCtrl: LoadingController,
                 private _audioProvider: AudioProvider,
-                private alertCtrl:AlertController,
-                private ga: GoogleAnalytics) {
+                private alertCtrl: AlertController,
+                private ga: GoogleAnalytics,
+                private prompt: PromptService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
 
-           this.ga.trackView(this.viewCtrl.name);
+            this.ga.trackView(this.viewCtrl.name);
 
             // Platform now ready, execute any required native code
             this.plt.registerBackButtonAction(()=> {
@@ -163,21 +159,6 @@ export class RadioPage {
         );
     }
 
-    presentLoading() {
-        this.loader = this.loadingCtrl.create({
-            spinner: 'dots',
-            content: this.vars.getRandomMessageRadio(),
-            dismissOnPageChange: true
-        });
-        this.loader.present();
-    }
-
-    dismissLoading() {
-        if(this.loader) {
-            this.loader.dismiss();
-        }
-    }
-
     togglePlayPause() {
         if(this.isPlaying) {
             this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
@@ -191,14 +172,7 @@ export class RadioPage {
 
     play() {
         this.isButtonActive = false;
-        this.presentLoading();
-        // if(this._audioProvider.tracks[0] &&
-        //     this._audioProvider.tracks[0].isPlaying) {
-        //     return false;
-        // }
-        // if(typeof this._audioProvider.current !== 'undefined') {
-        //     return false;
-        // }
+        this.prompt.presentLoading(true);
         this.isPlaying = true;
         this._audioProvider.play(0);
         this.playPauseButton = 'pause';
@@ -272,7 +246,7 @@ export class RadioPage {
     }
 
     onTrackLoaded(event) {
-        this.dismissLoading();
+        this.prompt.dismissLoading();
         this.isPlaying = true;
         this.isButtonActive = true;
         if (typeof cordova !== 'undefined') {
@@ -281,7 +255,7 @@ export class RadioPage {
     }
 
     onTrackError(event) {
-        this.dismissLoading();
+        this.prompt.dismissLoading();
         this.pause();
         this.isButtonActive = true;
         if (typeof cordova !== 'undefined') {
@@ -301,6 +275,7 @@ export class RadioPage {
 
     ionViewDidLeave() {
         this.hasLeft = true;
+        this.prompt.dismissLoading();
     }
 
 }

@@ -1,6 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { LoadingController, Loading, AlertController, ViewController, Platform } from 'ionic-angular';
-import { GlobalService } from '../../providers/global-service';
+import { AlertController, ViewController, Platform } from 'ionic-angular';
 import {
     StackConfig,
     DragEvent,
@@ -9,6 +8,7 @@ import {
 } from 'angular2-swing';
 import { PolaService } from "../../providers/pola-service";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
+import { PromptService } from "../../providers/prompt-service";
 
 @Component({
     selector: 'page-pola',
@@ -22,17 +22,15 @@ export class PolaPage {
     cards: any;
     stackConfig: StackConfig;
     stackStyle:string = 'stack-style-1';
-    private loader:Loading;
     private displayedCardNb:number = 0;
     private refillNb:number = 0;
 
-    constructor(private vars:GlobalService,
-                private viewCtrl:ViewController,
-                private loadingCtrl: LoadingController,
-                private api:PolaService,
-                private alertCtrl:AlertController,
+    constructor(private viewCtrl: ViewController,
+                private api: PolaService,
+                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
-                private plt: Platform) {
+                private plt: Platform,
+                private prompt: PromptService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -113,19 +111,19 @@ export class PolaPage {
             this.cards = data;
             if(this.cards.length === 0) {
                 this.presentError('Pas de polas pour cette request');
-                this.dismissLoading();
+                this.prompt.dismissLoading();
             }
             else {
                 this.switchStyle();
-                this.dismissLoading();
+                this.prompt.dismissLoading();
             }
         }).catch((error)=>{
             this.presentError(error.toString());
-            this.dismissLoading();
+            this.prompt.dismissLoading();
         });
 
         if(typeof this.cards === 'undefined' || this.cards.length === 0) {
-            this.presentLoading();
+            this.prompt.presentLoading();
         }
     }
 
@@ -148,20 +146,6 @@ export class PolaPage {
         }
     }
 
-    presentLoading() {
-        this.loader = this.loadingCtrl.create({
-            spinner: 'dots',
-            content: this.vars.getRandomMessagePosts()
-        });
-        this.loader.present();
-    }
-
-    dismissLoading() {
-        if(this.loader) {
-            this.loader.dismiss();
-        }
-    }
-
     presentError(message) {
         let alert = this.alertCtrl.create({
             title: 'Error',
@@ -172,6 +156,6 @@ export class PolaPage {
     }
 
     ionViewWillLeave() {
-        this.dismissLoading();
+        this.prompt.dismissLoading();
     }
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {
-    NavController, NavParams, Loading, LoadingController, AlertController, ViewController,
+    NavController, NavParams, AlertController, ViewController,
     Platform
 } from 'ionic-angular';
 import { CalepinsService } from "../../providers/calepins-service";
 import { DomSanitizer } from "@angular/platform-browser";
-import { GlobalService } from "../../providers/global-service";
 import { GoogleAnalytics } from "@ionic-native/google-analytics";
+import { PromptService } from "../../providers/prompt-service";
 
 
 @Component({
@@ -17,18 +17,16 @@ export class CalepinPage {
 
     private postId:string;
     private calepin:any;
-    private loader:Loading;
 
     constructor(public navCtrl: NavController,
-                private viewCtrl:ViewController,
+                private viewCtrl: ViewController,
                 public navParams: NavParams,
                 private api: CalepinsService,
                 private domSanitizer: DomSanitizer,
-                private loadingCtrl: LoadingController,
-                private vars: GlobalService,
-                private alertCtrl:AlertController,
+                private alertCtrl: AlertController,
                 private ga: GoogleAnalytics,
-                private plt: Platform) {
+                private plt: Platform,
+                private prompt: PromptService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -42,30 +40,16 @@ export class CalepinPage {
         this.api.getCalepin(this.postId).then((data:any)=>{
             data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
             this.calepin = data;
-            this.dismissLoading();
+            this.prompt.dismissLoading();
         }).catch((error)=>{
             this.presentError(error.toString());
-            this.dismissLoading();
+            this.prompt.dismissLoading();
         });
     }
 
     ionViewDidEnter() {
         if(typeof this.calepin === 'undefined') {
-            this.presentLoading();
-        }
-    }
-
-    presentLoading() {
-        this.loader = this.loadingCtrl.create({
-            spinner: 'dots',
-            content: this.vars.getRandomMessagePosts()
-        });
-        this.loader.present();
-    }
-
-    dismissLoading() {
-        if(this.loader) {
-            this.loader.dismiss();
+            this.prompt.presentLoading();
         }
     }
 
@@ -83,7 +67,7 @@ export class CalepinPage {
     }
 
     ionViewWillLeave() {
-        this.dismissLoading();
+        this.prompt.dismissLoading();
     }
 
 }
