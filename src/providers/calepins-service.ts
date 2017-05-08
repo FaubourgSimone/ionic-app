@@ -13,11 +13,9 @@ export class CalepinsService {
 
     constructor(public http: Http, private vars:GlobalService) {
         console.log('Hello CalepinsService Provider');
-        // this.calepins = null;
     }
 
     getCalepins() {
-        console.log('CalepinsService.getCalepins');
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_CALEPINS.baseUrl + this.vars.URL_CALEPINS.params.count + this.requestCount;
 
@@ -55,8 +53,6 @@ export class CalepinsService {
     }
 
     getCalepin(postId:string) {
-        console.log('CalepinService.getCalepin: ', postId);
-
         return new Promise((resolve, reject) => {
             const url = this.vars.URL_CALEPIN + postId;
             this.http.get(url)
@@ -77,7 +73,6 @@ export class CalepinsService {
                             .replace(/<hr><br \/>/g,'<hr>')
                             .replace(/<p style="text-align: center;"><hr>/g,'<hr><p>')
                             .replace(/<hr><\/p>/g,'<\/p><hr>');
-                        // content = decodeURIComponent(content);
 
                         // Escape HTML content
                         const el:HTMLElement = document.createElement('textarea');

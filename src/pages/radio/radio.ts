@@ -56,8 +56,6 @@ export class RadioPage {
                 private alertCtrl:AlertController,
                 private ga: GoogleAnalytics) {
 
-        // this.datePipe = new DatePipe('fr-FR');
-
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
 
@@ -91,7 +89,6 @@ export class RadioPage {
     }
 
     initPlayer() {
-        // this.player.init(this.streaming_url);
         this.playerReady = true;
         this.myOnlyTrack = {
             src: this.streaming_url
@@ -110,47 +107,26 @@ export class RadioPage {
     manageBackground(){
         this.backgroundMode.enable();
         try {
-            // ENTREE DU MODE BACKGROUND
-            this.backgroundMode.on('activate').subscribe(()=> {
-                // if(this.timer && !this.isPlaying) {
-                //     clearTimeout(this.timer);
-                // }
-            });
-            // SORTIE DU MODE BACKGROUND
+            // enter background mode
+            this.backgroundMode.on('activate').subscribe(()=> {});
+            // leave background mode
             this.backgroundMode.on('deactivate').subscribe(()=> {
                 this.zone.run(()=>{
-                    // si on n'avait pas change de tab avant de rentrer en mode background
-                    // if(!this.hasLeft) {
                     this.loopData();
-                    // }
                 });
             });
         }
         catch(e) {}
     }
 
-    presentLoading() {
-        this.loader = this.loadingCtrl.create({
-            spinner: 'dots',
-            content: this.vars.getRandomMessageRadio(),
-            dismissOnPageChange: true
-        });
-        this.loader.present();
-    }
-
-    dismissLoading() {
-        if(this.loader) {
-            this.loader.dismiss();
-        }
-    }
-
     loopData() {
         if(this.timer) {
             clearTimeout(this.timer);
         }
-        // Cherche les informations sur la piste en cours de lecture
+        // Looking for information about current song
         this.radioService.getCurrentSongs().subscribe(
             data => {
+                // TODO: mettre ca dans le RadioService ?
                 let hasChanged = (this.currentSong.title !== data.songs[0].title);
 
                 if(hasChanged) {
@@ -187,8 +163,22 @@ export class RadioPage {
         );
     }
 
+    presentLoading() {
+        this.loader = this.loadingCtrl.create({
+            spinner: 'dots',
+            content: this.vars.getRandomMessageRadio(),
+            dismissOnPageChange: true
+        });
+        this.loader.present();
+    }
+
+    dismissLoading() {
+        if(this.loader) {
+            this.loader.dismiss();
+        }
+    }
+
     togglePlayPause() {
-        // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
         if(this.isPlaying) {
             this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
             this.pause();
@@ -202,44 +192,16 @@ export class RadioPage {
     play() {
         this.isButtonActive = false;
         this.presentLoading();
-        if(this._audioProvider.tracks[0] &&
-            this._audioProvider.tracks[0].isPlaying) {
-            return false;
-        }
-
-        if(typeof this._audioProvider.current !== 'undefined') {
-            return false;
-        }
+        // if(this._audioProvider.tracks[0] &&
+        //     this._audioProvider.tracks[0].isPlaying) {
+        //     return false;
+        // }
+        // if(typeof this._audioProvider.current !== 'undefined') {
+        //     return false;
+        // }
         this.isPlaying = true;
-        try {
-            this._audioProvider.play(0);
-        }
-        catch(e) {
-            console.log('#######################');
-        }
+        this._audioProvider.play(0);
         this.playPauseButton = 'pause';
-    }
-
-    onTrackLoaded(event) {
-        this.dismissLoading();
-        this.isPlaying = true;
-        this.isButtonActive = true;
-        if (typeof cordova !== 'undefined') {
-            this.musicControls.updateIsPlaying(true);
-        }
-    }
-
-    onTrackError(event) {
-        console.log('RadioPage.onTrackError', event);
-        this.dismissLoading();
-        this.pause();
-        this.isButtonActive = true;
-        // this.isPlaying = false;
-        // this.isButtonActive = false;
-        if (typeof cordova !== 'undefined') {
-            this.musicControls.updateIsPlaying(false);
-        }
-        this.presentError(event.toString());
     }
 
     pause() {
@@ -309,8 +271,23 @@ export class RadioPage {
         }
     }
 
-    ionViewDidLeave() {
-        this.hasLeft = true;
+    onTrackLoaded(event) {
+        this.dismissLoading();
+        this.isPlaying = true;
+        this.isButtonActive = true;
+        if (typeof cordova !== 'undefined') {
+            this.musicControls.updateIsPlaying(true);
+        }
+    }
+
+    onTrackError(event) {
+        this.dismissLoading();
+        this.pause();
+        this.isButtonActive = true;
+        if (typeof cordova !== 'undefined') {
+            this.musicControls.updateIsPlaying(false);
+        }
+        this.presentError(event.toString());
     }
 
     presentError(message) {
@@ -320,6 +297,10 @@ export class RadioPage {
             buttons: ['Moki Doki!']
         });
         alert.present();
+    }
+
+    ionViewDidLeave() {
+        this.hasLeft = true;
     }
 
 }

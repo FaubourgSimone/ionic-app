@@ -16,7 +16,6 @@ export class CasquesService {
     }
 
     getCasques() {
-        console.log('CasquesService.getCasques');
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_CASQUES.baseUrl + this.vars.URL_CASQUES.params.count + this.requestCount;
 
@@ -68,8 +67,6 @@ export class CasquesService {
     }
 
     getCasque(postId:string) {
-        console.log('CasquesService.getCasque: ', postId);
-
         return new Promise((resolve, reject) => {
             const url = this.vars.URL_CASQUE + postId;
 
@@ -96,8 +93,6 @@ export class CasquesService {
                             permalink: data.link,
                             shareOptions: shareOptions
                         };
-
-                        // console.log(result);
                         resolve(result);
                     },
                     error => {

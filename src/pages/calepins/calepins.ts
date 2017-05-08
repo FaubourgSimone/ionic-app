@@ -24,7 +24,11 @@ export class CalepinsPage {
               private alertCtrl:AlertController,
               private ga: GoogleAnalytics) {
 
-    this.ga.trackView(this.viewCtrl.name);
+    this.plt.ready().then((readySource) => {
+      console.log('Platform ready from', readySource);
+      this.ga.trackView(this.viewCtrl.name);
+    });
+
   }
 
   ionViewDidLoad() {
@@ -43,27 +47,24 @@ export class CalepinsPage {
     }
   }
 
+  navToCalepin(id:number) {
+    this.ga.trackEvent('Ouvrir un calepin', 'Naviguer dans les calepins', 'calepin-' + id.toString());
+    this.navCtrl.push(CalepinPage, {
+      postId: id
+    });
+  }
+
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     this.reloadNb++;
     this.ga.trackEvent('Charger les calepins suivants', 'Naviguer dans les calepins', 'refill-calepin-' + this.reloadNb.toString());
 
     this.api.getCalepins().then((data:any)=>{
-      console.log(data);
       for (let i = 0, l=data.length; i < l; i++) {
         this.calepins.push( data[i] );
       }
       infiniteScroll.complete();
     }).catch((error)=>{
       this.presentError(error.toString());
-    });
-  }
-
-  navToCalepin(id:number) {
-    console.log('CalepinsPage.navToCalepin: ', id);
-    this.ga.trackEvent('Ouvrir un calepin', 'Naviguer dans les calepins', 'calepin-' + id.toString());
-    this.navCtrl.push(CalepinPage, {
-      postId: id
     });
   }
 
@@ -75,15 +76,12 @@ export class CalepinsPage {
     this.loader.present();
   }
 
-  ionViewWillLeave() {
-    this.dismissLoading();
-  }
-
   dismissLoading() {
     if(this.loader) {
       this.loader.dismiss();
     }
   }
+
   presentError(message) {
     let alert = this.alertCtrl.create({
       title: 'Error',
@@ -91,5 +89,9 @@ export class CalepinsPage {
       buttons: ['Moki Doki!']
     });
     alert.present();
+  }
+
+  ionViewWillLeave() {
+    this.dismissLoading();
   }
 }

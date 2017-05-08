@@ -17,11 +17,6 @@ export class PolaService {
         this.datePipe = new DatePipe('fr-FR');
     }
     getPolas() {
-        console.log('PolaService.getPolas');
-        // if (this.calepins) {
-        //   return Promise.resolve(this.calepins);
-        // }
-
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_POLAS.baseUrl + this.vars.URL_POLAS.params.count + this.requestCount;
             if(typeof this.currentQueryPage !== 'undefined') {

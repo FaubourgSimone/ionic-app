@@ -2,11 +2,11 @@
   <ion-navbar><ion-title *ngIf="calepin"><span ion-text text-wrap class="ion-title-header" color="secondary"[innerHTML] = calepin.title></span></ion-title></ion-navbar>
 </ion-header>
 
-<ion-content padding class="single-article-page">
-  <div *ngIf="calepin">
-    <!--<h1 [innerHTML] = calepin.title></h1>-->
-    <h1 ion-text color="primary" [innerHTML] = calepin.subtitle></h1>
 
+<ion-content padding class="single-article-page">
+
+  <div *ngIf="calepin">
+    <h1 ion-text color="primary" [innerHTML] = calepin.subtitle></h1>
     <article ion-text class="article-content" color="primary" [innerHTML] = calepin.content></article>
 
     <ion-row class="meta" padding-vertical>
@@ -21,6 +21,7 @@
         </ion-icon>
       </ion-col>
     </ion-row>
+
     <share-button class="calepin"
                   [options]="calepin.shareOptions"
                   [trackingOptions]="{category:'Partager un calepin', action:'Partager', label:calepin.permalink}"
@@ -28,4 +29,5 @@
                   icon-left small>
     </share-button>
   </div>
+
 </ion-content>

@@ -20,10 +20,8 @@ page-casques {
     position: absolute;
     bottom: 0;
     width: 100%;
-    font-weight: bold;
     color: #fff;
     padding: 10px;
-    //background: rgba(19, 90, 118, 0.5);
     font-weight: bold;
     background:linear-gradient(to top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
     padding-top: 4rem;
@@ -36,12 +34,6 @@ page-casques {
       display: block;
     }
   }
-
-  //.card-subtitle {
-  //  font-weight: bold;
-  //  width: 70%;
-  //  padding-bottom: 5px;
-  //}
   .card-excerpt,
   .card-excerpt * {
     color: color($colors, 'primary');
@@ -57,11 +49,5 @@ page-casques {
   button a {
     text-decoration: none;
   }
-  //.card-subtitle {
-  //  font-size: 1.0em;
-  //  position: absolute;
-  //  top: 52%;
-  //  width: 100%;
-  //  color: #fff;
-  //}
+
 }

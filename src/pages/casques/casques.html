@@ -12,6 +12,7 @@
   <ion-list>
 
     <ion-card *ngFor="let casque of casques" no-padding margin-bottom>
+
       <ion-card-content (click)="navToCasque(casque.id)">
         <img no-padding src="{{casque.thumbnail}}"/>
         <h1 ion-text color="verylight" class="card-title" no-margin>
@@ -22,8 +23,6 @@
       <ion-note>{{casque.date | date:'shortDate'}}</ion-note>
 
       <p ion-text color="primary" class="card-excerpt" padding margin-top [innerHTML] = casque.excerpt (click)="navToCasque(casque.id)"></p>
-      <!--<p color="foggy-gray" padding-horizontal padding-top>{{casque.date | date:'shortDate'}}</p>-->
-
 
       <ion-row no-padding>
         <ion-col no-padding>
@@ -53,7 +52,6 @@
       </ion-row>
 
     </ion-card>
-
 
   </ion-list>
 

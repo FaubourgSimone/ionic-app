@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, Loading, LoadingController, AlertController, ViewController} from 'ionic-angular';
+import {
+  NavController, NavParams, Loading, LoadingController, AlertController, ViewController,
+  Platform
+} from 'ionic-angular';
 import { CasquesService } from "../../providers/casques-service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { GlobalService } from "../../providers/global-service";
@@ -23,14 +26,18 @@ export class CasquePage {
               private loadingCtrl: LoadingController,
               private vars: GlobalService,
               private alertCtrl:AlertController,
-              private ga: GoogleAnalytics) {
-    this.postId = this.navParams.get('postId');
+              private ga: GoogleAnalytics,
+              private plt: Platform) {
 
-    this.ga.trackView(this.viewCtrl.name);
+    this.plt.ready().then((readySource) => {
+      console.log('Platform ready from', readySource);
+      this.ga.trackView(this.viewCtrl.name);
+    });
+
+    this.postId = this.navParams.get('postId');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CasquePage: ', this.postId);
     this.api.getCasque(this.postId).then((data:any)=>{
       data.content = this.domSanitizer.bypassSecurityTrustHtml(data.content);
       this.casque = data;
@@ -47,20 +54,16 @@ export class CasquePage {
     }
   }
 
+  onExternalLink() {
+    this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
+  }
+
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
       content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
-  }
-
-  onExternalLink() {
-    this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
-  }
-
-  ionViewWillLeave() {
-    this.dismissLoading();
   }
 
   dismissLoading() {
@@ -75,5 +78,9 @@ export class CasquePage {
       buttons: ['Moki Doki!']
     });
     alert.present();
+  }
+
+  ionViewWillLeave() {
+    this.dismissLoading();
   }
 }

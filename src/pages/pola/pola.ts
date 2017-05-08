@@ -109,8 +109,6 @@ export class PolaPage {
 
 
     addNewCards() {
-        // console.log("WAITING FOR NEW CARDS...");
-
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
@@ -131,14 +129,6 @@ export class PolaPage {
         }
     }
 
-    switchStyle() {
-        if(this.stackStyle === 'stack-style-1') {
-            this.stackStyle = 'stack-style-2';
-        }
-        else {
-            this.stackStyle = 'stack-style-1';
-        }
-    }
     // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
     // decimalToHex(d, padding) {
     //   var hex = Number(d).toString(16);
@@ -149,16 +139,21 @@ export class PolaPage {
     //   return hex;
     // }
 
+    switchStyle() {
+        if(this.stackStyle === 'stack-style-1') {
+            this.stackStyle = 'stack-style-2';
+        }
+        else {
+            this.stackStyle = 'stack-style-1';
+        }
+    }
+
     presentLoading() {
         this.loader = this.loadingCtrl.create({
             spinner: 'dots',
             content: this.vars.getRandomMessagePosts()
         });
         this.loader.present();
-    }
-
-    ionViewWillLeave() {
-        this.dismissLoading();
     }
 
     dismissLoading() {
@@ -174,5 +169,9 @@ export class PolaPage {
             buttons: ['Moki Doki!']
         });
         alert.present();
+    }
+
+    ionViewWillLeave() {
+        this.dismissLoading();
     }
 }

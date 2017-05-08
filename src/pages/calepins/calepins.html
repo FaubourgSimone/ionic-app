@@ -6,28 +6,28 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
+
+
 <ion-content padding>
 
   <ion-list>
-    <!--<ion-list-header>-->
-      <!--<h1 class="list-title">Les derniers Calepins</h1>-->
-    <!--</ion-list-header>-->
     <div *ngFor="let calepin of calepins">
+
       <button ion-item (click)="navToCalepin(calepin.id)">
         <ion-avatar item-left>
           <img src={{calepin.thumbnail}}/>
         </ion-avatar>
-        <h2 ion-text text-uppercase text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h2>
-        <p ion-text text-wrap color="foggy-gray" class="item-subtitle" [innerHTML] = calepin.subtitle></p>
+
+        <h1 ion-text text-uppercase text-wrap color="primary" class="item-title" [innerHTML] = calepin.title></h1>
+        <h2 ion-text text-wrap color="foggy-gray" class="item-subtitle" [innerHTML] = calepin.subtitle></h2>
         <ion-note ion-text color="foggy-gray">{{calepin.date | date:'shortDate'}}</ion-note>
       </button>
+
     </div>
   </ion-list>
-
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
 
 </ion-content>

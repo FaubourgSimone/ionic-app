@@ -23,6 +23,7 @@ export class CasquesPage {
               private alertCtrl:AlertController,
               private ga: GoogleAnalytics,
               private plt:Platform) {
+
     this.plt.ready().then((readySource) => {
       console.log('Platform ready from', readySource);
       this.ga.trackView(this.viewCtrl.name);
@@ -33,7 +34,6 @@ export class CasquesPage {
   ionViewDidLoad() {
     this.api.getCasques().then((data)=>{
       this.casques = data;
-      console.log(this.casques);
       this.dismissLoading();
     }).catch((error)=>{
       this.presentError(error.toString());
@@ -47,11 +47,17 @@ export class CasquesPage {
     }
   }
 
+  navToCasque(id:number) {
+    this.ga.trackEvent('Ouvrir un casque', 'Naviguer dans les casques', 'casque-' + id.toString());
+    this.navCtrl.push(CasquePage, {
+      postId: id
+    });
+  }
+
   doInfinite(infiniteScroll) {
     this.reloadNb++;
     this.ga.trackEvent('Charger les casques suivants', 'Naviguer dans les casques', 'refill-casque-' + this.reloadNb.toString());
     this.api.getCasques().then((data:any)=>{
-      console.log(data);
       for (let i = 0, l=data.length; i < l; i++) {
         this.casques.push( data[i] );
       }
@@ -61,24 +67,12 @@ export class CasquesPage {
     });
   }
 
-  navToCasque(id:number) {
-    console.log('CasquesPage.navToCasque: ', id);
-    this.ga.trackEvent('Ouvrir un casque', 'Naviguer dans les casques', 'casque-' + id.toString());
-    this.navCtrl.push(CasquePage, {
-      postId: id
-    });
-  }
-
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',
       content: this.vars.getRandomMessagePosts()
     });
     this.loader.present();
-  }
-
-  ionViewWillLeave() {
-    this.dismissLoading();
   }
 
   dismissLoading() {
@@ -94,5 +88,9 @@ export class CasquesPage {
       buttons: ['Moki Doki!']
     });
     alert.present();
+  }
+
+  ionViewWillLeave() {
+    this.dismissLoading();
   }
 }
