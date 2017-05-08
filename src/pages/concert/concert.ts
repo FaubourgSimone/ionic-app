@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, Platform } from 'ionic-angular';
-import { GoogleAnalytics } from "@ionic-native/google-analytics";
+import { ViewController, Platform } from 'ionic-angular';
+import { Component }        from '@angular/core';
+import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 
 @Component({
     selector: 'page-concert',
@@ -8,9 +8,7 @@ import { GoogleAnalytics } from "@ionic-native/google-analytics";
 })
 export class ConcertPage {
 
-    constructor(public navCtrl: NavController,
-                private viewCtrl:ViewController,
-                public navParams: NavParams,
+    constructor(private viewCtrl:ViewController,
                 private ga: GoogleAnalytics,
                 private plt: Platform) {
 

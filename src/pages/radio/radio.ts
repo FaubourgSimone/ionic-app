@@ -1,13 +1,13 @@
-import { Component, NgZone } from '@angular/core';
-import { NavController, ViewController, Platform } from 'ionic-angular';
-import { BackgroundMode } from '@ionic-native/background-mode';
-import { InitService } from '../../providers/init-service';
-import { RadioService } from '../../providers/radio-service';
-import { MusicControls } from '@ionic-native/music-controls';
-import { GlobalService } from '../../providers/global-service';
-import { AudioProvider } from "ionic-audio";
-import { GoogleAnalytics } from '@ionic-native/google-analytics';
-import { PromptService } from "../../providers/prompt-service";
+import { ViewController, Platform } from 'ionic-angular';
+import { Component, NgZone }    from '@angular/core';
+import { BackgroundMode }       from '@ionic-native/background-mode';
+import { MusicControls }        from '@ionic-native/music-controls';
+import { GoogleAnalytics }      from '@ionic-native/google-analytics';
+import { AudioProvider }        from "ionic-audio";
+import { InitService }          from '../../providers/init-service';
+import { RadioService }         from '../../providers/radio-service';
+import { GlobalService }        from '../../providers/global-service';
+import { PromptService }        from "../../providers/prompt-service";
 
 declare let cordova: any;
 
@@ -39,7 +39,6 @@ export class RadioPage {
     private currentShareData:any;
 
     constructor(public viewCtrl: ViewController,
-                public navCtrl: NavController,
                 public plt: Platform,
                 private vars: GlobalService,
                 private initService: InitService,

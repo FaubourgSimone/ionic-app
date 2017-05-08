@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import {
-    NavController, NavParams, ViewController,
-    Platform
-} from 'ionic-angular';
-import { CasquesService } from "../../providers/casques-service";
-import { DomSanitizer } from "@angular/platform-browser";
-import { GoogleAnalytics } from "@ionic-native/google-analytics";
-import { PromptService } from "../../providers/prompt-service";
+import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { Component }        from '@angular/core';
+import { DomSanitizer }     from "@angular/platform-browser";
+import { GoogleAnalytics }  from "@ionic-native/google-analytics";
+import { CasquesService }   from "../../providers/casques-service";
+import { PromptService }    from "../../providers/prompt-service";
 
 @Component({
     selector: 'page-casque',
@@ -17,8 +14,7 @@ export class CasquePage {
     private postId:string;
     private casque:any;
 
-    constructor(public navCtrl: NavController,
-                private viewCtrl: ViewController,
+    constructor(private viewCtrl: ViewController,
                 public navParams: NavParams,
                 private api: CasquesService,
                 private domSanitizer: DomSanitizer,

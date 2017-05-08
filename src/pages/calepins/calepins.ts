@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
 import { NavController, ViewController, Platform } from 'ionic-angular';
-import { CalepinsService } from "../../providers/calepins-service";
-import { CalepinPage } from "../calepin/calepin";
-import { GoogleAnalytics } from "@ionic-native/google-analytics";
-import { PromptService } from "../../providers/prompt-service";
+import { Component }        from '@angular/core';
+import { CalepinsService }  from "../../providers/calepins-service";
+import { CalepinPage }      from "../calepin/calepin";
+import { GoogleAnalytics }  from "@ionic-native/google-analytics";
+import { PromptService }    from "../../providers/prompt-service";
 
 @Component({
     selector: 'page-calepins',

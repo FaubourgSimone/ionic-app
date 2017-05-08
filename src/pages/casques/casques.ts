@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
 import { NavController, ViewController, Platform } from 'ionic-angular';
-import { CasquesService } from "../../providers/casques-service";
-import { CasquePage } from "../casque/casque";
-import { GoogleAnalytics } from "@ionic-native/google-analytics";
-import {PromptService} from "../../providers/prompt-service";
+import { Component }        from '@angular/core';
+import { GoogleAnalytics }  from "@ionic-native/google-analytics";
+import { CasquesService }   from "../../providers/casques-service";
+import { PromptService }    from "../../providers/prompt-service";
+import { CasquePage }       from "../casque/casque";
 
 @Component({
     selector: 'page-casques',

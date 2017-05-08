@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { GoogleAnalytics } from "@ionic-native/google-analytics";
-import { SocialSharing } from "@ionic-native/social-sharing";
+import { GoogleAnalytics }  from "@ionic-native/google-analytics";
+import { SocialSharing }    from "@ionic-native/social-sharing";
+import { PromptService }    from "../../providers/prompt-service";
 
 @Component({
     selector: 'share-button',
@@ -14,7 +15,8 @@ export class ShareButtonComponent {
     @Input() hasLabel:boolean;
 
     constructor(private ga: GoogleAnalytics,
-                private socialSharing: SocialSharing) {
+                private socialSharing: SocialSharing,
+                private prompt:PromptService) {
     }
 
     onClick() {
@@ -24,14 +26,12 @@ export class ShareButtonComponent {
             if(this.trackingOptions) {
                 this.ga.trackEvent(this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
             }
-        }).catch(() => {
+        }).catch((e) => {
 
             if(this.trackingOptions) {
-                console.log('[ShareButtonComponent] Error when sharing: ', this.trackingOptions.category, 'Erreur', this.trackingOptions.label);
+                this.prompt.presentError(`Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`);
                 this.ga.trackEvent(this.trackingOptions.category, 'Erreur', this.trackingOptions.label);
             }
         });
-
     }
-
 }

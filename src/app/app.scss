@@ -23,3 +23,7 @@
 
 //@import "../theme/ion-header";
 @import "../theme/single-article-page";
+
+ion-toast.error .toast-wrapper {
+  background: color($colors, 'error');
+}

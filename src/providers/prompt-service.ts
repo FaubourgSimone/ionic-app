@@ -33,8 +33,10 @@ export class PromptService {
     let toast = this.toastCtrl.create({
       message: message,
       position: 'bottom',
+      duration: 5000,
       showCloseButton: true,
-      closeButtonText: 'x'
+      closeButtonText: 'x',
+      cssClass: 'error'
     });
 
     toast.onDidDismiss(() => {
