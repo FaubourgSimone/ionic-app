@@ -24,14 +24,4 @@ export class ConcertPage {
     ionViewDidLoad() {
         console.log('ionViewDidLoad ConcertPage');
     }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
-    }
-
 }

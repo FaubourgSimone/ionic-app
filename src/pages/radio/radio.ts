@@ -80,7 +80,7 @@ export class RadioPage {
         }).catch((error)=>{
             this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
             this.initPlayer();
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
         });
     }
 
@@ -155,7 +155,7 @@ export class RadioPage {
                 }
                 this.timer = setTimeout(()=>this.loopData(), this.loop_interval);
             },
-            error => this.presentError(error.toString())
+            error => this.prompt.presentError(error.toString())
         );
     }
 
@@ -261,16 +261,7 @@ export class RadioPage {
         if (typeof cordova !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
-        this.presentError(event.toString());
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
+        this.prompt.presentError(event.toString());
     }
 
     ionViewDidLeave() {

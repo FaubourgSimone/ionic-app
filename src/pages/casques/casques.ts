@@ -34,7 +34,7 @@ export class CasquesPage {
             this.casques = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
             this.prompt.dismissLoading();
         });
     }
@@ -61,17 +61,8 @@ export class CasquesPage {
             }
             infiniteScroll.complete();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
         });
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
     }
 
     ionViewWillLeave() {

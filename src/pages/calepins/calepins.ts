@@ -34,7 +34,7 @@ export class CalepinsPage {
             this.calepins = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
             this.prompt.dismissLoading();
         });
     }
@@ -62,17 +62,8 @@ export class CalepinsPage {
             }
             infiniteScroll.complete();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
         });
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
     }
 
     ionViewWillLeave() {

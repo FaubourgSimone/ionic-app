@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Loading, LoadingController} from "ionic-angular";
-import {GlobalService} from "./global-service";
+import { AlertController, Loading, LoadingController } from "ionic-angular";
+import { GlobalService } from "./global-service";
 
 @Injectable()
 export class PromptService {
 
   private loader:Loading;
 
-  constructor(private loadingCtrl: LoadingController, private vars: GlobalService) {
+  constructor(private loadingCtrl: LoadingController,
+              private vars: GlobalService,
+              private alertCtrl: AlertController) {
     console.log('Hello PromptService Provider');
   }
 
@@ -24,6 +26,15 @@ export class PromptService {
     if(this.loader) {
       this.loader.dismiss();
     }
+  }
+
+  presentError(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['Moki Doki!']
+    });
+    alert.present();
   }
 
 }

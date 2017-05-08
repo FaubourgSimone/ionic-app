@@ -41,7 +41,7 @@ export class CasquePage {
             this.casque = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
             this.prompt.dismissLoading();
         });
     }
@@ -54,15 +54,6 @@ export class CasquePage {
 
     onExternalLink() {
         this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
     }
 
     ionViewWillLeave() {

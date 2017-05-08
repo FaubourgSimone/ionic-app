@@ -42,7 +42,7 @@ export class CalepinPage {
             this.calepin = data;
             this.prompt.dismissLoading();
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
             this.prompt.dismissLoading();
         });
     }
@@ -55,15 +55,6 @@ export class CalepinPage {
 
     onExternalLink() {
         this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les calepins', this.calepin.permalink);
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
     }
 
     ionViewWillLeave() {

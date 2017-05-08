@@ -110,7 +110,7 @@ export class PolaPage {
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
-                this.presentError('Pas de polas pour cette request');
+                this.prompt.presentError('Pas de polas pour cette request');
                 this.prompt.dismissLoading();
             }
             else {
@@ -118,7 +118,7 @@ export class PolaPage {
                 this.prompt.dismissLoading();
             }
         }).catch((error)=>{
-            this.presentError(error.toString());
+            this.prompt.presentError(error.toString());
             this.prompt.dismissLoading();
         });
 
@@ -144,15 +144,6 @@ export class PolaPage {
         else {
             this.stackStyle = 'stack-style-1';
         }
-    }
-
-    presentError(message) {
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: message,
-            buttons: ['Moki Doki!']
-        });
-        alert.present();
     }
 
     ionViewWillLeave() {
