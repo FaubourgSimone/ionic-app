@@ -7,7 +7,7 @@ import { DatePipe } from "@angular/common";
 @Injectable()
 export class PolaService {
 
-    private requestCount:number = 10;
+    private requestCount:number = 7;
     private currentQueryPage:number;
     private totalQueryPage:number;
     private datePipe:DatePipe;

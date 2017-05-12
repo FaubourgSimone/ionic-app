@@ -56,17 +56,17 @@ export class RadioPage {
             this.ga.trackView(this.viewCtrl.name);
 
             // Platform now ready, execute any required native code
-            this.plt.registerBackButtonAction(()=> {
-                let nav = this.viewCtrl.getNav();
-                // let activeView: ViewController = nav.getActiveChildNav();
-                if(this.viewCtrl != null){
-                    if(nav.canGoBack()) {
-                        nav.pop();
-                    }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
-                        this.viewCtrl.instance.backButtonAction();
-                    else nav.parent.select(0); // goes to the first tab
-                }
-            })
+            // this.plt.registerBackButtonAction(()=> {
+            //     let nav = this.viewCtrl.getNav();
+            //     // let activeView: ViewController = nav.getActiveChildNav();
+            //     if(this.viewCtrl != null){
+            //         if(nav.canGoBack()) {
+            //             nav.pop();
+            //         }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
+            //             this.viewCtrl.instance.backButtonAction();
+            //         else nav.parent.select(0); // goes to the first tab
+            //     }
+            // })
         });
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs

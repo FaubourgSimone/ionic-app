@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      <!--<img class="logo" src="assets/images/logo/faubourg-simone-logo-ios@2x.png"/>-->
-      <span ion-text color="secondary" text-uppercase>Les polas du jour</span>
+    <ion-title no-padding>
+      <div class="header-radio">
+        <div class=""><img class="logo" src="assets/images/faubourgsimone-logo-no-waves.png"/></div>
+        <div class=""><span margin-left text-uppercase ion-text text-wrap class="ion-title-header" color="secondary">Les polas du jour</span></div>
+      </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,7 +13,7 @@
 
   <!-- to get different behaviors use (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)"  -->
   <div swing-stack [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [class]="stackStyle">
-    <ion-card swing-card *ngFor="let card of cards" class="td-card">
+    <ion-card swing-card *ngFor="let card of cards" class="td-card" no-padding>
       <ion-item *ngIf="card.image">
         <img *ngIf="card.image" [src]="card.image">
       </ion-item>
@@ -23,22 +25,30 @@
                       [trackingOptions]="{category:'Partager un pola', action:'Partager', label:cards[cards.length-1].permalink}"
                       icon-only>
         </share-button>
+        <div class="pola-footer" no-margin>
+          <button id="swipe_dislike" class="rate" (click)="voteUp(false)">
+            <ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>
+          </button>
 
+          <button id="swipe_like" class="rate" (click)="voteUp(true)">
+            <ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>
+          </button>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>
 
-  <ion-footer no-border no-lines="">
-    <div class="pola-footer" no-margin>
-      <button id="swipe_dislike" class="rate" (click)="voteUp(false)">
-        <ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>
-      </button>
+  <!--<ion-footer no-border no-lines="">-->
+    <!--<div class="pola-footer" no-margin>-->
+      <!--<button id="swipe_dislike" class="rate" (click)="voteUp(false)">-->
+        <!--<ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>-->
+      <!--</button>-->
 
-      <button id="swipe_like" class="rate" (click)="voteUp(true)">
-        <ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>
-      </button>
-    </div>
-  </ion-footer>
+      <!--<button id="swipe_like" class="rate" (click)="voteUp(true)">-->
+        <!--<ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>-->
+      <!--</button>-->
+    <!--</div>-->
+  <!--</ion-footer>-->
 
 </ion-content>
 

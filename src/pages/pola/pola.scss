@@ -43,16 +43,15 @@ page-pola {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     width: 85%;
-    min-height: 370px;
+    height: 380px;
     position: absolute;
   }
   ion-card img {
     //border-radius: 5% 5% 0px 0px;
     max-width: 100%;
   }
-  .title {
+  .title {}
 
-  }
   .date {
     font-size: 1.2rem;
     margin-top: 0.5rem;
@@ -73,18 +72,27 @@ page-pola {
     text-align: center;
     margin: auto;
     padding-top: 6px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
   .rate {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
     background: color($colors, "verylight");
     border: 5px solid color($colors, "westar");
     box-shadow: 1px 1px 1px 0px color($colors, "foggy-gray");
+    bottom: 1.2rem;
+
+    &#swipe_like {
+      right: 2rem;
+    }
+    &#swipe_dislike {
+      right: 7rem;
+    }
 
     ion-icon {
-      font-size: 3rem;
+      font-size: 2rem;
       &.rate-down {
         color: color($colors, "red-crimson");
       }
