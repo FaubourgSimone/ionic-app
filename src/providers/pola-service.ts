@@ -27,6 +27,7 @@ export class PolaService {
 
             this.http.get(url)
                 .map(data => data.json())
+                // .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
                 .subscribe(result => {
                         // c'est la premiere fois que la requete a lieu
                         // on ne sait pas quelle est la page et le nombre total de page
@@ -70,6 +71,7 @@ export class PolaService {
                         resolve(postsArray);
                     },
                     error => {
+                    console.log('error');
                         reject(new Error(error.toString()));
                     });
         });

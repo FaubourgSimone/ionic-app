@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Loading, LoadingController, ToastController } from "ionic-angular";
+import {Loading, LoadingController, Toast, ToastController} from "ionic-angular";
 import { GlobalService } from "./global-service";
 
 @Injectable()
 export class PromptService {
 
   private loader:Loading;
+  private messageToast:Toast;
 
   constructor(private loadingCtrl: LoadingController,
               private vars: GlobalService,
@@ -30,7 +31,11 @@ export class PromptService {
 
   presentMessage({message, classNameCss, duration, callback}:{message:string, classNameCss?:string, duration?:number, callback?:Function}) {
 
-    let toast = this.toastCtrl.create({
+    if(this.messageToast) {
+      this.messageToast.dismiss();
+    }
+
+    this.messageToast = this.toastCtrl.create({
       position: 'bottom',
       dismissOnPageChange: true,
       showCloseButton: true,
@@ -40,13 +45,13 @@ export class PromptService {
       cssClass: classNameCss || ''
     });
 
-    toast.onDidDismiss(() => {
+    this.messageToast.onDidDismiss(() => {
       console.log('Dismissed toast');
       if(callback) {
         callback();
       }
     });
 
-    toast.present();
+    this.messageToast.present();
   }
 }

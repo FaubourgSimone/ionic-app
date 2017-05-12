@@ -27,3 +27,10 @@
 ion-toast.error .toast-wrapper {
   background: color($colors, 'error');
 }
+
+ion-toast.vote-pola .toast-wrapper {
+  //padding: 0;
+  .toast-message {
+    font-size: 1.1rem;
+  }
+}

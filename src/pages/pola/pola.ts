@@ -47,7 +47,7 @@ export class PolaPage {
         let removedCard = this.cards.pop();
         this.ga.trackEvent( 'Swiper un pola' ,'Naviguer dans les polas', 'pola-' + this.displayedCardNb.toString());
         const verb = like ? 'pour' : 'contre';
-        this.prompt.presentMessage({message: `Tu as vote ${verb} ${removedCard.title}`, duration: 3000});
+        this.prompt.presentMessage({message: `Tu as vote ${verb} ${removedCard.title}`, duration: 3000, classNameCss: 'vote-pola'});
         this.ga.trackEvent( verb ,'Voter sur un pola', 'pola-' + removedCard.id);
         if(this.cards.length === 0) {
             this.refillNb++;
