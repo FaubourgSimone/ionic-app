@@ -1,4 +1,5 @@
 import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { InAppBrowser }     from 'ionic-native';
 import { Component }        from '@angular/core';
 import { DomSanitizer }     from "@angular/platform-browser";
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
@@ -50,6 +51,16 @@ export class CalepinPage {
 
     onExternalLink() {
         this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les calepins', this.calepin.permalink);
+        this.navigateTo(this.calepin.permalink);
+    }
+
+
+    navigateTo(url) {
+        new InAppBrowser(url, '_system', {
+            // location: 'yes',
+            // clearcache: 'yes',
+            // hardwareback: 'no'
+        });
     }
 
     ionViewWillLeave() {

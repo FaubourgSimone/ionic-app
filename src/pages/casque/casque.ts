@@ -1,4 +1,5 @@
 import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { InAppBrowser }     from 'ionic-native';
 import { Component }        from '@angular/core';
 import { DomSanitizer }     from "@angular/platform-browser";
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
@@ -49,6 +50,24 @@ export class CasquePage {
 
     onExternalLink() {
         this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
+        this.navigateTo(this.casque.permalink);
+    }
+
+    onPreviewLink(url) {
+        this.ga.trackEvent('Cliquer sur la preview', 'Naviguer dans les casques', url);
+        this.navigateTo(url);
+    }
+    onBuyLink(url) {
+        this.ga.trackEvent('Cliquer sur acheter', 'Naviguer dans les casques', url);
+        this.navigateTo(url);
+    }
+
+    navigateTo(url) {
+        new InAppBrowser(url, '_system', {
+            // location: 'yes',
+            // clearcache: 'yes',
+            // hardwareback: 'no'
+        });
     }
 
     ionViewWillLeave() {

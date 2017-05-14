@@ -35,7 +35,7 @@
       <ion-row no-padding padding-horizontal>
         <ion-col text-left no-padding>
           <button ion-button clear small color="secondary" icon-left no-padding>
-            <a ion-text color="secondary" *ngIf="casque.preview" href="{{casque.preview}}" target="_blank">
+            <a ion-text color="secondary" *ngIf="casque.preview" (click)="onPreviewLink(casque.preview)">
               <ion-icon name='musical-notes'></ion-icon>
               Listen
             </a>
@@ -43,7 +43,7 @@
         </ion-col>
         <ion-col text-center no-padding>
           <button *ngIf="casque.buyLink" ion-button clear small color="secondary" icon-left no-padding>
-            <a ion-text color="secondary" href="{{casque.buyLink}}" target="_blank">
+            <a ion-text color="secondary" (click)="onBuyLink(casque.buyLink)">
               <ion-icon name='logo-euro'></ion-icon>
               Buy
             </a>

@@ -27,6 +27,7 @@
         "@ionic-native/background-mode": "3.5.0",
         "@ionic-native/core": "^3.6.1",
         "@ionic-native/google-analytics": "^3.6.1",
+        "@ionic-native/in-app-browser": "^3.8.0",
         "@ionic-native/music-controls": "^3.5.0",
         "@ionic-native/social-sharing": "^3.6.1",
         "@ionic-native/splash-screen": "3.4.2",
@@ -41,6 +42,7 @@
         "cordova-plugin-crosswalk-webview": "~2.3.0",
         "cordova-plugin-device": "~1.1.5",
         "cordova-plugin-google-analytics": "^1.8.2",
+        "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-media": "~3.0.0",
         "cordova-plugin-music-controls": "~1.4.1",
         "cordova-plugin-nativeaudio": "~3.0.9",
@@ -108,7 +110,8 @@
             "cordova-plugin-music-controls": {},
             "cordova-plugin-nativeaudio": {},
             "ionic-plugin-deploy": {},
-            "cordova-plugin-google-analytics": {}
+            "cordova-plugin-google-analytics": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "android",
