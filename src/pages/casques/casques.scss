@@ -5,32 +5,33 @@ page-casques {
 
   ion-card {
     width: 100%;
+
   }
   ion-card-content.card-content {
     position: relative;
-    text-align: center;
     padding: 0;
+
+    ion-row {
+      align-items: center;
+      justify-content: center;
+    }
     img {
       width: 100%;
       margin: 0 auto;
     }
+
+    .note {
+      font-size: 1rem;
+    }
   }
 
   .card-title {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    color: #fff;
-    padding: 10px;
-    font-weight: bold;
-    background:linear-gradient(to top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
-    padding-top: 4rem;
     .title {
-      font-size: 2.0rem;
+      font-size: 1.8rem;
       display: block;
     }
     .subtitle {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       display: block;
     }
   }
@@ -39,12 +40,7 @@ page-casques {
     color: color($colors, 'primary');
   }
 
-  ion-note {
-    float: right;
-    position: relative;
-    top: 1rem;
-    right: 1em;
-  }
+
 
   button a {
     text-decoration: none;
