@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {Nav, Platform, ViewController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -11,9 +11,9 @@ import { GoogleAnalytics } from "@ionic-native/google-analytics";
     template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class FbrgSmnApp {
-    rootPage:any = TabsPage;
 
-    @ViewChild(Nav) nav: Nav;
+    // @ViewChild(Nav) nav: Nav;
+    rootPage:any = TabsPage;
 
     constructor(platform: Platform,
                 statusBar: StatusBar,
@@ -35,39 +35,6 @@ export class FbrgSmnApp {
                     this.ga.enableUncaughtExceptionReporting(true);
                 })
                 .catch(e => console.log('Error starting GoogleAnalytics', e));
-
-
-            // platform.registerBackButtonAction(() => {
-            //
-            //     // if(this.nav.canGoBack()){
-            //     //     console.log('pop');
-            //     //     this.nav.pop();
-            //     // }else{
-            //     //     console.log('heu');
-            //     // }
-            //
-            //
-            //     // let nav = app.getActiveNav();
-            //     let activeView:ViewController = this.nav.getActive();
-            //
-            //     if(activeView != null){
-            //         console.log('back');
-            //         if(this.nav.canGoBack()) {
-            //             console.log('pop');
-            //             this.nav.pop();
-            //         }
-            //         else if (typeof activeView.instance.backButtonAction === 'function') {
-            //             console.log('heu');
-            //             activeView.instance.backButtonAction();
-            //         }
-            //         else {
-            //             console.log('first tab');
-            //             // this.nav.parent.select(0); // goes to the first tab
-            //         }
-            //     }
-            // });
-
-
         });
     }
 }

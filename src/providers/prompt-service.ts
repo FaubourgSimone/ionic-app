@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import {Loading, LoadingController, Toast, ToastController} from "ionic-angular";
-import { GlobalService } from "./global-service";
+import { Loading, LoadingController, Toast, ToastController } from "ionic-angular";
+import { Injectable }     from '@angular/core';
+import { GlobalService }  from "./global-service";
 
 @Injectable()
 export class PromptService {

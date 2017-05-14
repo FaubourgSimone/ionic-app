@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-
-import { PolaPage } from '../pola/pola';
+import { Component }    from '@angular/core';
+import { PolaPage }     from '../pola/pola';
 import { CalepinsPage } from '../calepins/calepins';
-import { RadioPage } from '../radio/radio';
-import { CasquesPage } from '../casques/casques';
+import { RadioPage }    from '../radio/radio';
+import { CasquesPage }  from '../casques/casques';
 import { ConcertsPage } from "../concerts/concerts";
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+
+  // @ViewChild('myTabs') tabRef: Tabs;
 
   tab1Root = RadioPage;
   tab2Root = PolaPage;

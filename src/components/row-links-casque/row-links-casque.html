@@ -1,0 +1,26 @@
+<ion-row no-padding>
+    <ion-col text-left no-padding>
+        <button ion-button clear small color="secondary" icon-left no-padding>
+            <a ion-text color="secondary" *ngIf="casque.preview" (click)="onPreviewLink(casque.preview)">
+                <ion-icon name='musical-notes'></ion-icon>
+                Listen
+            </a>
+        </button>
+    </ion-col>
+    <ion-col text-center no-padding>
+        <button *ngIf="casque.buyLink" ion-button clear small color="secondary" icon-left no-padding>
+            <a ion-text color="secondary" (click)="onBuyLink(casque.buyLink)">
+                <ion-icon name='logo-euro'></ion-icon>
+                Buy
+            </a>
+        </button>
+    </ion-col>
+    <ion-col text-right no-padding>
+        <share-button class="casque"
+                      [options]="casque.shareOptions"
+                      [trackingOptions]="{category:'Partager un casque', action:'Partager', label:casque.permalink}"
+                      [hasLabel] = true
+                      icon-left small>
+        </share-button>
+    </ion-col>
+</ion-row>

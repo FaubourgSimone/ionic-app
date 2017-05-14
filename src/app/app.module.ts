@@ -3,7 +3,7 @@ import { NgModule }         from '@angular/core';
 import { BrowserModule }    from '@angular/platform-browser';
 
 // Ionic libs
-import { IonicApp, IonicModule }        from 'ionic-angular';
+import { IonicApp, IonicModule}         from 'ionic-angular';
 import { CloudSettings, CloudModule }   from '@ionic/cloud-angular';
 
 // Main

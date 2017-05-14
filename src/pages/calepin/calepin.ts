@@ -1,4 +1,4 @@
-import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { NavParams, ViewController, Platform, NavController } from 'ionic-angular';
 import { InAppBrowser }     from 'ionic-native';
 import { Component }        from '@angular/core';
 import { DomSanitizer }     from "@angular/platform-browser";
@@ -16,7 +16,8 @@ export class CalepinPage {
     private postId:string;
     private calepin:any;
 
-    constructor(private viewCtrl: ViewController,
+    constructor(public navCtrl: NavController,
+                private viewCtrl: ViewController,
                 public navParams: NavParams,
                 private api: CalepinsService,
                 private domSanitizer: DomSanitizer,
@@ -54,13 +55,8 @@ export class CalepinPage {
         this.navigateTo(this.calepin.permalink);
     }
 
-
     navigateTo(url) {
-        new InAppBrowser(url, '_system', {
-            // location: 'yes',
-            // clearcache: 'yes',
-            // hardwareback: 'no'
-        });
+        new InAppBrowser(url, '_system', {});
     }
 
     ionViewWillLeave() {

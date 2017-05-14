@@ -1,4 +1,4 @@
-import { ViewController, Platform } from 'ionic-angular';
+import { ViewController, Platform, NavController } from 'ionic-angular';
 import { Component, NgZone }    from '@angular/core';
 import { BackgroundMode }       from '@ionic-native/background-mode';
 import { MusicControls }        from '@ionic-native/music-controls';
@@ -38,7 +38,8 @@ export class RadioPage {
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
     private currentShareData:any;
 
-    constructor(public viewCtrl: ViewController,
+    constructor(public navCtrl: NavController,
+                public viewCtrl: ViewController,
                 public plt: Platform,
                 private vars: GlobalService,
                 private initService: InitService,
@@ -52,21 +53,7 @@ export class RadioPage {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
-
             this.ga.trackView(this.viewCtrl.name);
-
-            // Platform now ready, execute any required native code
-            // this.plt.registerBackButtonAction(()=> {
-            //     let nav = this.viewCtrl.getNav();
-            //     // let activeView: ViewController = nav.getActiveChildNav();
-            //     if(this.viewCtrl != null){
-            //         if(nav.canGoBack()) {
-            //             nav.pop();
-            //         }else if (typeof this.viewCtrl.instance.backButtonAction === 'function')
-            //             this.viewCtrl.instance.backButtonAction();
-            //         else nav.parent.select(0); // goes to the first tab
-            //     }
-            // })
         });
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs

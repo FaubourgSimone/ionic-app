@@ -1,4 +1,4 @@
-import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { NavParams, ViewController, Platform, NavController } from 'ionic-angular';
 import { InAppBrowser }     from 'ionic-native';
 import { Component }        from '@angular/core';
 import { DomSanitizer }     from "@angular/platform-browser";
@@ -15,7 +15,8 @@ export class CasquePage {
     private postId:string;
     private casque:any;
 
-    constructor(private viewCtrl: ViewController,
+    constructor(public navCtrl: NavController,
+                private viewCtrl: ViewController,
                 public navParams: NavParams,
                 private api: CasquesService,
                 private domSanitizer: DomSanitizer,
@@ -53,21 +54,8 @@ export class CasquePage {
         this.navigateTo(this.casque.permalink);
     }
 
-    onPreviewLink(url) {
-        this.ga.trackEvent('Cliquer sur la preview', 'Naviguer dans les casques', url);
-        this.navigateTo(url);
-    }
-    onBuyLink(url) {
-        this.ga.trackEvent('Cliquer sur acheter', 'Naviguer dans les casques', url);
-        this.navigateTo(url);
-    }
-
     navigateTo(url) {
-        new InAppBrowser(url, '_system', {
-            // location: 'yes',
-            // clearcache: 'yes',
-            // hardwareback: 'no'
-        });
+        new InAppBrowser(url, '_system', {});
     }
 
     ionViewWillLeave() {

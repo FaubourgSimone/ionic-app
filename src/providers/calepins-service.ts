@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { GlobalService } from "./global-service";
+import { Injectable }       from '@angular/core';
+import { Http }             from '@angular/http';
+import { GlobalService }    from "./global-service";
 
 
 @Injectable()
