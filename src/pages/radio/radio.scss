@@ -5,6 +5,14 @@
 
 page-radio {
 
+  .header-image {
+    height: 100vw;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
   .radio-page-cover {
 
     &.content {
@@ -116,7 +124,7 @@ page-radio {
 
       ion-list-header {
         border:none;
-        background: transparent;
+        background: color($colors, 'carrara');
       }
 
       ion-item {

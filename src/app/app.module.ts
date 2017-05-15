@@ -22,6 +22,7 @@ import { CustomComponents, ExternalComponents } from "../components/index";
 import { SwingModule }      from 'angular2-swing';
 import { IonicAudioModule } from 'ionic-audio';
 
+import { ParallaxHeader } from "../components/parallax-header/parallax-header";
 
 const cloudSettings: CloudSettings = {
     'core': {
@@ -39,7 +40,8 @@ const tabSettings = {
         FbrgSmnApp,
         ...Pages,
         ...CustomComponents,
-        ...ExternalComponents
+        ...ExternalComponents,
+        ParallaxHeader
     ],
     imports: [
         BrowserModule,
