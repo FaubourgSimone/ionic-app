@@ -12,7 +12,7 @@ declare let cordova: any;
 
 @Component({
     selector: 'page-radio',
-    templateUrl: 'radio-parallax.html',
+    templateUrl: 'radio.html',
     providers: [MusicControls]
 })
 export class RadioPage {

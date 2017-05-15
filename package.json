@@ -9,6 +9,7 @@
         "start": "ionic serve -l",
         "android": "ionic run android --device",
         "ios": "ionic run ios --device",
+        "package": "ionic package build android --profile PROUSTIBAT",
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "ionic:build": "ionic-app-scripts build",
