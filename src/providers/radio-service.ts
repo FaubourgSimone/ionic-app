@@ -2,15 +2,60 @@ import 'rxjs/add/operator/map';
 import { Injectable }     from '@angular/core';
 import { Http }           from '@angular/http';
 import { GlobalService }  from '../providers/global-service';
+import { Events }         from "ionic-angular";
 
 @Injectable()
 export class RadioService {
 
-  constructor(public http: Http, private vars:GlobalService) {
+  private loop_interval:Number = 3000;
+  private timer:any;
+  private currentSong = {
+    cover_url: 'assets/images/cover-default.jpg',
+    title: '',
+    artist: '',
+    track: ''
+  };
+  private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
+
+  constructor(public http: Http, private vars:GlobalService, private events: Events) {
     console.log('Hello RadioService Provider');
   }
 
-  getCurrentSongs() {
+  initLoop() {
+    if(this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.getApiSongs().subscribe(
+        data => {
+          let hasChanged = (this.currentSong.title !== data.songs[0].title);
+          if(hasChanged) {
+            this.currentSong = {
+              cover_url: data.songs[0].album_cover || '',
+              title: data.songs[0].title || '',
+              artist: data.songs[0].title.split(" - ")[0],
+              track: data.songs[0].title.split(" - ")[1]
+            };
+            this.lastSongs = data.songs.map((song)=> {
+              let result = {
+                cover_url: song.album_cover || '',
+                title: song.title || '',
+                artist: song.title.split(" - ")[0],
+                track: song.title.split(" - ")[1]
+              };
+              return result;
+            });
+
+            this.lastSongs.shift();
+
+            this.events.publish('nowPlayingChanged', this.currentSong, this.lastSongs);
+          }
+          this.timer = setTimeout(()=>this.initLoop(), this.loop_interval);
+        },
+        error => this.events.publish('onError', error)
+    );
+  }
+
+  getApiSongs() {
     return this.http
         .get(this.vars.URL_COVERS_API)
         .map(res => {

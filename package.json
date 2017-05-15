@@ -24,7 +24,6 @@
         "@angular/platform-browser": "2.4.8",
         "@angular/platform-browser-dynamic": "2.4.8",
         "@angular/platform-server": "2.4.8",
-        "@ionic-native/background-mode": "3.5.0",
         "@ionic-native/core": "^3.6.1",
         "@ionic-native/google-analytics": "^3.6.1",
         "@ionic-native/in-app-browser": "^3.8.0",
@@ -37,7 +36,6 @@
         "angular2-swing": "0.10.0",
         "cordova-android": "~6.1.0",
         "cordova-ios": "^4.4.0",
-        "cordova-plugin-background-mode": "~0.7.2",
         "cordova-plugin-console": "~1.0.6",
         "cordova-plugin-crosswalk-webview": "~2.3.0",
         "cordova-plugin-device": "~1.1.5",
@@ -96,7 +94,6 @@
             "cordova-plugin-device": {},
             "ionic-plugin-keyboard": {},
             "cordova-plugin-x-socialsharing": {},
-            "cordova-plugin-background-mode": {},
             "cordova-plugin-crosswalk-webview": {
                 "XWALK_VERSION": "23+",
                 "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",

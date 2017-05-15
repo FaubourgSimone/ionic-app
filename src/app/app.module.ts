@@ -25,7 +25,7 @@ import { IonicAudioModule } from 'ionic-audio';
 
 const cloudSettings: CloudSettings = {
     'core': {
-        'app_id': '0f7b6934'
+        'app_id': '2660e52d'
     }
 };
 

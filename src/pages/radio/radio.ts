@@ -1,26 +1,23 @@
-import { ViewController, Platform, NavController } from 'ionic-angular';
-import { Component, NgZone }    from '@angular/core';
-import { BackgroundMode }       from '@ionic-native/background-mode';
-import { MusicControls }        from '@ionic-native/music-controls';
-import { GoogleAnalytics }      from '@ionic-native/google-analytics';
-import { AudioProvider }        from "ionic-audio";
-import { InitService }          from '../../providers/init-service';
-import { RadioService }         from '../../providers/radio-service';
-import { GlobalService }        from '../../providers/global-service';
-import { PromptService }        from "../../providers/prompt-service";
+import { ViewController, Platform, NavController, Events } from 'ionic-angular';
+import { Component }        from '@angular/core';
+import { MusicControls }    from '@ionic-native/music-controls';
+import { GoogleAnalytics }  from '@ionic-native/google-analytics';
+import { AudioProvider }    from "ionic-audio";
+import { InitService }      from '../../providers/init-service';
+import { RadioService }     from '../../providers/radio-service';
+import { GlobalService }    from '../../providers/global-service';
+import { PromptService }    from "../../providers/prompt-service";
 
 declare let cordova: any;
 
 @Component({
     selector: 'page-radio',
     templateUrl: 'radio.html',
-    providers: [BackgroundMode, MusicControls]
+    providers: [MusicControls]
 })
 export class RadioPage {
 
     private streaming_url:string;
-    private loop_interval:Number = 3000;
-    private timer:any;
     private hasLeft:boolean = false;
     private isPlaying:boolean = false;
     private playPauseButton:string = 'play';
@@ -33,10 +30,9 @@ export class RadioPage {
         artist: '',
         track: ''
     };
-
-    private myOnlyTrack:any;
     private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
     private currentShareData:any;
+    private myOnlyTrack:any;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -44,12 +40,11 @@ export class RadioPage {
                 private vars: GlobalService,
                 private initService: InitService,
                 private radioService: RadioService,
-                private backgroundMode: BackgroundMode,
-                private zone: NgZone,
                 private musicControls: MusicControls,
                 private _audioProvider: AudioProvider,
                 private ga: GoogleAnalytics,
-                private prompt: PromptService) {
+                private prompt: PromptService,
+                private events: Events) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -59,7 +54,7 @@ export class RadioPage {
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.initService.getInitData().then((data:any)=>{
             this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
-            this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
+            // this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
             this.initPlayer();
 
         }).catch((error)=>{
@@ -77,81 +72,41 @@ export class RadioPage {
     }
 
     ionViewDidLoad() {
-        this.manageBackground();
+        this.events.subscribe('nowPlayingChanged', (currentSong, lastSongs)=>this.onNowPlayingChanged(currentSong, lastSongs));
+        this.events.subscribe('onError', (error)=>this.onRadioServiceError(error));
+        this.radioService.initLoop();
     }
 
     ionViewDidEnter() {
         this.hasLeft = false;
-        this.loopData();
     }
 
-    manageBackground(){
-        this.backgroundMode.enable();
-        try {
-            // enter background mode
-            this.backgroundMode.on('activate').subscribe(()=> {});
-            // leave background mode
-            this.backgroundMode.on('deactivate').subscribe(()=> {
-                this.zone.run(()=>{
-                    this.loopData();
-                });
-            });
-        }
-        catch(e) {}
+    onNowPlayingChanged(currentSong, lastSongs) {
+        this.currentSong = currentSong;
+        this.lastSongs = lastSongs;
+        this.currentShareData = {
+            message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
+            subject: 'En ce moment sur Faubourg Simone',
+            url: 'http://faubourgsimone.paris'
+        };
+
+        this.destroyMusicControls();
+        this.createMusicControls();
+
     }
 
-    loopData() {
-        if(this.timer) {
-            clearTimeout(this.timer);
-        }
-        // Looking for information about current song
-        this.radioService.getCurrentSongs().subscribe(
-            data => {
-                // TODO: mettre ca dans le RadioService ?
-                let hasChanged = (this.currentSong.title !== data.songs[0].title);
-
-                if(hasChanged) {
-
-                    this.currentSong = {
-                        cover_url: data.songs[0].album_cover || '',
-                        title: data.songs[0].title || '',
-                        artist: data.songs[0].title.split(" - ")[0],
-                        track: data.songs[0].title.split(" - ")[1]
-                    };
-                    this.lastSongs = data.songs.map((song)=> {
-                        let result = {
-                            cover_url: song.album_cover || '',
-                            title: song.title || '',
-                            artist: song.title.split(" - ")[0],
-                            track: song.title.split(" - ")[1]
-                        };
-                        return result;
-                    });
-
-                    this.currentShareData = {
-                        message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
-                        subject: 'En ce moment sur Faubourg Simone',
-                        url: 'http://faubourgsimone.paris'
-                    };
-
-                    this.lastSongs.shift();
-                    this.destroyMusicControls();
-                    this.createMusicControls();
-                }
-                this.timer = setTimeout(()=>this.loopData(), this.loop_interval);
-            },
-            error => this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'})
-        );
+    onRadioServiceError(error) {
+        this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'})
     }
 
     togglePlayPause() {
         if(this.isPlaying) {
-            this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
             this.pause();
+            this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
         }
         else {
-            this.ga.trackEvent('play', 'Utiliser la radio', 'player-button', Date.now());
             this.play();
+            this.ga.trackEvent('play', 'Utiliser la radio', 'player-button', Date.now());
         }
     }
 
@@ -167,7 +122,7 @@ export class RadioPage {
         this.playPauseButton = 'play';
         this.isPlaying = false;
         this._audioProvider.stop();
-        if (typeof cordova !== 'undefined') {
+        if (typeof cordova !== 'undefined' && this.musicControls && typeof this.musicControls !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
     }
@@ -182,7 +137,7 @@ export class RadioPage {
                 dismissable: true,
                 hasPrev: false,      // show previous button, optional, default: true
                 hasNext: false,      // show next button, optional, default: true
-                hasClose: true,       // show close button, optional, default: false
+                hasClose: false,       // show close button, optional, default: false
                 album: 'Faubourg Simone Radio',     // optional, default: ''
                 duration: 0, // optional, default: 0
                 elapsed: 0, // optional, default: 0
@@ -193,16 +148,16 @@ export class RadioPage {
                 // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
                 switch (action) {
                     case 'music-controls-play':
-                        this.ga.trackEvent('play', 'Utiliser la radio', 'music-controls-play', Date.now());
                         this.play();
+                        this.ga.trackEvent('play', 'Utiliser la radio', 'music-controls-play', Date.now());
                         break;
                     case 'music-controls-pause':
-                        this.ga.trackEvent('pause', 'Utiliser la radio', 'music-controls-pause' + Date.now());
                         this.pause();
+                        this.ga.trackEvent('pause', 'Utiliser la radio', 'music-controls-pause' + Date.now());
                         break;
                     case 'music-controls-destroy':
-                        this.ga.trackEvent('close', 'Utiliser la radio', 'music-controls-destroy' + Date.now());
                         this.destroyMusicControls();
+                        this.ga.trackEvent('close', 'Utiliser la radio', 'music-controls-destroy' + Date.now());
                         break;
                     // Headset events (Android only)
                     case 'music-controls-media-button' :
