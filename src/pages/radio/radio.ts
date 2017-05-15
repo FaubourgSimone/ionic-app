@@ -20,6 +20,7 @@ export class RadioPage {
     private streaming_url:string;
     private hasLeft:boolean = false;
     private isPlaying:boolean = false;
+    private isLoading:boolean = true;
     private playPauseButton:string = 'play';
     private isButtonActive:boolean = true;
     // private volume:number = 50;
@@ -52,16 +53,20 @@ export class RadioPage {
         });
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-        this.initService.getInitData().then((data:any)=>{
-            this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
-            // this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
-            this.initPlayer();
+        // this.initService.getInitData().then((data:any)=>{
+        //     this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
+        //     //TODO : utiliser loop_interval dans RadioService
+        //     // this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
+        //     this.initPlayer();
+        //
+        // }).catch((error)=>{
+        //     this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
+        //     this.initPlayer();
+        //     this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
+        // });
 
-        }).catch((error)=>{
-            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
-            this.initPlayer();
-            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
-        });
+        this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
+        this.initPlayer();
     }
 
     initPlayer() {
@@ -121,6 +126,7 @@ export class RadioPage {
     pause() {
         this.playPauseButton = 'play';
         this.isPlaying = false;
+        this.isLoading = true;
         this._audioProvider.stop();
         if (typeof cordova !== 'undefined' && this.musicControls && typeof this.musicControls !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
@@ -186,6 +192,7 @@ export class RadioPage {
     }
 
     onTrackLoaded(event) {
+        this.isLoading = false;
         this.prompt.dismissLoading();
         this.isPlaying = true;
         this.isButtonActive = true;

@@ -45,7 +45,7 @@ export class GlobalService {
         "Déploiement de l'antenne !",
         "On cherche la prise Jack !",
         "On vous envoie la sauce !",
-        "Propagation des des ondes",
+        "Propagation des ondes",
         "Recherche de la ionosphere"
     ];
 
