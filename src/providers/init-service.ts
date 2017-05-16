@@ -2,6 +2,7 @@ import 'rxjs/add/operator/map';
 import { Injectable }       from '@angular/core';
 import { Http }             from '@angular/http';
 import { GlobalService }    from '../providers/global-service';
+import * as localConfig     from '../assets/config.json';
 
 
 @Injectable()
@@ -10,15 +11,20 @@ export class InitService {
   constructor(public http: Http, private vars:GlobalService) {}
 
   getInitData() {
-      return new Promise((resolve, reject) => {
+      console.log('InitService.getInitData');
 
-
-          this.http.get(this.vars.URL_INFO)
-              .map(res => res.json())
-              .subscribe(
-                  data => resolve(data),
-                  error =>reject('Erreur lors du chargement de ' + this.vars.URL_INFO + ': ' + error)
-              );
-      });
+      if(this.vars.DEVMODE) {
+          return new Promise((resolve) => resolve(localConfig));
+      }
+      else {
+          return new Promise((resolve, reject) => {
+              this.http.get(this.vars.URL_INFO_PROD)
+                  .map(res => res.json())
+                  .subscribe(
+                      data => resolve(data),
+                      error => resolve({error:'Erreur lors du chargement de ' + this.vars.URL_INFO_PROD + ': ' + error, content:localConfig})
+                  );
+          });
+      }
   }
 }

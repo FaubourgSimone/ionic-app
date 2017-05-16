@@ -3,17 +3,15 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class GlobalService {
 
-    public DEVMODE:boolean = true;
+    public DEVMODE:boolean = false;
 
     public  BASE_URL:string;
-    public  URL_INFO:string;
 
     private BASE_URL_API_PROD:string    = 'http://faubourgsimone.paris';
     private BASE_URL_API_DEV:string     = 'http://faubourgsimone.local';
     public URL_INFO_PROD:string         = 'http://faubourgsimone.paris/ionic-app/info.json';
-    public URL_INFO_DEV:string          = 'http://fbrgsmn.proustib.at/ionic-app/info.json';
     public URL_STREAMING_DEFAULT        = 'http://91.121.65.131:8000/;';
-    public URL_STREAMING_BACKUP         = 'http://91.121.65.131:1337/faubourgsimone';
+    // public URL_STREAMING_DEFAULT         = 'http://91.121.65.131:1337/faubourgsimone';
     public URL_COVERS_API               = 'http://ks25555.kimsufi.com/fsapi/cacheapi.json';
 
     public URL_POLAS:       { baseUrl:string, params: { count:string, page:string } };
@@ -69,11 +67,9 @@ export class GlobalService {
         console.log('Hello GlobalService Provider');
         if(!this.DEVMODE) {
             this.BASE_URL = this.BASE_URL_API_PROD;
-            this.URL_INFO =  this.URL_INFO_PROD;
         }
         else {
             this.BASE_URL = this.BASE_URL_API_DEV;
-            this.URL_INFO =  this.URL_INFO_DEV;
         }
 
         this.URL_POLAS = {

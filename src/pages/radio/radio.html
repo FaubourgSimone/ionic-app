@@ -12,13 +12,19 @@
 <ion-content parallax-header class="radio-page-cover" no-padding>
 
     <div class="header-image">
-        <img no-padding no-margin class="cover" src="{{currentSong.cover.jpg}}" srcset="{{currentSong.cover.svg}}"/>
+        <img no-padding no-margin class="cover" [ngClass]="configReady ? 'animated' : ''" src="{{currentSong.cover.jpg}}" srcset="{{currentSong.cover.svg}}"/>
     </div>
 
     <div class="main-content">
 
         <div class="meta-info" padding>
-            <span ion-text class="label-now-playing" color="secondary" text-uppercase><span class="txt"><span>•&nbsp;</span> En ce moment</span></span>
+            <span ion-text class="label-now-playing"
+                  [ngClass]="configReady ? 'hidden' : ''"
+                  color="secondary" text-uppercase>
+                <span class="txt">
+                    <span>•&nbsp;</span>En ce moment
+                </span>
+            </span>
             <ion-row class="toggle-buttons" justify-content-center>
 
                 <audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)" (onError)="onTrackError($event)">
@@ -32,8 +38,8 @@
                     <!--</button>-->
 
 
-                    <div class="btn-container" [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"
-                            *ngIf="playerReady"
+                    <div class="btn-container"
+                            [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"
                             (click)="togglePlayPause()">
                         <div class="play-button" color="secondary">
                             <div class="lp-background"></div>
@@ -48,6 +54,7 @@
             <h1 ion-text class="artist" color="primary" text-uppercase no-margin padding-horizontal><span>{{currentSong.artist}}</span></h1>
             <h2 ion-text class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>
             <share-button class="current-song"
+                          [ngClass]="configReady ? 'hidden' : ''"
                           [options]="{
                             message: currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
                             subject: 'En ce moment sur Faubourg Simone',

@@ -29,6 +29,7 @@ export class RadioPage {
     private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
     private currentShareData:any;
     private myOnlyTrack:any;
+    private configReady:boolean = true;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -52,19 +53,15 @@ export class RadioPage {
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
         this.initService.getInitData().then((data:any)=>{
+            if(data.error) {
+                this.prompt.presentMessage({message: data.error.toString(), classNameCss: 'error'});
+                data = data.content;
+            }
             this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
             this.radioService.initLoop(data.loop_interval);
+            this.configReady = false;
             this.initPlayer();
-
-        }).catch((error)=>{
-            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
-            this.radioService.initLoop();
-            this.initPlayer();
-            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
         });
-
-        // this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
-        // this.initPlayer();
     }
 
     initPlayer() {
