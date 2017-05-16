@@ -11,9 +11,8 @@
 
 <ion-content parallax-header class="radio-page-cover" no-padding>
 
-    <!--<div class="header-image" [ngStyle]="{ 'background-image': 'url(' + currentSong.cover_url + ')'}">-->
     <div class="header-image">
-        <img no-padding no-margin class="cover" src="{{currentSong.cover_url}}"/>
+        <img no-padding no-margin class="cover" src="{{currentSong.cover.jpg}}" srcset="{{currentSong.cover.svg}}"/>
     </div>
 
     <div class="main-content">
@@ -61,13 +60,13 @@
 
 
 
-        <ion-list class="last-songs" no-margin>
+        <ion-list *ngIf="lastSongs" class="last-songs" no-margin>
             <ion-list-header no-margin no-border>
                 <h3 ion-text color="primary" no-margin no-padding text-uppercase>Derniers morceaux: </h3>
             </ion-list-header>
             <ion-item class="last-song-item" *ngFor="let song of lastSongs" text-wrap>
                 <ion-thumbnail item-left>
-                    <img src={{song.cover_url}}>
+                    <img src="{{song.cover.jpg}}" srcset="{{song.cover.svg}}"/>
                 </ion-thumbnail>
                 <h4 ion-text color="primary" no-margin no-padding text-uppercase="">{{song.artist}}</h4>
                 <p ion-text no-margin no-padding color="primary">{{song.track}}</p>

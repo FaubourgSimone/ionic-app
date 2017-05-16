@@ -25,13 +25,8 @@ export class RadioPage {
     private isButtonActive:boolean = true;
     // private volume:number = 50;
     private playerReady:boolean = false;
-    private currentSong = {
-        cover_url: 'assets/images/cover-default.jpg',
-        title: '',
-        artist: '',
-        track: ''
-    };
-    private lastSongs:{ cover_url:string, title:string, artist:string, track:string }[];
+    private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
+    private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
     private currentShareData:any;
     private myOnlyTrack:any;
 
@@ -47,26 +42,29 @@ export class RadioPage {
                 private prompt: PromptService,
                 private events: Events) {
 
+
+        this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
+
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             this.ga.trackView(this.viewCtrl.name);
         });
 
         // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-        // this.initService.getInitData().then((data:any)=>{
-        //     this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
-        //     //TODO : utiliser loop_interval dans RadioService
-        //     // this.loop_interval = data.loop_interval ? data.loop_interval : this.loop_interval;
-        //     this.initPlayer();
-        //
-        // }).catch((error)=>{
-        //     this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
-        //     this.initPlayer();
-        //     this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
-        // });
+        this.initService.getInitData().then((data:any)=>{
+            this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
+            this.radioService.initLoop(data.loop_interval);
+            this.initPlayer();
 
-        this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
-        this.initPlayer();
+        }).catch((error)=>{
+            this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
+            this.radioService.initLoop();
+            this.initPlayer();
+            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
+        });
+
+        // this.streaming_url = this.vars.URL_STREAMING_DEFAULT;
+        // this.initPlayer();
     }
 
     initPlayer() {
@@ -79,7 +77,6 @@ export class RadioPage {
     ionViewDidLoad() {
         this.events.subscribe('nowPlayingChanged', (currentSong, lastSongs)=>this.onNowPlayingChanged(currentSong, lastSongs));
         this.events.subscribe('onError', (error)=>this.onRadioServiceError(error));
-        this.radioService.initLoop();
     }
 
     ionViewDidEnter() {
@@ -138,7 +135,7 @@ export class RadioPage {
             this.musicControls.create({
                 track: this.currentSong.track,
                 artist: this.currentSong.artist,
-                cover: this.currentSong.cover_url,
+                cover: this.currentSong.cover.jpg,
                 isPlaying: this.isPlaying,
                 dismissable: true,
                 hasPrev: false,      // show previous button, optional, default: true

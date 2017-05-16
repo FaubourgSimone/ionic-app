@@ -12,6 +12,7 @@ export class InitService {
   getInitData() {
       return new Promise((resolve, reject) => {
 
+
           this.http.get(this.vars.URL_INFO)
               .map(res => res.json())
               .subscribe(

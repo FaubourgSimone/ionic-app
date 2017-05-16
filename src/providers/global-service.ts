@@ -23,6 +23,21 @@ export class GlobalService {
     public URL_CASQUE:string;
     public URL_CASQUE_FIELDS:string;
 
+    public COVER_DEFAULT = {
+        jpg: "assets/images/cover-default.jpg",
+        svg: "assets/images/cover-default.svg"
+    };
+
+    public COVER_DEFAULT_FRIDAY_WEAR = {
+        jpg: 'assets/images/cover-friday-wear.jpg',
+        svg: 'assets/images/cover-friday-wear.svg'
+    };
+
+    public COVER_DEFAULT_NOUVEAUTE = {
+        jpg: 'assets/images/cover-news.jpg',
+        svg: 'assets/images/cover-news.svg'
+    };
+
     public loadingMsgPosts:Array<string> = [
         "Tout doux beau prince !",
         "Patience beauté !",
