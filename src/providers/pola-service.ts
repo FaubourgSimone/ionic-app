@@ -3,6 +3,7 @@ import { Injectable }       from '@angular/core';
 import { Http }             from '@angular/http';
 import { GlobalService }    from "./global-service";
 import { DatePipe }         from "@angular/common";
+import {TranslateService}   from "ng2-translate";
 
 @Injectable()
 export class PolaService {
@@ -12,7 +13,7 @@ export class PolaService {
     private totalQueryPage:number;
     private datePipe:DatePipe;
 
-    constructor(public http: Http, private vars:GlobalService) {
+    constructor(public http: Http, private vars:GlobalService, private translateService: TranslateService) {
         console.log('Hello PolaService Provider');
         this.datePipe = new DatePipe('fr-FR');
     }
@@ -45,18 +46,13 @@ export class PolaService {
                                     && post.custom_fields.pola_picture.sizes.medium) {
                                     img = post.custom_fields.pola_picture.sizes.medium;
                                 }
-                                const shareOptions = {
-                                    message: post.title,
-                                    subject: 'Le pola du ' + this.datePipe.transform(new Date(post.date), 'dd/MM/yyyy').toString() + ' sur Faubourg Simone',
-                                    url: post.url
-                                };
                                 return {
                                     id: post.id,
                                     title: post.title,
                                     image: img,
                                     date: new Date(post.date),
                                     permalink: post.url,
-                                    shareOptions: shareOptions
+                                    shareOptions: null
                                 };
                             })
                             .filter(post=>{
@@ -65,13 +61,38 @@ export class PolaService {
                             .reverse();
 
                         let postsArray = [];
+                        let i=0;
                         for (let post of posts) {
-                            postsArray.push(post);
+                            let shareOptions = {
+                                message: '',
+                                subject: '',
+                                url: ''
+                            };
+                            this.translateService
+                                .get('SHARING.POLA.MESSAGE', {title: post.title})
+                                .flatMap((result: string) => {
+                                    shareOptions.message = result;
+                                    return this.translateService.get('SHARING.POLA.SUBJECT', {date: this.datePipe.transform(new Date(post.date), 'dd/MM/yyyy').toString()})
+                                })
+                                .flatMap((result: string) => {
+                                    shareOptions.subject = result;
+                                    return this.translateService.get('SHARING.POLA.URL', {url: post.url})
+                                })
+                                .subscribe((result: string) => {
+                                    shareOptions.url = result;
+                                    post.shareOptions = shareOptions;
+                                    postsArray.push(post);
+                                    i++;
+                                    console.log(i, ' / ', posts.length);
+                                    if( i === posts.length ) {
+                                        console.log('resolve');
+                                        resolve(postsArray);
+                                    }
+                                });
                         }
-                        resolve(postsArray);
                     },
                     error => {
-                    console.log('error');
+                        console.log('error');
                         reject(new Error(error.toString()));
                     });
         });

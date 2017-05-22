@@ -8,7 +8,6 @@ import { RadioService }     from '../../providers/radio-service';
 import { GlobalService }    from '../../providers/global-service';
 import { PromptService }    from "../../providers/prompt-service";
 import { TranslateService } from "ng2-translate";
-import 'rxjs/add/operator/map';
 
 declare let cordova: any;
 
@@ -29,7 +28,7 @@ export class RadioPage {
     private playerReady:boolean = false;
     private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
     private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
-    private currentShareData:any;
+    // private currentShareData:any;
     private myOnlyTrack:any;
     private configReady:boolean = true;
     private shareOptions:any;
@@ -89,12 +88,6 @@ export class RadioPage {
     onNowPlayingChanged(currentSong, lastSongs) {
         this.currentSong = currentSong;
         this.lastSongs = lastSongs;
-        this.currentShareData = {
-            message: this.currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
-            subject: 'En ce moment sur Faubourg Simone',
-            url: 'http://faubourgsimone.paris'
-        };
-
         this.updateShareOptions();
         this.updateTrackingOptions();
         this.destroyMusicControls();
@@ -106,14 +99,46 @@ export class RadioPage {
     }
 
     togglePlayPause() {
+        let trackingCategory, trackingAction, trackingLabel;
         if(this.isPlaying) {
             this.pause();
-            this.ga.trackEvent('pause', 'Utiliser la radio', 'player-button',Date.now());
+            // TODO : passer ca dans un service specfique
+            this.translateService
+                .get('TRACKING.PLAYER.CATEGORY')
+                .flatMap((result: string) => {
+                    trackingCategory = result;
+                    return this.translateService.get('TRACKING.PLAYER.ACTION.PAUSE')
+                })
+                .flatMap((result: string) => {
+                    trackingAction = result;
+                    return this.translateService.get('TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', {date: Date.now().toString()})
+                })
+                .subscribe((result: string) => {
+                    trackingLabel = result;
+                    console.log(trackingCategory, trackingAction, trackingLabel);
+                    this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                });
         }
         else {
             this.play();
-            this.ga.trackEvent('play', 'Utiliser la radio', 'player-button', Date.now());
+            this.translateService
+                .get('TRACKING.PLAYER.CATEGORY')
+                .flatMap((result: string) => {
+                    trackingCategory = result;
+                    return this.translateService.get('TRACKING.PLAYER.ACTION.PLAY')
+                })
+                .flatMap((result: string) => {
+                    trackingAction = result;
+                    return this.translateService.get('TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', {date: Date.now().toString()})
+                })
+                .subscribe((result: string) => {
+                    trackingLabel = result;
+                    console.log(trackingCategory, trackingAction, trackingLabel);
+                    this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                });
         }
+
+
     }
 
     play() {
@@ -153,28 +178,128 @@ export class RadioPage {
 
             this.musicControls.subscribe().subscribe(action => {
                 // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
+                let trackingCategory, trackingAction, trackingLabel;
                 switch (action) {
                     case 'music-controls-play':
                         this.play();
-                        this.ga.trackEvent('play', 'Utiliser la radio', 'music-controls-play', Date.now());
+
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.PLAY')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     case 'music-controls-pause':
                         this.pause();
-                        this.ga.trackEvent('pause', 'Utiliser la radio', 'music-controls-pause' + Date.now());
+
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.PAUSE')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     case 'music-controls-destroy':
                         this.destroyMusicControls();
-                        this.ga.trackEvent('close', 'Utiliser la radio', 'music-controls-destroy' + Date.now());
+
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.DESTROY')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     // Headset events (Android only)
                     case 'music-controls-media-button' :
+
                         console.log('MEDIA BUTTON');
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.MEDIA_BUTTON')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     case 'music-controls-headset-unplugged':
                         this.pause();
+
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.HEADSET_UNPLUGGED')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     case 'music-controls-headset-plugged':
                         this.play();
+
+                        this.translateService
+                            .get('TRACKING.PLAYER.CATEGORY')
+                            .flatMap((result: string) => {
+                                trackingCategory = result;
+                                return this.translateService.get('TRACKING.PLAYER.ACTION.HEADSET_PLUGGED')
+                            })
+                            .flatMap((result: string) => {
+                                trackingAction = result;
+                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
+                            })
+                            .subscribe((result: string) => {
+                                trackingLabel = result;
+                                console.log(trackingCategory, trackingAction, trackingLabel);
+                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
+                            });
+
                         break;
                     default:
                         break;
@@ -193,43 +318,40 @@ export class RadioPage {
             url:''
         };
         this.translateService
-            .get('RADIOPAGE.SHARE.MESSAGE', {title: this.currentSong.title})
+            .get('SHARING.CURRENT_SONG.MESSAGE', {title: this.currentSong.title})
             .flatMap((result: string) => {
                 shareOptions.message = result;
-                return this.translateService.get('RADIOPAGE.SHARE.SUBJECT')
+                return this.translateService.get('SHARING.CURRENT_SONG.SUBJECT')
             })
             .flatMap((result: string) => {
                 shareOptions.subject = result;
-                return this.translateService.get('RADIOPAGE.SHARE.URL')
+                return this.translateService.get('SHARING.CURRENT_SONG.URL')
             })
             .subscribe((result: string) => {
                 shareOptions.url = result;
-                console.log(shareOptions);
                 this.shareOptions = shareOptions;
             });
     }
 
 
     updateTrackingOptions() {
-
         let trackingOptions = {
             category:'',
             action:'',
             label:''
         };
         this.translateService
-            .get('RADIOPAGE.TRACKING.CATEGORY')
+            .get('TRACKING.SHARE.CURRENT_SONG.CATEGORY')
             .flatMap((result: string) => {
                 trackingOptions.category = result;
-                return this.translateService.get('RADIOPAGE.TRACKING.ACTION')
+                return this.translateService.get('TRACKING.SHARE.CURRENT_SONG.ACTION')
             })
             .flatMap((result: string) => {
                 trackingOptions.action = result;
-                return this.translateService.get('RADIOPAGE.TRACKING.LABEL', {title: this.currentSong.title})
+                return this.translateService.get('TRACKING.SHARE.CURRENT_SONG.LABEL', {title: this.currentSong.title})
             })
             .subscribe((result: string) => {
                 trackingOptions.label = result;
-                console.log(trackingOptions);
                 this.trackingOptions = trackingOptions;
             });
     }

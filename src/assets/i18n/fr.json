@@ -2,33 +2,110 @@
   "TABS": {
     "RADIO": "Radio",
     "POLA": "Polas",
-    "NOTEBOOKS": "Calepins",
-    "HEADPHONES": "Dans Le Casque"
+    "CALEPINS": "Calepins",
+    "CASQUES": "Dans Le Casque"
   },
 
   "RADIOPAGE":{
     "TITLE": "La Radio",
     "NOWPLAYING": "En ce moment",
-    "LASTTRACKS": "Derniers morceaux",
+    "LASTTRACKS": "Derniers morceaux"
+  },
+
+  "POLAPAGE": {
+    "TITLE": "Les polas du jour",
+    "FOR": "pour",
+    "AGAINST": "contre"
+  },
+
+  "CALEPINSPAGE": {
+    "TITLE": ""
+  },
+
+  "CALEPINPAGE": {
+    "TITLE": ""
+  },
+
+  "CASQUESPAGE": {
+    "TITLE": ""
+  },
+
+  "CASQUEPAGE": {
+    "TITLE": ""
+  },
+
+  "CONCERTSSPAGE": {
+    "TITLE": ""
+  },
+
+  "CONCERTPAGE": {
+    "TITLE": ""
+  },
+
+  "TRACKING": {
+
     "SHARE": {
+      "CURRENT_SONG": {
+        "CATEGORY": "Partager",
+        "ACTION": "Partager la musique en cours",
+        "LABEL": "{{ title }}"
+      },
+      "POLA": {
+        "CATEGORY": "Partager",
+        "ACTION": "Partager un pola",
+        "LABEL": "{{ link }}"
+      }
+    },
+
+    "PLAYER": {
+      "CATEGORY": "Utiliser la radio",
+      "ACTION": {
+        "PLAY": "play",
+        "PAUSE": "pause",
+        "DESTROY": "destroy",
+        "MEDIA_BUTTON": "media-button",
+        "HEADSET_UNPLUGGED": "headset-unplugged",
+        "HEADSET_PLUGGED": "headset-plugged"
+      },
+      "LABEL": {
+        "PLAYER_BUTTONS": "player-button-{{ date }}",
+        "MUSIC_CONTROLS": "music-controls-play-{{ date }}"
+      }
+    },
+
+    "POLA": {
+      "CATEGORY": "Naviguer dans les polas",
+      "ACTION": {
+        "SWIPE": "Swiper un pola",
+        "REFILL": "Charger d'autres polas",
+        "VOTE": "Voter {{verb}} un pola"
+      },
+      "LABEL": {
+        "SWIPE": "pola-{{index}}",
+        "REFILL": "refill-calepin-{{time}}",
+        "VOTE": "pola-{{removedCardId}}"
+      }
+    }
+
+  },
+
+
+  "ERRORS": {
+
+  },
+
+
+  "SHARING": {
+    "CURRENT_SONG": {
       "MESSAGE": "{{ title }} #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio",
       "SUBJECT": "En ce moment sur Faubourg Simone",
       "URL": "http://faubourgsimone.paris"
     },
-    "TRACKING": {
-      "CATEGORY": "Partager la musique en cours",
-      "ACTION": "Partager",
-      "LABEL": "{{ title }}"
+    "POLA": {
+      "MESSAGE": "{{ title }}",
+      "SUBJECT": "Le pola du {{ date }} sur Faubourg Simone",
+      "URL": "{{ url }}"
     }
-  },
-
-  "NOTEBOOKS": {
-  },
-
-
-
-  "TRACKING": {
-
   }
 
 }
