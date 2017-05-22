@@ -7,6 +7,8 @@ import { InitService }      from '../../providers/init-service';
 import { RadioService }     from '../../providers/radio-service';
 import { GlobalService }    from '../../providers/global-service';
 import { PromptService }    from "../../providers/prompt-service";
+import { TranslateService } from "ng2-translate";
+import 'rxjs/add/operator/map';
 
 declare let cordova: any;
 
@@ -30,6 +32,8 @@ export class RadioPage {
     private currentShareData:any;
     private myOnlyTrack:any;
     private configReady:boolean = true;
+    private shareOptions:any;
+    private trackingOptions:any;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -41,7 +45,8 @@ export class RadioPage {
                 private _audioProvider: AudioProvider,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService,
-                private events: Events) {
+                private events: Events,
+                private translateService: TranslateService) {
 
 
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
@@ -49,18 +54,19 @@ export class RadioPage {
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             this.ga.trackView(this.viewCtrl.name);
-        });
 
-        // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
-        this.initService.getInitData().then((data:any)=>{
-            if(data.error) {
-                this.prompt.presentMessage({message: data.error.toString(), classNameCss: 'error'});
-                data = data.content;
-            }
-            this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
-            this.radioService.initLoop(data.loop_interval);
-            this.configReady = false;
-            this.initPlayer();
+            // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
+            this.initService.getInitData().then((data:any)=>{
+                if(data.error) {
+                    this.prompt.presentMessage({message: data.error.toString(), classNameCss: 'error'});
+                    data = data.content;
+                }
+                this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
+                this.radioService.initLoop(data.loop_interval);
+                this.configReady = false;
+                this.initPlayer();
+            });
+
         });
     }
 
@@ -89,9 +95,10 @@ export class RadioPage {
             url: 'http://faubourgsimone.paris'
         };
 
+        this.updateShareOptions();
+        this.updateTrackingOptions();
         this.destroyMusicControls();
         this.createMusicControls();
-
     }
 
     onRadioServiceError(error) {
@@ -179,11 +186,60 @@ export class RadioPage {
         }
     }
 
+    updateShareOptions() {
+        let shareOptions = {
+            message:'',
+            subject:'',
+            url:''
+        };
+        this.translateService
+            .get('RADIOPAGE.SHARE.MESSAGE', {title: this.currentSong.title})
+            .flatMap((result: string) => {
+                shareOptions.message = result;
+                return this.translateService.get('RADIOPAGE.SHARE.SUBJECT')
+            })
+            .flatMap((result: string) => {
+                shareOptions.subject = result;
+                return this.translateService.get('RADIOPAGE.SHARE.URL')
+            })
+            .subscribe((result: string) => {
+                shareOptions.url = result;
+                console.log(shareOptions);
+                this.shareOptions = shareOptions;
+            });
+    }
+
+
+    updateTrackingOptions() {
+
+        let trackingOptions = {
+            category:'',
+            action:'',
+            label:''
+        };
+        this.translateService
+            .get('RADIOPAGE.TRACKING.CATEGORY')
+            .flatMap((result: string) => {
+                trackingOptions.category = result;
+                return this.translateService.get('RADIOPAGE.TRACKING.ACTION')
+            })
+            .flatMap((result: string) => {
+                trackingOptions.action = result;
+                return this.translateService.get('RADIOPAGE.TRACKING.LABEL', {title: this.currentSong.title})
+            })
+            .subscribe((result: string) => {
+                trackingOptions.label = result;
+                console.log(trackingOptions);
+                this.trackingOptions = trackingOptions;
+            });
+    }
+
     destroyMusicControls() {
         if (typeof cordova !== 'undefined') {
             this.musicControls.destroy();
         }
     }
+
 
     onTrackLoaded(event) {
         this.isLoading = false;

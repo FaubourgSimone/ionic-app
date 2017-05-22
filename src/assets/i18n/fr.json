@@ -1,0 +1,34 @@
+{
+  "TABS": {
+    "RADIO": "Radio",
+    "POLA": "Polas",
+    "NOTEBOOKS": "Calepins",
+    "HEADPHONES": "Dans Le Casque"
+  },
+
+  "RADIOPAGE":{
+    "TITLE": "La Radio",
+    "NOWPLAYING": "En ce moment",
+    "LASTTRACKS": "Derniers morceaux",
+    "SHARE": {
+      "MESSAGE": "{{ title }} #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio",
+      "SUBJECT": "En ce moment sur Faubourg Simone",
+      "URL": "http://faubourgsimone.paris"
+    },
+    "TRACKING": {
+      "CATEGORY": "Partager la musique en cours",
+      "ACTION": "Partager",
+      "LABEL": "{{ title }}"
+    }
+  },
+
+  "NOTEBOOKS": {
+  },
+
+
+
+  "TRACKING": {
+
+  }
+
+}

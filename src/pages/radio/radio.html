@@ -3,7 +3,7 @@
         <ion-title no-padding>
             <div class="header-radio">
                 <div class=""><img class="logo" src="assets/images/faubourgsimone-logo-no-waves.png"/></div>
-                <div class=""><span margin-left text-uppercase ion-text text-wrap class="ion-title-header" color="secondary">La radio</span></div>
+                <div class=""><span margin-left text-uppercase ion-text text-wrap class="ion-title-header" color="secondary">{{ 'RADIOPAGE.TITLE' | translate }}</span></div>
             </div>
         </ion-title>
     </ion-navbar>
@@ -22,7 +22,7 @@
                   [ngClass]="configReady ? 'hidden' : ''"
                   color="secondary" text-uppercase>
                 <span class="txt">
-                    <span>•&nbsp;</span>En ce moment
+                    <span>•&nbsp;</span>{{ 'RADIOPAGE.NOWPLAYING' | translate }}
                 </span>
             </span>
             <ion-row class="toggle-buttons" justify-content-center>
@@ -55,12 +55,8 @@
             <h2 ion-text class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>
             <share-button class="current-song"
                           [ngClass]="configReady ? 'hidden' : ''"
-                          [options]="{
-                            message: currentSong.title + ' #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio',
-                            subject: 'En ce moment sur Faubourg Simone',
-                            url: 'http://faubourgsimone.paris'
-                        }"
-                          [trackingOptions]="{category:'Partager la musique en cours', action:'Partager', label:currentSong.title}"
+                          [options]="shareOptions"
+                          [trackingOptions]="trackingOptions"
                           border icon-only>
             </share-button>
         </div>
@@ -69,7 +65,7 @@
 
         <ion-list *ngIf="lastSongs" class="last-songs" no-margin>
             <ion-list-header no-margin no-border>
-                <h3 ion-text color="primary" no-margin no-padding text-uppercase>Derniers morceaux: </h3>
+                <h3 ion-text color="primary" no-margin no-padding text-uppercase>{{ 'RADIOPAGE.LASTTRACKS' | translate }}</h3>
             </ion-list-header>
             <ion-item class="last-song-item" *ngFor="let song of lastSongs" text-wrap>
                 <ion-thumbnail item-left>

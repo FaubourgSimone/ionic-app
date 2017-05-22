@@ -20,19 +20,19 @@ export class PromptService {
       spinner: 'dots',
       content: message
     });
-    this.loader.present();
+    this.loader.present().catch((reason)=>console.log(`Error when presenting loader: ${reason}`));
   }
 
   dismissLoading() {
     if(this.loader) {
-      this.loader.dismiss();
+      this.loader.dismiss().catch((reason)=>console.log(`Error when dismissing loader: ${reason}`));
     }
   }
 
   presentMessage({message, classNameCss, duration, callback}:{message:string, classNameCss?:string, duration?:number, callback?:Function}) {
 
     if(this.messageToast) {
-      this.messageToast.dismiss();
+      this.messageToast.dismiss().catch((reason)=>console.log(`Error when dismissing toast: ${reason}`));
     }
 
     this.messageToast = this.toastCtrl.create({
@@ -52,6 +52,6 @@ export class PromptService {
       }
     });
 
-    this.messageToast.present();
+    this.messageToast.present().catch((reason)=>console.log(`Error when presenting toast: ${reason})`));
   }
 }

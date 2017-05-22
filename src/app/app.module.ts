@@ -21,8 +21,12 @@ import { CustomComponents, ExternalComponents } from "../components/index";
 // Libs
 import { SwingModule }      from 'angular2-swing';
 import { IonicAudioModule } from 'ionic-audio';
+// import { TranslateModule, TranslateLoader }  from "@ngx-translate/core";
+import { ParallaxHeader }   from "../components/parallax-header/parallax-header";
 
-import { ParallaxHeader } from "../components/parallax-header/parallax-header";
+import { HttpModule, Http } from '@angular/http';
+// import { IonicApp, IonicModule } from 'ionic-angular';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 
 const cloudSettings: CloudSettings = {
     'core': {
@@ -34,6 +38,10 @@ const tabSettings = {
     // tabsLayout: 'title-hide',
     tabsHighlight: true
 };
+
+export function createTranslateLoader(http: Http) {
+    return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 @NgModule({
     declarations: [
@@ -48,6 +56,12 @@ const tabSettings = {
         IonicModule.forRoot(FbrgSmnApp, tabSettings),
         CloudModule.forRoot(cloudSettings),
         SwingModule,
+        HttpModule,
+        TranslateModule.forRoot({
+            provide: TranslateLoader,
+            useFactory: (createTranslateLoader),
+            deps: [Http]
+        }),
         IonicAudioModule.forRoot()
     ],
     bootstrap: [IonicApp],
@@ -63,3 +77,5 @@ const tabSettings = {
     ]
 })
 export class AppModule {}
+
+

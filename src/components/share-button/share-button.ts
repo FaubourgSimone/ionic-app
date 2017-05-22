@@ -21,6 +21,8 @@ export class ShareButtonComponent {
 
     onClick() {
         this.options.chooserTitle = 'Choisis une application'; // Android only, you can override the default share sheet title
+        console.log('Prepare to share: ', this.options);
+        console.log('Tracking: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
         this.socialSharing.shareWithOptions( this.options ).then(() => {
             console.log('[ShareButtonComponent] Shared: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
             if(this.trackingOptions) {
