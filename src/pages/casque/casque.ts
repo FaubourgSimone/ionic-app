@@ -5,6 +5,7 @@ import { DomSanitizer }     from "@angular/platform-browser";
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { CasquesService }   from "../../providers/casques-service";
 import { PromptService }    from "../../providers/prompt-service";
+import { TrackerService }   from "../../providers/tracker-service";
 
 @Component({
     selector: 'page-casque',
@@ -22,7 +23,8 @@ export class CasquePage {
                 private domSanitizer: DomSanitizer,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
-                private prompt: PromptService) {
+                private prompt: PromptService,
+                private tracker: TrackerService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -50,7 +52,11 @@ export class CasquePage {
     }
 
     onExternalLink() {
-        this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les casques', this.casque.permalink);
+        this.tracker.trackEvent(
+            { translate: 'TRACKING.CASQUES.CATEGORY' },
+            { translate: 'TRACKING.CASQUES.ACTION.GET_PERMALINK' },
+            { translate: 'TRACKING.CASQUES.LABEL.GET_PERMALINK', params: { permalink: this.casque.permalink } }
+        );
         this.navigateTo(this.casque.permalink);
     }
 

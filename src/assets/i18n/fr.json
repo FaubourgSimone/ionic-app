@@ -96,7 +96,22 @@
       },
       "LABEL": {
         "OPEN": "calepin-{{id}}",
-        "LOAD": "refill-calepin-{{time}}",
+        "LOAD": "refill-calepins-{{time}}",
+        "GET_PERMALINK": "{{ permalink }}"
+      }
+    },
+
+
+    "CASQUES": {
+      "CATEGORY": "Naviguer dans les casques",
+      "ACTION": {
+        "OPEN": "Ouvrir un casque",
+        "LOAD": "Charger les casques suivants",
+        "GET_PERMALINK": "Cliquer sur le permalink"
+      },
+      "LABEL": {
+        "OPEN": "casque-{{id}}",
+        "LOAD": "refill-casques-{{time}}",
         "GET_PERMALINK": "{{ permalink }}"
       }
     }

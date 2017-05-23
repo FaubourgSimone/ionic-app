@@ -4,6 +4,7 @@ import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { CasquesService }   from "../../providers/casques-service";
 import { PromptService }    from "../../providers/prompt-service";
 import { CasquePage }       from "../casque/casque";
+import { TrackerService }   from "../../providers/tracker-service";
 
 @Component({
     selector: 'page-casques',
@@ -19,7 +20,8 @@ export class CasquesPage {
                 private api: CasquesService,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
-                private prompt: PromptService) {
+                private prompt: PromptService,
+                private tracker:TrackerService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -45,7 +47,11 @@ export class CasquesPage {
     }
 
     navToCasque(id:number) {
-        this.ga.trackEvent('Ouvrir un casque', 'Naviguer dans les casques', 'casque-' + id.toString());
+        this.tracker.trackEvent(
+            { translate: 'TRACKING.CASQUES.CATEGORY' },
+            { translate: 'TRACKING.CASQUES.ACTION.OPEN' },
+            { translate: 'TRACKING.CASQUES.LABEL.OPEN', params: { id: id.toString() } }
+        );
         this.navCtrl.push(CasquePage, {
             postId: id
         });
@@ -53,11 +59,15 @@ export class CasquesPage {
 
     doInfinite(infiniteScroll) {
         this.reloadNb++;
-        this.ga.trackEvent('Charger les casques suivants', 'Naviguer dans les casques', 'refill-casque-' + this.reloadNb.toString());
         this.api.getCasques().then((data:any)=>{
             for (let i = 0, l=data.length; i < l; i++) {
                 this.casques.push( data[i] );
             }
+            this.tracker.trackEvent(
+                { translate: 'TRACKING.CASQUES.CATEGORY' },
+                { translate: 'TRACKING.CASQUES.ACTION.LOAD' },
+                { translate: 'TRACKING.CASQUES.LABEL.LOAD', params: { time: this.reloadNb.toString() } }
+            );
             infiniteScroll.complete();
         }).catch((error)=>{
             this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});

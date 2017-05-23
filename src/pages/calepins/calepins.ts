@@ -21,7 +21,7 @@ export class CalepinsPage {
                 private api: CalepinsService,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService,
-            private tracker:TrackerService) {
+                private tracker:TrackerService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
