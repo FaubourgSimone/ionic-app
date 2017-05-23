@@ -52,7 +52,7 @@ export class CasquePage {
     }
 
     onExternalLink() {
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.CASQUES.CATEGORY' },
             { translate: 'TRACKING.CASQUES.ACTION.GET_PERMALINK' },
             { translate: 'TRACKING.CASQUES.LABEL.GET_PERMALINK', params: { permalink: this.casque.permalink } }

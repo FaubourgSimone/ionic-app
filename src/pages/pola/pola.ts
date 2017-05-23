@@ -51,7 +51,7 @@ export class PolaPage {
     voteUp(like: boolean) {
         let removedCard = this.cards.pop();
 
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.POLA.CATEGORY' },
             { translate: 'TRACKING.POLA.ACTION.SWIPE' },
             { translate: 'TRACKING.POLA.LABEL.SWIPE', params: {index: this.displayedCardNb.toString()} }
@@ -69,7 +69,7 @@ export class PolaPage {
                 const verb = like ? voteFor : voteAgainst;
                 this.prompt.presentMessage({message: `Tu as vote ${verb} ${removedCard.title}`, duration: 3000, classNameCss: 'vote-pola'});
 
-                this.tracker.trackEvent(
+                this.tracker.trackEventWithI18n(
                     { translate: 'TRACKING.POLA.CATEGORY' },
                     { translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb: verb} },
                     { translate: 'TRACKING.POLA.LABEL.VOTE', params: {removedCardId: removedCard.id} }
@@ -79,7 +79,7 @@ export class PolaPage {
 
         if(this.cards.length === 0) {
             this.refillNb++;
-            this.tracker.trackEvent(
+            this.tracker.trackEventWithI18n(
                 { translate: 'TRACKING.POLA.CATEGORY' },
                 { translate: 'TRACKING.POLA.ACTION.REFILL' },
                 { translate: 'TRACKING.POLA.LABEL.REFILL', params: {time: this.refillNb.toString()}}

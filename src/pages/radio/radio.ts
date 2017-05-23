@@ -110,7 +110,7 @@ export class RadioPage {
             trackingAction = { translate: 'TRACKING.PLAYER.ACTION.PLAY'};
         }
 
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.PLAYER.CATEGORY' },
             trackingAction,
             { translate: 'TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', params: { date: Date.now().toString() } }
@@ -157,7 +157,7 @@ export class RadioPage {
                 switch (action) {
                     case 'music-controls-play':
                         this.play();
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.PLAY' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
@@ -166,7 +166,7 @@ export class RadioPage {
                     case 'music-controls-pause':
                         this.pause();
 
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.PAUSE' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
@@ -176,7 +176,7 @@ export class RadioPage {
                     case 'music-controls-destroy':
                         this.destroyMusicControls();
 
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.DESTROY' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
@@ -186,7 +186,7 @@ export class RadioPage {
                     // Headset events (Android only)
                     case 'music-controls-media-button' :
                         console.log('MEDIA BUTTON');
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.MEDIA_BUTTON' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
@@ -195,7 +195,7 @@ export class RadioPage {
                         break;
                     case 'music-controls-headset-unplugged':
                         this.pause();
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.HEADSET_UNPLUGGED' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
@@ -203,7 +203,7 @@ export class RadioPage {
                         break;
                     case 'music-controls-headset-plugged':
                         this.play();
-                        this.tracker.trackEvent(
+                        this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.HEADSET_PLUGGED' },
                             { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }

@@ -47,7 +47,7 @@ export class CalepinsPage {
     }
 
     navToCalepin(id:number) {
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.CALEPINS.CATEGORY' },
             { translate: 'TRACKING.CALEPINS.ACTION.OPEN' },
             { translate: 'TRACKING.CALEPINS.LABEL.OPEN', params: { id: id.toString() } }
@@ -64,7 +64,7 @@ export class CalepinsPage {
             for (let i = 0, l=data.length; i < l; i++) {
                 this.calepins.push( data[i] );
             }
-            this.tracker.trackEvent(
+            this.tracker.trackEventWithI18n(
                 { translate: 'TRACKING.CALEPINS.CATEGORY' },
                 { translate: 'TRACKING.CALEPINS.ACTION.LOAD' },
                 { translate: 'TRACKING.CALEPINS.LABEL.LOAD', params: { time: this.reloadNb.toString() } }

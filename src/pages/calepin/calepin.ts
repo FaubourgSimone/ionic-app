@@ -53,7 +53,7 @@ export class CalepinPage {
     }
 
     onExternalLink() {
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.CALEPINS.CATEGORY' },
             { translate: 'TRACKING.CALEPINS.ACTION.GET_PERMALINK' },
             { translate: 'TRACKING.CALEPINS.LABEL.GET_PERMALINK', params: { permalink: this.calepin.permalink } }

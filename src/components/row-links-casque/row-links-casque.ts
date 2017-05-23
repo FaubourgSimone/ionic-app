@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { InAppBrowser }     from 'ionic-native';
+import { TrackerService }   from "../../providers/tracker-service";
 
 @Component({
   selector: 'row-links-casque',
@@ -10,18 +11,25 @@ export class RowLinksCasqueComponent {
 
   @Input() casque:any;
 
-  constructor(private ga: GoogleAnalytics) {
+  constructor(private ga: GoogleAnalytics,
+              private tracker:TrackerService) {
     console.log('Hello RowLinksCasque Component');
   }
 
   onPreviewLink(url) {
-    console.log('RowLinksCasque.onPreviewLink: ', url);
-    this.ga.trackEvent('Cliquer sur la preview', 'Naviguer dans les casques', url);
+    this.tracker.trackEventWithI18n(
+        { translate: 'TRACKING.CASQUES.CATEGORY' },
+        { translate: 'TRACKING.CASQUES.ACTION.CLICK_PREVIEW' },
+        { translate: 'TRACKING.CASQUES.LABEL.CLICK_PREVIEW', params: { url: url } }
+    );
     this.navigateTo(url);
   }
   onBuyLink(url) {
-    console.log('RowLinksCasque.onBuyLink: ', url);
-    this.ga.trackEvent('Cliquer sur acheter', 'Naviguer dans les casques', url);
+    this.tracker.trackEventWithI18n(
+        { translate: 'TRACKING.CASQUES.CATEGORY' },
+        { translate: 'TRACKING.CASQUES.ACTION.CLICK_BUY' },
+        { translate: 'TRACKING.CASQUES.LABEL.CLICK_BUY', params: { url: url } }
+    );
     this.navigateTo(url);
   }
 

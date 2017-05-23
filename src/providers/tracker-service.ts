@@ -13,8 +13,8 @@ export class TrackerService {
     console.log('Hello TrackerService Provider');
   }
 
-  trackEvent( category: {translate:string, params?:any}, action: {translate:string, params?:any}, label: {translate:string, params?:any} ) {
-    console.log('TracerService.trackEvent');
+  trackEventWithI18n(category: {translate:string, params?:any}, action: {translate:string, params?:any}, label: {translate:string, params?:any} ) {
+    console.log('TrackerService.trackEventWithI18n');
     let trackingCategory, trackingAction, trackingLabel;
     this.translateService
         .get(category.translate, category.params)
@@ -31,7 +31,12 @@ export class TrackerService {
           console.log(trackingCategory, trackingAction, trackingLabel);
           this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
         });
+  }
 
+  trackEventWithData(...data) {
+      console.log('TrackerService.trackEventWithData');
+      console.log(data.join());
+      // this.ga.trackEvent(data.join());
   }
 
 }

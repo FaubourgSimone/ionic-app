@@ -107,12 +107,16 @@
       "ACTION": {
         "OPEN": "Ouvrir un casque",
         "LOAD": "Charger les casques suivants",
-        "GET_PERMALINK": "Cliquer sur le permalink"
+        "GET_PERMALINK": "Cliquer sur le permalink",
+        "CLICK_PREVIEW": "Cliquer sur la preview",
+        "CLICK_BUY": "Cliquer sur acheter"
       },
       "LABEL": {
         "OPEN": "casque-{{id}}",
         "LOAD": "refill-casques-{{time}}",
-        "GET_PERMALINK": "{{ permalink }}"
+        "GET_PERMALINK": "{{ permalink }}",
+        "CLICK_PREVIEW": "{{ url }}",
+        "CLICK_BUY": "{{ url }}"
       }
     }
 

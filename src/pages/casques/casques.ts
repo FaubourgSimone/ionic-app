@@ -47,7 +47,7 @@ export class CasquesPage {
     }
 
     navToCasque(id:number) {
-        this.tracker.trackEvent(
+        this.tracker.trackEventWithI18n(
             { translate: 'TRACKING.CASQUES.CATEGORY' },
             { translate: 'TRACKING.CASQUES.ACTION.OPEN' },
             { translate: 'TRACKING.CASQUES.LABEL.OPEN', params: { id: id.toString() } }
@@ -63,7 +63,7 @@ export class CasquesPage {
             for (let i = 0, l=data.length; i < l; i++) {
                 this.casques.push( data[i] );
             }
-            this.tracker.trackEvent(
+            this.tracker.trackEventWithI18n(
                 { translate: 'TRACKING.CASQUES.CATEGORY' },
                 { translate: 'TRACKING.CASQUES.ACTION.LOAD' },
                 { translate: 'TRACKING.CASQUES.LABEL.LOAD', params: { time: this.reloadNb.toString() } }
