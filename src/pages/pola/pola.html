@@ -22,7 +22,7 @@
         <h3 ion-text class="date" text-uppercase color="foggy-gray">{{ card.date | date:'longDate'}}</h3>
         <share-button class="pola"
                       [options]="cards[cards.length-1].shareOptions"
-                      [trackingOptions]="{category:'Partager un pola', action:'Partager', label:cards[cards.length-1].permalink}"
+                      [trackingOptions]="cards[cards.length-1].trackingOptions"
                       icon-only>
         </share-button>
         <div class="pola-footer" no-margin>

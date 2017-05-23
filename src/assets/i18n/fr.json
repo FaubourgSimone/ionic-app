@@ -56,6 +56,16 @@
         "CATEGORY": "Partager",
         "ACTION": "Partager un pola",
         "LABEL": "{{ link }}"
+      },
+      "CALEPIN": {
+        "CATEGORY": "Partager",
+        "ACTION": "Partager un calepin",
+        "LABEL": "{{ link }}"
+      },
+      "CASQUE": {
+        "CATEGORY": "Partager",
+        "ACTION": "Partager un casque",
+        "LABEL": "{{ link }}"
       }
     },
 
@@ -70,8 +80,8 @@
         "HEADSET_PLUGGED": "headset-plugged"
       },
       "LABEL": {
-        "PLAYER_BUTTONS": "player-button-{{ date }}",
-        "MUSIC_CONTROLS": "music-controls-play-{{ date }}"
+        "PLAYER_BUTTONS": "player-button",
+        "MUSIC_CONTROLS": "music-controls"
       }
     },
 
@@ -143,6 +153,13 @@
       "SUBJECT": "Le pola du {{ date }} sur Faubourg Simone",
       "URL": "{{ url }}"
     }
-  }
+  },
+
+
+  "SHARE": "Partager",
+
+  "LISTEN": "Écouter",
+
+  "BUY": "Acheter"
 
 }

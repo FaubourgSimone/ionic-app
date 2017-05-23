@@ -160,7 +160,7 @@ export class RadioPage {
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.PLAY' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
                         );
                         break;
                     case 'music-controls-pause':
@@ -169,19 +169,12 @@ export class RadioPage {
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.PAUSE' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
                         );
 
                         break;
                     case 'music-controls-destroy':
                         this.destroyMusicControls();
-
-                        this.tracker.trackEventWithI18n(
-                            { translate: 'TRACKING.PLAYER.CATEGORY' },
-                            { translate: 'TRACKING.PLAYER.ACTION.DESTROY' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
-                        );
-
                         break;
                     // Headset events (Android only)
                     case 'music-controls-media-button' :
@@ -189,7 +182,7 @@ export class RadioPage {
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.MEDIA_BUTTON' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
                         );
 
                         break;
@@ -198,7 +191,7 @@ export class RadioPage {
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.HEADSET_UNPLUGGED' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
                         );
                         break;
                     case 'music-controls-headset-plugged':
@@ -206,7 +199,7 @@ export class RadioPage {
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.HEADSET_PLUGGED' },
-                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
                         );
                         break;
                     default:
@@ -266,6 +259,12 @@ export class RadioPage {
     destroyMusicControls() {
         if (typeof cordova !== 'undefined') {
             this.musicControls.destroy();
+
+            this.tracker.trackEventWithI18n(
+                { translate: 'TRACKING.PLAYER.CATEGORY' },
+                { translate: 'TRACKING.PLAYER.ACTION.DESTROY' },
+                { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS' }
+            );
         }
     }
 

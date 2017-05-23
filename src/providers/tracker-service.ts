@@ -33,10 +33,10 @@ export class TrackerService {
         });
   }
 
-  trackEventWithData(...data) {
+  trackEventWithData(category, label, action) {
       console.log('TrackerService.trackEventWithData');
-      console.log(data.join());
-      // this.ga.trackEvent(data.join());
+      console.log(category, label, action);
+      this.ga.trackEvent(category, label, action);
   }
 
 }

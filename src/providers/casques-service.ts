@@ -40,7 +40,9 @@ export class CasquesService {
                         this.translateService
                             .get('SHARING.ON_FBRG_SMN')
                             .subscribe((result: string) => {
-                                const casques = data.posts.map((post)=> {
+                                let casquesArray = [];
+                                data.posts.map((post)=> {
+
                                     // Escape HTML content
                                     const el:HTMLElement = document.createElement('textarea');
                                     el.innerHTML = '"' + post.title + ' - ' + post.custom_fields.dlc_artist + ' ' + result +'" (@FaubourgSimone)';
@@ -49,20 +51,45 @@ export class CasquesService {
                                         subject: post.title + ' ' + result,
                                         url: post.url
                                     };
-                                    return {
-                                        id: post.id,
-                                        title: post.title,
-                                        artist: post.custom_fields.dlc_artist,
-                                        buyLink: post.custom_fields.dlc_buy_link || null,
-                                        preview: post.custom_fields.dlc_preview_link || null,
-                                        thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
-                                        excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
-                                        date: new Date(post.date),
-                                        permalink: post.url,
-                                        shareOptions: shareOptions
+
+                                    const trackingOptions = {
+                                        category: '',
+                                        action: '',
+                                        label: ''
                                     };
+
+                                    this.translateService
+                                        .get('TRACKING.SHARE.CASQUE.CATEGORY')
+                                        .flatMap((result: string) => {
+                                            trackingOptions.category = result;
+                                            return this.translateService.get('TRACKING.SHARE.CASQUE.ACTION')
+                                        })
+                                        .flatMap((result: string) => {
+                                            trackingOptions.action = result;
+                                            return this.translateService.get('TRACKING.SHARE.CASQUE.LABEL', {link: post.url} )
+                                        })
+                                        .subscribe((result: string) => {
+                                            trackingOptions.label = result;
+
+                                            casquesArray.push({
+                                                id: post.id,
+                                                title: post.title,
+                                                artist: post.custom_fields.dlc_artist,
+                                                buyLink: post.custom_fields.dlc_buy_link || null,
+                                                preview: post.custom_fields.dlc_preview_link || null,
+                                                thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
+                                                excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
+                                                date: new Date(post.date),
+                                                permalink: post.url,
+                                                shareOptions: shareOptions,
+                                                trackingOptions: trackingOptions
+                                            });
+
+                                            if(casquesArray.length === data.posts.length) {
+                                                resolve(casquesArray);
+                                            }
+                                        });
                                 });
-                                resolve(casques);
                             });
                     },
                     error => {
@@ -92,18 +119,38 @@ export class CasquesService {
                                     subject: el.innerHTML + ' ' + onFbrg,
                                     url: data.link
                                 };
-                                const result = {
-                                    title:    data.title.rendered,
-                                    artist: data.acf.dlc_artist,
-                                    buyLink: data.acf.dlc_buy_link || null,
-                                    preview: data.acf.dlc_preview_link || null,
-                                    video: data.acf.dlc_video || null,
-                                    content: data.content.rendered,
-                                    date: new Date(data.date),
-                                    permalink: data.link,
-                                    shareOptions: shareOptions
+                                const trackingOptions = {
+                                    category: '',
+                                    action: '',
+                                    label: ''
                                 };
-                                resolve(result);
+
+                                this.translateService
+                                    .get('TRACKING.SHARE.CASQUE.CATEGORY')
+                                    .flatMap((cat: string) => {
+                                        trackingOptions.category = cat;
+                                        return this.translateService.get('TRACKING.SHARE.CASQUE.ACTION')
+                                    })
+                                    .flatMap((act: string) => {
+                                        trackingOptions.action = act;
+                                        return this.translateService.get('TRACKING.SHARE.CASQUE.LABEL', {link: data.link} )
+                                    })
+                                    .subscribe((lab: string) => {
+                                        trackingOptions.label = lab;
+                                        const result = {
+                                            title:    data.title.rendered,
+                                            artist: data.acf.dlc_artist,
+                                            buyLink: data.acf.dlc_buy_link || null,
+                                            preview: data.acf.dlc_preview_link || null,
+                                            video: data.acf.dlc_video || null,
+                                            content: data.content.rendered,
+                                            date: new Date(data.date),
+                                            permalink: data.link,
+                                            shareOptions: shareOptions,
+                                            trackingOptions: trackingOptions
+                                        };
+                                        resolve(result);
+                                    });
                             });
                     },
                     error => {

@@ -79,6 +79,7 @@ export class CalepinsService {
                         this.translateService
                             .get('SHARING.ON_FBRG_SMN')
                             .subscribe((result: string) => {
+
                                 // Escape HTML content
                                 const el:HTMLElement = document.createElement('textarea');
                                 el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.cal_subtitle + ' ' + result + '" (@FaubourgSimone)';
@@ -88,15 +89,38 @@ export class CalepinsService {
                                     url: data.link
                                 };
 
-                                const calepin = {
-                                    title:    data.title.rendered,
-                                    subtitle: data.acf.cal_subtitle,
-                                    content: content,
-                                    date: new Date(data.date),
-                                    permalink: data.link,
-                                    shareOptions: shareOptions
+                                const trackingOptions = {
+                                    category: '',
+                                    action: '',
+                                    label: ''
                                 };
-                                resolve(calepin);
+
+                                this.translateService
+                                    .get('TRACKING.SHARE.CALEPIN.CATEGORY')
+                                    .flatMap((result: string) => {
+                                        trackingOptions.category = result;
+                                        return this.translateService.get('TRACKING.SHARE.CALEPIN.ACTION')
+                                    })
+                                    .flatMap((result: string) => {
+                                        trackingOptions.action = result;
+                                        return this.translateService.get('TRACKING.SHARE.CALEPIN.LABEL', {link: data.link} )
+                                    })
+                                    .subscribe((result: string) => {
+                                        trackingOptions.label = result;
+
+                                        const calepin = {
+                                            title:    data.title.rendered,
+                                            subtitle: data.acf.cal_subtitle,
+                                            content: content,
+                                            date: new Date(data.date),
+                                            permalink: data.link,
+                                            shareOptions: shareOptions,
+                                            trackingOptions: trackingOptions
+                                        };
+
+                                        resolve(calepin);
+                                    });
+
                             });
                     },
                     error => {

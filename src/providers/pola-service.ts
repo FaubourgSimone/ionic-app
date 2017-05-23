@@ -52,7 +52,8 @@ export class PolaService {
                                     image: img,
                                     date: new Date(post.date),
                                     permalink: post.url,
-                                    shareOptions: null
+                                    shareOptions: null,
+                                    trackingOptions: null
                                 };
                             })
                             .filter(post=>{
@@ -76,19 +77,43 @@ export class PolaService {
                                 })
                                 .flatMap((result: string) => {
                                     shareOptions.subject = result;
-                                    return this.translateService.get('SHARING.POLA.URL', {url: post.url})
+                                    return this.translateService.get('SHARING.POLA.URL', {url: post.permalink})
                                 })
                                 .subscribe((result: string) => {
                                     shareOptions.url = result;
                                     post.shareOptions = shareOptions;
-                                    postsArray.push(post);
-                                    i++;
-                                    console.log(i, ' / ', posts.length);
-                                    if( i === posts.length ) {
-                                        console.log('resolve');
-                                        resolve(postsArray);
-                                    }
+
+                                    let trackingOptions = {
+                                        category: '',
+                                        action: '',
+                                        label: ''
+                                    };
+
+                                    this.translateService
+                                        .get('TRACKING.SHARE.POLA.CATEGORY')
+                                        .flatMap((result: string) => {
+                                            trackingOptions.category = result;
+                                            return this.translateService.get('TRACKING.SHARE.POLA.ACTION')
+                                        })
+                                        .flatMap((result: string) => {
+                                            trackingOptions.action = result;
+                                            return this.translateService.get('TRACKING.SHARE.POLA.LABEL', {link: post.permalink} )
+                                        })
+                                        .subscribe((result: string) => {
+                                            trackingOptions.label = result;
+                                            post.trackingOptions = trackingOptions;
+
+                                            postsArray.push(post);
+                                            i++;
+
+                                            if( i === posts.length ) {
+                                                console.log('resolve ', posts);
+                                                resolve(postsArray);
+                                            }
+                                        });
+
                                 });
+
                         }
                     },
                     error => {

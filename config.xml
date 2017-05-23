@@ -91,6 +91,9 @@
         <param name="ios-package" value="BackgroundAudio" />
         <param name="onload" value="true" />
     </feature>
+    <engine name="android" spec="~6.1.0" />
+    <engine name="ios" spec="^4.4.0" />
+    <engine name="windows" spec="~4.4.3" />
     <plugin name="cordova-plugin-console" spec="~1.0.6" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">
         <variable name="XWALK_VERSION" value="23+" />
@@ -113,7 +116,4 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="~5.1.8" />
     <plugin name="ionic-plugin-deploy" spec="~0.6.6" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <engine name="android" spec="~6.1.0" />
-    <engine name="ios" spec="^4.4.0" />
-    <engine name="windows" spec="~4.4.3" />
 </widget>

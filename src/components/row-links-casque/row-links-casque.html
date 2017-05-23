@@ -3,7 +3,7 @@
         <button ion-button clear small color="secondary" icon-left no-padding>
             <a ion-text color="secondary" *ngIf="casque.preview" (click)="onPreviewLink(casque.preview)">
                 <ion-icon name='musical-notes'></ion-icon>
-                Listen
+                {{ 'LISTEN' | translate }}
             </a>
         </button>
     </ion-col>
@@ -11,14 +11,14 @@
         <button *ngIf="casque.buyLink" ion-button clear small color="secondary" icon-left no-padding>
             <a ion-text color="secondary" (click)="onBuyLink(casque.buyLink)">
                 <ion-icon name='logo-euro'></ion-icon>
-                Buy
+                {{ 'BUY' | translate }}
             </a>
         </button>
     </ion-col>
     <ion-col text-right no-padding>
         <share-button class="casque"
                       [options]="casque.shareOptions"
-                      [trackingOptions]="{category:'Partager un casque', action:'Partager', label:casque.permalink}"
+                      [trackingOptions]="casque.trackingOptions"
                       [hasLabel] = true
                       icon-left small>
         </share-button>
