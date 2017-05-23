@@ -8,6 +8,7 @@ import { RadioService }     from '../../providers/radio-service';
 import { GlobalService }    from '../../providers/global-service';
 import { PromptService }    from "../../providers/prompt-service";
 import { TranslateService } from "ng2-translate";
+import {TrackerService} from "../../providers/tracker-service";
 
 declare let cordova: any;
 
@@ -28,7 +29,6 @@ export class RadioPage {
     private playerReady:boolean = false;
     private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
     private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
-    // private currentShareData:any;
     private myOnlyTrack:any;
     private configReady:boolean = true;
     private shareOptions:any;
@@ -45,7 +45,8 @@ export class RadioPage {
                 private ga: GoogleAnalytics,
                 private prompt: PromptService,
                 private events: Events,
-                private translateService: TranslateService) {
+                private translateService: TranslateService,
+                private tracker:TrackerService) {
 
 
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
@@ -99,46 +100,21 @@ export class RadioPage {
     }
 
     togglePlayPause() {
-        let trackingCategory, trackingAction, trackingLabel;
+        let trackingAction;
         if(this.isPlaying) {
             this.pause();
-            // TODO : passer ca dans un service specfique
-            this.translateService
-                .get('TRACKING.PLAYER.CATEGORY')
-                .flatMap((result: string) => {
-                    trackingCategory = result;
-                    return this.translateService.get('TRACKING.PLAYER.ACTION.PAUSE')
-                })
-                .flatMap((result: string) => {
-                    trackingAction = result;
-                    return this.translateService.get('TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', {date: Date.now().toString()})
-                })
-                .subscribe((result: string) => {
-                    trackingLabel = result;
-                    console.log(trackingCategory, trackingAction, trackingLabel);
-                    this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                });
+            trackingAction = { translate: 'TRACKING.PLAYER.ACTION.PAUSE'};
         }
         else {
             this.play();
-            this.translateService
-                .get('TRACKING.PLAYER.CATEGORY')
-                .flatMap((result: string) => {
-                    trackingCategory = result;
-                    return this.translateService.get('TRACKING.PLAYER.ACTION.PLAY')
-                })
-                .flatMap((result: string) => {
-                    trackingAction = result;
-                    return this.translateService.get('TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', {date: Date.now().toString()})
-                })
-                .subscribe((result: string) => {
-                    trackingLabel = result;
-                    console.log(trackingCategory, trackingAction, trackingLabel);
-                    this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                });
+            trackingAction = { translate: 'TRACKING.PLAYER.ACTION.PLAY'};
         }
 
-
+        this.tracker.trackEvent(
+            { translate: 'TRACKING.PLAYER.CATEGORY' },
+            trackingAction,
+            { translate: 'TRACKING.PLAYER.LABEL.PLAYER_BUTTONS', params: { date: Date.now().toString() } }
+        );
     }
 
     play() {
@@ -178,128 +154,60 @@ export class RadioPage {
 
             this.musicControls.subscribe().subscribe(action => {
                 // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
-                let trackingCategory, trackingAction, trackingLabel;
                 switch (action) {
                     case 'music-controls-play':
                         this.play();
-
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.PLAY')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
-
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.PLAY' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
                         break;
                     case 'music-controls-pause':
                         this.pause();
 
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.PAUSE')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.PAUSE' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
 
                         break;
                     case 'music-controls-destroy':
                         this.destroyMusicControls();
 
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.DESTROY')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.DESTROY' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
 
                         break;
                     // Headset events (Android only)
                     case 'music-controls-media-button' :
-
                         console.log('MEDIA BUTTON');
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.MEDIA_BUTTON')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.MEDIA_BUTTON' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
 
                         break;
                     case 'music-controls-headset-unplugged':
                         this.pause();
-
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.HEADSET_UNPLUGGED')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
-
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.HEADSET_UNPLUGGED' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
                         break;
                     case 'music-controls-headset-plugged':
                         this.play();
-
-                        this.translateService
-                            .get('TRACKING.PLAYER.CATEGORY')
-                            .flatMap((result: string) => {
-                                trackingCategory = result;
-                                return this.translateService.get('TRACKING.PLAYER.ACTION.HEADSET_PLUGGED')
-                            })
-                            .flatMap((result: string) => {
-                                trackingAction = result;
-                                return this.translateService.get('TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', {date: Date.now().toString()})
-                            })
-                            .subscribe((result: string) => {
-                                trackingLabel = result;
-                                console.log(trackingCategory, trackingAction, trackingLabel);
-                                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                            });
-
+                        this.tracker.trackEvent(
+                            { translate: 'TRACKING.PLAYER.CATEGORY' },
+                            { translate: 'TRACKING.PLAYER.ACTION.HEADSET_PLUGGED' },
+                            { translate: 'TRACKING.PLAYER.LABEL.MUSIC_CONTROLS', params: { date: Date.now().toString() } }
+                        );
                         break;
                     default:
                         break;
@@ -333,7 +241,6 @@ export class RadioPage {
             });
     }
 
-
     updateTrackingOptions() {
         let trackingOptions = {
             category:'',
@@ -361,7 +268,6 @@ export class RadioPage {
             this.musicControls.destroy();
         }
     }
-
 
     onTrackLoaded(event) {
         this.isLoading = false;

@@ -11,6 +11,7 @@ import { ErrorHandler, LOCALE_ID }  from '@angular/core';
 import { IonicErrorHandler }        from 'ionic-angular';
 import { SocialSharing }            from "@ionic-native/social-sharing";
 import { GoogleAnalytics }          from "@ionic-native/google-analytics";
+import { TrackerService }           from "./tracker-service";
 
 export const CustomProviders = [
     InitService,
@@ -18,7 +19,8 @@ export const CustomProviders = [
     RadioService,
     CalepinsService,
     CasquesService,
-    PromptService
+    PromptService,
+    TrackerService
 ];
 
 export const ExternalProviders = [

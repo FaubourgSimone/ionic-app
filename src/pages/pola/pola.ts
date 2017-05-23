@@ -4,7 +4,8 @@ import { GoogleAnalytics }          from "@ionic-native/google-analytics";
 import { StackConfig  }             from 'angular2-swing';
 import { PolaService }              from "../../providers/pola-service";
 import { PromptService }            from "../../providers/prompt-service";
-import {TranslateService} from "ng2-translate";
+import { TranslateService }         from "ng2-translate";
+import { TrackerService }           from "../../providers/tracker-service";
 
 @Component({
     selector: 'page-pola',
@@ -25,7 +26,8 @@ export class PolaPage {
                 private ga: GoogleAnalytics,
                 private plt: Platform,
                 private prompt: PromptService,
-                private translateService:TranslateService) {
+                private translateService: TranslateService,
+                private tracker: TrackerService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -49,22 +51,11 @@ export class PolaPage {
     voteUp(like: boolean) {
         let removedCard = this.cards.pop();
 
-        let trackingCategory, trackingAction, trackingLabel;
-        this.translateService
-            .get('TRACKING.POLA.CATEGORY')
-            .flatMap((result: string) => {
-                trackingCategory = result;
-                return this.translateService.get('TRACKING.POLA.ACTION.SWIPE')
-            })
-            .flatMap((result: string) => {
-                trackingAction = result;
-                return this.translateService.get('TRACKING.POLA.LABEL.SWIPE', {index: this.displayedCardNb.toString()})
-            })
-            .subscribe((result: string) => {
-                trackingLabel = result;
-                console.log(trackingCategory, trackingAction, trackingLabel);
-                this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-            });
+        this.tracker.trackEvent(
+            { translate: 'TRACKING.POLA.CATEGORY' },
+            { translate: 'TRACKING.POLA.ACTION.SWIPE' },
+            { translate: 'TRACKING.POLA.LABEL.SWIPE', params: {index: this.displayedCardNb.toString()} }
+        );
 
         let voteFor, voteAgainst;
         this.translateService
@@ -78,45 +69,21 @@ export class PolaPage {
                 const verb = like ? voteFor : voteAgainst;
                 this.prompt.presentMessage({message: `Tu as vote ${verb} ${removedCard.title}`, duration: 3000, classNameCss: 'vote-pola'});
 
-                let trackingCategoryVote, trackingActionVote, trackingLabelVote;
-                this.translateService
-                    .get('TRACKING.POLA.CATEGORY')
-                    .flatMap((result: string) => {
-                        trackingCategory = result;
-                        return this.translateService.get('TRACKING.POLA.ACTION.VOTE', {verb: verb})
-                    })
-                    .flatMap((result: string) => {
-                        trackingAction = result;
-                        return this.translateService.get('TRACKING.POLA.LABEL.VOTE', {removedCardId: removedCard.id})
-                    })
-                    .subscribe((result: string) => {
-                        trackingLabel = result;
-                        console.log(trackingCategory, trackingAction, trackingLabel);
-                        this.ga.trackEvent(trackingCategoryVote, trackingActionVote, trackingLabelVote);
-                    });
+                this.tracker.trackEvent(
+                    { translate: 'TRACKING.POLA.CATEGORY' },
+                    { translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb: verb} },
+                    { translate: 'TRACKING.POLA.LABEL.VOTE', params: {removedCardId: removedCard.id} }
+                );
 
             });
 
         if(this.cards.length === 0) {
             this.refillNb++;
-
-            let trackingCategory, trackingAction, trackingLabel;
-            this.translateService
-                .get('TRACKING.POLA.CATEGORY')
-                .flatMap((result: string) => {
-                    trackingCategory = result;
-                    return this.translateService.get('TRACKING.POLA.ACTION.REFILL')
-                })
-                .flatMap((result: string) => {
-                    trackingAction = result;
-                    return this.translateService.get('TRACKING.POLA.LABEL.REFILL', {time: this.refillNb.toString()})
-                })
-                .subscribe((result: string) => {
-                    trackingLabel = result;
-                    console.log(trackingCategory, trackingAction, trackingLabel);
-                    this.ga.trackEvent(trackingCategory, trackingAction, trackingLabel);
-                });
-
+            this.tracker.trackEvent(
+                { translate: 'TRACKING.POLA.CATEGORY' },
+                { translate: 'TRACKING.POLA.ACTION.REFILL' },
+                { translate: 'TRACKING.POLA.LABEL.REFILL', params: {time: this.refillNb.toString()}}
+            );
             this.addNewCards();
         }
         this.displayedCardNb++;
