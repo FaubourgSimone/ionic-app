@@ -82,8 +82,22 @@
       },
       "LABEL": {
         "SWIPE": "pola-{{index}}",
-        "REFILL": "refill-calepin-{{time}}",
+        "REFILL": "refill-pola-{{time}}",
         "VOTE": "pola-{{removedCardId}}"
+      }
+    },
+
+    "CALEPINS": {
+      "CATEGORY": "Naviguer dans les calepins",
+      "ACTION": {
+        "OPEN": "Ouvrir un calepin",
+        "LOAD": "Charger les calepins suivants",
+        "GET_PERMALINK": "Cliquer sur le permalink"
+      },
+      "LABEL": {
+        "OPEN": "calepin-{{id}}",
+        "LOAD": "refill-calepin-{{time}}",
+        "GET_PERMALINK": "{{ permalink }}"
       }
     }
 

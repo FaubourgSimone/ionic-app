@@ -5,6 +5,7 @@ import { DomSanitizer }     from "@angular/platform-browser";
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { CalepinsService }  from "../../providers/calepins-service";
 import { PromptService }    from "../../providers/prompt-service";
+import { TrackerService }   from "../../providers/tracker-service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class CalepinPage {
                 private domSanitizer: DomSanitizer,
                 private ga: GoogleAnalytics,
                 private plt: Platform,
-                private prompt: PromptService) {
+                private prompt: PromptService,
+                private tracker: TrackerService) {
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
@@ -51,7 +53,11 @@ export class CalepinPage {
     }
 
     onExternalLink() {
-        this.ga.trackEvent('Cliquer sur le permalink', 'Naviguer dans les calepins', this.calepin.permalink);
+        this.tracker.trackEvent(
+            { translate: 'TRACKING.CALEPINS.CATEGORY' },
+            { translate: 'TRACKING.CALEPINS.ACTION.GET_PERMALINK' },
+            { translate: 'TRACKING.CALEPINS.LABEL.GET_PERMALINK', params: { permalink: this.calepin.permalink } }
+        );
         this.navigateTo(this.calepin.permalink);
     }
 
