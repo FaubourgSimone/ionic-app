@@ -96,7 +96,11 @@ export class PolaPage {
         this.api.getPolas().then((data)=>{
             this.cards = data;
             if(this.cards.length === 0) {
-                this.prompt.presentMessage({message: 'Pas de polas pour cette request', classNameCss: 'error'});
+                this.translateService
+                    .get('ERRORS.NO_POLA')
+                    .subscribe((result: string) => {
+                        this.prompt.presentMessage({message: result, classNameCss: 'error'});
+                    });
                 this.prompt.dismissLoading();
             }
             else {

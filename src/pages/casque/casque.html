@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar><ion-title><span ion-text text-wrap class="ion-title-header" color="secondary">Article Dans Le Casque</span></ion-title></ion-navbar>
+  <ion-navbar><ion-title><span ion-text text-wrap class="ion-title-header" color="secondary">{{ 'CASQUEPAGE.TITLE' | translate }}</span></ion-title></ion-navbar>
 </ion-header>
 
 <ion-content padding class="single-article-page">
@@ -18,7 +18,7 @@
       </ion-col>
       <ion-col no-padding text-right>
         <ion-icon ion-text name="link" icon-left color="foggy-gray">
-          <span><a (click)="onExternalLink()" ion-text color="foggy-gray">Consulter l'article sur le site</a></span>
+          <span><a (click)="onExternalLink()" ion-text color="foggy-gray">{{ 'CASQUEPAGE.EXTERNAL_LINK' | translate }}</a></span>
         </ion-icon>
       </ion-col>
     </ion-row>

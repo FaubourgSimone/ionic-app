@@ -19,27 +19,29 @@
   },
 
   "CALEPINSPAGE": {
-    "TITLE": ""
+    "TITLE": "Les calepins"
   },
 
   "CALEPINPAGE": {
-    "TITLE": ""
+    "TITLE": "Article Calepin",
+    "EXTERNAL_LINK": "Consulter l'article sur le site"
   },
 
   "CASQUESPAGE": {
-    "TITLE": ""
+    "TITLE": "Dans le casque"
   },
 
   "CASQUEPAGE": {
-    "TITLE": ""
+    "TITLE": "Article Dans Le Casque",
+    "EXTERNAL_LINK": "Consulter l'article sur le site"
   },
 
   "CONCERTSSPAGE": {
-    "TITLE": ""
+    "TITLE": "Concerts"
   },
 
   "CONCERTPAGE": {
-    "TITLE": ""
+    "TITLE": "Article Concert"
   },
 
   "TRACKING": {
@@ -124,11 +126,13 @@
 
 
   "ERRORS": {
-
+    "NO_POLA": "Pas de pola pour cette request",
+    "LOADING_URL": ""
   },
 
 
   "SHARING": {
+    "ON_FBRG_SMN": "sur Faubourg Simone",
     "CURRENT_SONG": {
       "MESSAGE": "{{ title }} #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio",
       "SUBJECT": "En ce moment sur Faubourg Simone",

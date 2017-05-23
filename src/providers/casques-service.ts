@@ -2,6 +2,7 @@ import 'rxjs/add/operator/map';
 import { Injectable }       from '@angular/core';
 import { Http }             from '@angular/http';
 import { GlobalService }    from "./global-service";
+import { TranslateService } from "ng2-translate";
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class CasquesService {
     private requestCurrentPage:number;
     private totalPages:number;
 
-    constructor(public http: Http, private vars:GlobalService) {
+    constructor(public http: Http, private vars:GlobalService, private translateService: TranslateService) {
         console.log('Hello CasquesService Provider');
     }
 
@@ -35,29 +36,34 @@ export class CasquesService {
                             this.requestCurrentPage = 1;
                         }
 
-                        const casques = data.posts.map((post)=> {
-                            // Escape HTML content
-                            const el:HTMLElement = document.createElement('textarea');
-                            el.innerHTML = '"' + post.title + ' - ' + post.custom_fields.dlc_artist + '" sur Faubourg Simone (@FaubourgSimone)';
-                            const shareOptions = {
-                                message: el.innerHTML,
-                                subject: post.title + ' sur Faubourg Simone',
-                                url: post.url
-                            };
-                            return {
-                                id: post.id,
-                                title: post.title,
-                                artist: post.custom_fields.dlc_artist,
-                                buyLink: post.custom_fields.dlc_buy_link || null,
-                                preview: post.custom_fields.dlc_preview_link || null,
-                                thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
-                                excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
-                                date: new Date(post.date),
-                                permalink: post.url,
-                                shareOptions: shareOptions
-                            };
-                        });
-                        resolve(casques);
+
+                        this.translateService
+                            .get('SHARING.ON_FBRG_SMN')
+                            .subscribe((result: string) => {
+                                const casques = data.posts.map((post)=> {
+                                    // Escape HTML content
+                                    const el:HTMLElement = document.createElement('textarea');
+                                    el.innerHTML = '"' + post.title + ' - ' + post.custom_fields.dlc_artist + ' ' + result +'" (@FaubourgSimone)';
+                                    const shareOptions = {
+                                        message: el.innerHTML,
+                                        subject: post.title + ' ' + result,
+                                        url: post.url
+                                    };
+                                    return {
+                                        id: post.id,
+                                        title: post.title,
+                                        artist: post.custom_fields.dlc_artist,
+                                        buyLink: post.custom_fields.dlc_buy_link || null,
+                                        preview: post.custom_fields.dlc_preview_link || null,
+                                        thumbnail: post.thumbnail_images.medium.url || post.thumbnail,
+                                        excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
+                                        date: new Date(post.date),
+                                        permalink: post.url,
+                                        shareOptions: shareOptions
+                                    };
+                                });
+                                resolve(casques);
+                            });
                     },
                     error => {
                         reject(new Error(error.toString()));
@@ -74,26 +80,31 @@ export class CasquesService {
                 .map(res => res.json())
                 .subscribe(
                     data => {
-                        // Escape HTML content
-                        const el:HTMLElement = document.createElement('textarea');
-                        el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.dlc_artist + '" sur Faubourg Simone (@FaubourgSimone)';
-                        const shareOptions = {
-                            message: el.innerHTML,
-                            subject: el.innerHTML + ' sur Faubourg Simone',
-                            url: data.link
-                        };
-                        const result = {
-                            title:    data.title.rendered,
-                            artist: data.acf.dlc_artist,
-                            buyLink: data.acf.dlc_buy_link || null,
-                            preview: data.acf.dlc_preview_link || null,
-                            video: data.acf.dlc_video || null,
-                            content: data.content.rendered,
-                            date: new Date(data.date),
-                            permalink: data.link,
-                            shareOptions: shareOptions
-                        };
-                        resolve(result);
+
+                        this.translateService
+                            .get('SHARING.ON_FBRG_SMN')
+                            .subscribe((onFbrg: string) => {
+                                // Escape HTML content
+                                const el:HTMLElement = document.createElement('textarea');
+                                el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.dlc_artist + ' ' + onFbrg + '" (@FaubourgSimone)';
+                                const shareOptions = {
+                                    message: el.innerHTML,
+                                    subject: el.innerHTML + ' ' + onFbrg,
+                                    url: data.link
+                                };
+                                const result = {
+                                    title:    data.title.rendered,
+                                    artist: data.acf.dlc_artist,
+                                    buyLink: data.acf.dlc_buy_link || null,
+                                    preview: data.acf.dlc_preview_link || null,
+                                    video: data.acf.dlc_video || null,
+                                    content: data.content.rendered,
+                                    date: new Date(data.date),
+                                    permalink: data.link,
+                                    shareOptions: shareOptions
+                                };
+                                resolve(result);
+                            });
                     },
                     error => {
                         reject(new Error(error.toString()));

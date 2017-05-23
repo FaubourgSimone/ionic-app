@@ -22,7 +22,7 @@ export class InitService {
                   .map(res => res.json())
                   .subscribe(
                       data => resolve(data),
-                      error => resolve({error:'Erreur lors du chargement de ' + this.vars.URL_INFO_PROD + ': ' + error, content:localConfig})
+                      error => resolve({error:'Error when loading ' + this.vars.URL_INFO_PROD + ': ' + error, content:localConfig})
                   );
           });
       }

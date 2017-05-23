@@ -2,6 +2,7 @@ import 'rxjs/add/operator/map';
 import { Injectable }       from '@angular/core';
 import { Http }             from '@angular/http';
 import { GlobalService }    from "./global-service";
+import { TranslateService } from "ng2-translate";
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class CalepinsService {
     private requestCurrentPage:number;
     private totalPages:number;
 
-    constructor(public http: Http, private vars:GlobalService) {
+    constructor(public http: Http, private vars:GlobalService, private translateService: TranslateService) {
         console.log('Hello CalepinsService Provider');
     }
 
@@ -74,24 +75,29 @@ export class CalepinsService {
                             .replace(/<p style="text-align: center;"><hr>/g,'<hr><p>')
                             .replace(/<hr><\/p>/g,'<\/p><hr>');
 
-                        // Escape HTML content
-                        const el:HTMLElement = document.createElement('textarea');
-                        el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.cal_subtitle + '" sur Faubourg Simone (@FaubourgSimone)';
-                        const shareOptions = {
-                            message: el.innerHTML,
-                            subject: data.title.rendered + ' sur Faubourg Simone',
-                            url: data.link
-                        };
 
-                        const calepin = {
-                            title:    data.title.rendered,
-                            subtitle: data.acf.cal_subtitle,
-                            content: content,
-                            date: new Date(data.date),
-                            permalink: data.link,
-                            shareOptions: shareOptions
-                        };
-                        resolve(calepin);
+                        this.translateService
+                            .get('SHARING.ON_FBRG_SMN')
+                            .subscribe((result: string) => {
+                                // Escape HTML content
+                                const el:HTMLElement = document.createElement('textarea');
+                                el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.cal_subtitle + ' ' + result + '" (@FaubourgSimone)';
+                                const shareOptions = {
+                                    message: el.innerHTML,
+                                    subject: data.title.rendered + ' ' + result,
+                                    url: data.link
+                                };
+
+                                const calepin = {
+                                    title:    data.title.rendered,
+                                    subtitle: data.acf.cal_subtitle,
+                                    content: content,
+                                    date: new Date(data.date),
+                                    permalink: data.link,
+                                    shareOptions: shareOptions
+                                };
+                                resolve(calepin);
+                            });
                     },
                     error => {
                         reject(new Error(error.toString()));
