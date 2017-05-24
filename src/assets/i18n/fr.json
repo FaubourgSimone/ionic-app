@@ -2,7 +2,7 @@
   "TABS": {
     "RADIO": "Radio",
     "POLA": "Polas",
-    "CALEPINS": "Calepins",
+    "CALEPINS": "Calepin",
     "CASQUES": "Dans Le Casque"
   },
 
@@ -19,7 +19,7 @@
   },
 
   "CALEPINSPAGE": {
-    "TITLE": "Les calepins"
+    "TITLE": "Le Calepin"
   },
 
   "CALEPINPAGE": {
