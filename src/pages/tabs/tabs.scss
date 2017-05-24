@@ -11,14 +11,15 @@ ion-tabs {
       color: color($colors, 'secondary');
     }
     .tab-button-text {
-      display: none;
+      //display: none;
       font-size: 0.9rem;
     }
 
     .tab-button[aria-selected=true] {
       color: color($colors, 'secondary');
       .tab-button-text {
-        display: block;
+        //display: block;
+        font-weight: bold;
       }
     }
 
