@@ -47,7 +47,9 @@ export class GlobalService {
         "Patience et longueur de temps font plus que force ni que rage.",
         "Prends patience, tu verras des miracles",
         "Qui va piano va sano",
-        "Goutte à goutte on emplit la cuve."
+        "Goutte à goutte on emplit la cuve.",
+        "Patience est mère de toutes les vertus",
+        "Oui, oui, un p’tit instant voulez-vous"
     ];
 
     public loadingMsgRadio:Array<string> = [
@@ -60,7 +62,9 @@ export class GlobalService {
         "On cherche la prise Jack !",
         "On vous envoie la sauce !",
         "Propagation des ondes",
-        "Recherche de la ionosphere"
+        "Recherche de la ionosphere",
+        "Oui, oui, un p’tit instant voulez-vous",
+        "Patience est mère de toutes les vertus"
     ];
 
     constructor() {
