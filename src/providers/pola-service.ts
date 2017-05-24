@@ -8,10 +8,11 @@ import {TranslateService}   from "ng2-translate";
 @Injectable()
 export class PolaService {
 
-    private requestCount:number = 7;
+    private requestCount:number = 5;
     private currentQueryPage:number;
     private totalQueryPage:number;
     private datePipe:DatePipe;
+    private limitAllowed:number = 20;
 
     constructor(public http: Http, private vars:GlobalService, private translateService: TranslateService) {
         console.log('Hello PolaService Provider');
@@ -21,8 +22,14 @@ export class PolaService {
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_POLAS.baseUrl + this.vars.URL_POLAS.params.count + this.requestCount;
             if(typeof this.currentQueryPage !== 'undefined') {
-                // TODO verifier qu'on atteint pas le nombre total de pages
+
                 this.currentQueryPage++;
+                // Check if allowed limit is reached
+                if(this.currentQueryPage > this.limitAllowed / this.requestCount) {
+                    // TODO : inform user that we are looping to the beginning
+                    this.currentQueryPage = 1;
+                }
+
                 url = url + this.vars.URL_POLAS.params.page + this.currentQueryPage;
             }
 
