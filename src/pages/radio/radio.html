@@ -29,24 +29,24 @@
 
                 <audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)" (onError)="onTrackError($event)">
 
-                    <!--<button [disabled]="!isButtonActive" class="btn-play-pause" ion-button round icon-only-->
-                            <!--color="secondary"-->
-                            <!--*ngIf="playerReady"-->
-                            <!--(click)="togglePlayPause()">-->
-                        <!--<ion-icon *ngIf="isButtonActive" [name]="playPauseButton"></ion-icon>-->
-                        <!--<ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>-->
-                    <!--</button>-->
-
-
-                    <div class="btn-container"
-                            [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"
+                    <button [disabled]="!isButtonActive" class="btn-play-pause" ion-button round icon-only
+                            color="secondary"
+                            *ngIf="playerReady"
                             (click)="togglePlayPause()">
-                        <div class="play-button" color="secondary">
-                            <div class="lp-background"></div>
-                            <ion-icon *ngIf="isButtonActive" [name]="playPauseButton" [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"></ion-icon>
-                            <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
-                        </div>
-                    </div>
+                        <ion-icon *ngIf="isButtonActive" [name]="playPauseButton"></ion-icon>
+                        <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
+                    </button>
+
+
+                    <!--<div class="btn-container"-->
+                            <!--[ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"-->
+                            <!--(click)="togglePlayPause()">-->
+                        <!--<div class="play-button" color="secondary">-->
+                            <!--<div class="lp-background"></div>-->
+                            <!--<ion-icon *ngIf="isButtonActive" [name]="playPauseButton" [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"></ion-icon>-->
+                            <!--<ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
 
                 </audio-track>
