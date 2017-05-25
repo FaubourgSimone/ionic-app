@@ -214,10 +214,14 @@ export class RadioPage {
 
     updateShareOptions() {
         let shareOptions = {
-            message:'',
-            subject:'',
-            url:''
+            message: null,
+            subject: null,
+            url: null,
+            image: this.currentSong.cover.jpg
         };
+
+        // message, image, url, pasteMessageHint
+
         this.translateService
             .get('SHARING.CURRENT_SONG.MESSAGE', {title: this.currentSong.title})
             .flatMap((result: string) => {

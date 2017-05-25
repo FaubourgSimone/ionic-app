@@ -12,6 +12,7 @@ import { IonicErrorHandler }        from 'ionic-angular';
 import { SocialSharing }            from "@ionic-native/social-sharing";
 import { GoogleAnalytics }          from "@ionic-native/google-analytics";
 import { TrackerService }           from "./tracker-service";
+import { Screenshot }               from "@ionic-native/screenshot";
 
 export const CustomProviders = [
     InitService,
@@ -24,6 +25,7 @@ export const CustomProviders = [
 ];
 
 export const ExternalProviders = [
+    Screenshot,
     StatusBar,
     SplashScreen,
     SocialSharing,

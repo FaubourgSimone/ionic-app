@@ -3,6 +3,7 @@ import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { SocialSharing }    from "@ionic-native/social-sharing";
 import { PromptService }    from "../../providers/prompt-service";
 import { TrackerService }   from "../../providers/tracker-service";
+import { Screenshot }       from "@ionic-native/screenshot";
 
 @Component({
     selector: 'share-button',
@@ -14,23 +15,43 @@ export class ShareButtonComponent {
     @Input() options:any;
     @Input() trackingOptions:any;
     @Input() hasLabel:boolean;
+    @Input() doScreenShot:boolean;
 
     constructor(private ga: GoogleAnalytics,
                 private socialSharing: SocialSharing,
                 private prompt:PromptService,
-                private tracker: TrackerService) {
+                private tracker: TrackerService,
+                private screenshot: Screenshot) {
     }
 
     onClick() {
-        this.options.chooserTitle = 'Choisis une application'; // Android only, you can override the default share sheet title
+        if(this.doScreenShot) {
+            this.screenshot.URI(80).then(
+                (result)=> {
+                    this.options.image = result.URI;
+                    this.shareIt(this.options);
+                },
+                (error)=> {
+                    console.log('error: ', error);
+                    //TODO
+                });
+        }
+        else {
+            this.shareIt(this.options);
+        }
+    }
 
-        this.socialSharing.shareWithOptions( this.options ).then(() => {
-            console.log('[ShareButtonComponent] Shared: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
+    shareIt(options) {
+        this.socialSharing.share(
+            options.message || null,
+            options.subject || null,
+            options.image || null,
+            options.url || null ).then(() => {
             if(this.trackingOptions) {
+                console.log('[ShareButtonComponent] Tracked sharing: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
                 this.tracker.trackEventWithData(this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
             }
         }).catch((e) => {
-
             if(this.trackingOptions) {
                 this.prompt.presentMessage({message: `Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`});
             }
