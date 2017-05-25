@@ -6,6 +6,7 @@ ion-tabs {
       background: $toolbar-background;
     }
 
+    .tab-button-text,
     .tab-button .tab-button-icon,
     .tab-button[aria-selected=true] .tab-button-icon {
       color: color($colors, 'secondary');
