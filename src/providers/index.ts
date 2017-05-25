@@ -13,6 +13,7 @@ import { SocialSharing }            from "@ionic-native/social-sharing";
 import { GoogleAnalytics }          from "@ionic-native/google-analytics";
 import { TrackerService }           from "./tracker-service";
 import { Screenshot }               from "@ionic-native/screenshot";
+import { InAppBrowser }             from '@ionic-native/in-app-browser';
 
 export const CustomProviders = [
     InitService,
@@ -30,6 +31,7 @@ export const ExternalProviders = [
     SplashScreen,
     SocialSharing,
     GoogleAnalytics,
+    InAppBrowser,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
 ];

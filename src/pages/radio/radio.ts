@@ -8,9 +8,13 @@ import { RadioService }     from '../../providers/radio-service';
 import { GlobalService }    from '../../providers/global-service';
 import { PromptService }    from "../../providers/prompt-service";
 import { TranslateService } from "ng2-translate";
-import {TrackerService} from "../../providers/tracker-service";
+import { TrackerService }   from "../../providers/tracker-service";
+// import { InAppBrowser }     from 'ionic-native';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 declare let cordova: any;
+declare let FB: any;
 
 @Component({
     selector: 'page-radio',
@@ -33,6 +37,7 @@ export class RadioPage {
     private configReady:boolean = true;
     private shareOptions:any;
     private trackingOptions:any;
+    private browserPopup:any;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -46,7 +51,8 @@ export class RadioPage {
                 private prompt: PromptService,
                 private events: Events,
                 private translateService: TranslateService,
-                private tracker:TrackerService) {
+                private tracker:TrackerService,
+                private iab: InAppBrowser) {
 
 
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
@@ -212,6 +218,39 @@ export class RadioPage {
         }
     }
 
+    postToFeed() {
+        console.log('postToFeed');
+
+        // Escape HTML
+        const el:HTMLElement = document.createElement('textarea');
+        el.innerHTML = this.currentSong.cover.jpg.toString();
+
+        this.translateService
+            .get('SHARING.CURRENT_SONG.FACEBOOK_FEED_DESCRIPTION', {track: this.currentSong.track, artist: this.currentSong.artist })
+            .subscribe((result: string) => {
+                let url = "https://www.facebook.com/dialog/feed?" +
+                    "app_id=419281238161744" +
+                    "&name="+this.currentSong.title+"" +
+                    "&display=popup" +
+                    "&caption=http://faubourgsimone.paris" +
+                    "&description="+ result +
+                    "&link=faubourgsimone.paris/application-mobile" +
+                    // "&redirect_uri=http://faubourgsimone.com/facebook.php" +
+                    "&picture="+el.innerHTML;
+                this.browserPopup = this.iab.create(url, '_blank');
+                this.browserPopup.on('loadstop').subscribe((evt)=>{
+                    if(evt.url === 'https://www.facebook.com/dialog/return/close?#_=_') {
+                        this.closePopUp();
+                    }
+                });
+            });
+    }
+
+    closePopUp() {
+        console.log('CLOOOOSE');
+        this.browserPopup.close();
+    }
+
     updateShareOptions() {
         let shareOptions = {
             message: null,
@@ -219,8 +258,6 @@ export class RadioPage {
             url: null,
             image: this.currentSong.cover.jpg
         };
-
-        // message, image, url, pasteMessageHint
 
         this.translateService
             .get('SHARING.CURRENT_SONG.MESSAGE', {title: this.currentSong.title})

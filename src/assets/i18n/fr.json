@@ -146,7 +146,8 @@
     "CURRENT_SONG": {
       "MESSAGE": "{{ title }} #NowPlaying sur Faubourg Simone (@FaubourgSimone) #music #radio #webradio",
       "SUBJECT": "En ce moment sur Faubourg Simone",
-      "URL": "http://faubourgsimone.paris"
+      "URL": "http://faubourgsimone.paris",
+      "FACEBOOK_FEED_DESCRIPTION": "J'écoute en ce moment {{ track }} de {{ artist }} sur l'app Faubourg Simone'"
     },
     "POLA": {
       "MESSAGE": "{{ title }}",

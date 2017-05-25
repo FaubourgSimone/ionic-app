@@ -27,7 +27,7 @@
         "@angular/platform-server": "2.4.8",
         "@ionic-native/core": "^3.6.1",
         "@ionic-native/google-analytics": "^3.6.1",
-        "@ionic-native/in-app-browser": "^3.8.0",
+        "@ionic-native/in-app-browser": "^3.10.3",
         "@ionic-native/music-controls": "^3.5.0",
         "@ionic-native/screenshot": "^3.10.3",
         "@ionic-native/social-sharing": "^3.10.3",
