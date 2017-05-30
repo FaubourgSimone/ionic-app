@@ -1,12 +1,11 @@
 import { Directive, ElementRef } from '@angular/core';
-import {ActionSheetController, AlertController} from "ionic-angular";
-import {InAppBrowser, InAppBrowserObject} from "@ionic-native/in-app-browser";
+import { AlertController} from "ionic-angular";
+import { InAppBrowser, InAppBrowserObject } from "@ionic-native/in-app-browser";
+import { AppRate } from "@ionic-native/app-rate";
+import { SocialSharing } from "@ionic-native/social-sharing";
 
 @Directive({
-    selector: '[main-menu]',
-    host: {
-        // '(click)': 'onClick($event)'
-    }
+    selector: '[main-menu]'
 })
 export class MainMenu {
 
@@ -15,7 +14,8 @@ export class MainMenu {
     constructor(public element: ElementRef,
                 public alertCtrl: AlertController,
                 private iab: InAppBrowser,
-                public actionSheetCtrl: ActionSheetController) {
+                private appRate: AppRate,
+                private socialSharing: SocialSharing) {
         console.log('Hello MainMenu Directive');
     }
 
@@ -38,31 +38,8 @@ export class MainMenu {
     onSocialLink(event:MouseEvent) {
         const el:HTMLElement = (event.currentTarget as HTMLElement);
         const dataLink:string = el.getAttribute('data-link');
-
-        // TODO : open apps
-        let linkToOpen:string = null;
-        switch (dataLink) {
-            case 'fb':
-                linkToOpen = 'https://urlgeni.us/facebook/faubourgsimone';
-                break;
-            case 'tw':
-                linkToOpen = 'https://urlgeni.us/twitter/faubourgsimone';
-                break;
-            case 'insta':
-                linkToOpen = 'https://urlgeni.us/instagram/faubourgsimone';
-                break;
-            case 'scd':
-                linkToOpen = 'https://urlgeni.us/soundcloud/faubourgsimone';
-                break;
-            case 'msg':
-                linkToOpen = 'https://urlgeni.us/fb_messenger/faubourgsimone';
-                break;
-            default:
-                break;
-        }
-
-        if (linkToOpen) {
-            this.openUrl(linkToOpen);
+        if (dataLink) {
+            this.openUrl(dataLink);
         }
     }
 
@@ -71,15 +48,32 @@ export class MainMenu {
         const dataLink:string = el.getAttribute('data-link');
         // TODO
         switch (dataLink) {
-            case 'contact':
-                this.openUrl('mailto:contact@faubourgsimone.paris');
-                break;
-            case 'note':
-                this.showAlert('NOTE', 'Ouvrir une popin permettant de noter l\'app');
+            case 'rate':
+                try {
+                    this.appRate.preferences.storeAppURL = {
+                        ios: 'paris.faubourgsimone.radioapp',
+                        android: 'market://details?id=paris.faubourgsimone.radioapp'
+                        // windows: 'ms-windows-store://review/?ProductId=<store_id>'
+                    };
+                    this.appRate.promptForRating(true);
+                }
+                catch (e) {
+                    console.log(e);
+                }
                 break;
             case 'spread':
-                // https://urlgeni.us/faubourgsimone-app
-                this.showAlert('RECOMMANDER A UN AMI', 'Ouvrir un partage de lien vers le store');
+                this.socialSharing.share(
+                    "Telecharge l'appli Faubourg Simone pour ecouter la radio et consulter les news musicales",
+                    "Application Faubourg Simone",
+                    null,
+                    "https://urlgeni.us/faubourgsimone-app").then(() => {
+                    // if(this.trackingOptions) {
+                    //     console.log('[ShareButtonComponent] Tracked sharing: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
+                    //     this.tracker.trackEventWithData(this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
+                    // }
+                }).catch((e) => {
+                    console.log(e);
+                });
                 break;
             case 'info':
                 this.showAlert('A PROPOS', 'Ouvrir une modal avec les mentions legales et les credits');
@@ -115,10 +109,5 @@ export class MainMenu {
         });
         alert.present();
     }
-
-    // onClick(e) {
-    // console.log(this.element);
-    // console.log('ONCLICK');
-    // }
 
 }
