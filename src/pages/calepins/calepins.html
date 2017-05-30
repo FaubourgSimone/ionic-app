@@ -1,17 +1,8 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title no-padding>
-      <div class="header-radio">
-        <div class=""><img class="logo" src="assets/images/faubourgsimone-logo-no-waves.png"/></div>
-        <div class=""><span margin-left text-uppercase ion-text text-wrap class="ion-title-header" color="secondary">{{ 'CALEPINSPAGE.TITLE' | translate }}</span></div>
-      </div>
-    </ion-title>
-  </ion-navbar>
+    <main-header>{{ 'CALEPINSPAGE.TITLE' | translate }}</main-header>
 </ion-header>
 
-
 <ion-content padding>
-
   <ion-list>
     <div *ngFor="let calepin of calepins">
 
