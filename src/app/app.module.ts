@@ -15,17 +15,15 @@ import { Pages } from "../pages/index";
 // Providers
 import { CustomProviders, ExternalProviders } from "../providers/index";
 
-// Components
-import { CustomComponents, ExternalComponents } from "../components/index";
+// Components and Directives
+import { CustomComponents, ExternalComponents, CustomDirectives } from "../components/index";
 
 // Libs
 import { SwingModule }      from 'angular2-swing';
 import { IonicAudioModule } from 'ionic-audio';
-// import { TranslateModule, TranslateLoader }  from "@ngx-translate/core";
-import { ParallaxHeader }   from "../components/parallax-header/parallax-header";
+
 
 import { HttpModule, Http } from '@angular/http';
-// import { IonicApp, IonicModule } from 'ionic-angular';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 
 const cloudSettings: CloudSettings = {
@@ -34,9 +32,16 @@ const cloudSettings: CloudSettings = {
     }
 };
 
-const tabSettings = {
+const appSettings = {
     // tabsLayout: 'title-hide',
-    tabsHighlight: true
+    // pageTransition: 'ios-transition',
+    // modalEnter: 'modal-slide-in',
+    // modalLeave: 'modal-slide-out',
+    tabsHideOnSubPages: true,
+    // menuType: 'reveal'
+    tabsHighlight: true,
+    tabsPlacement: 'bottom',
+    backButtonText: 'Retour'
 };
 
 export function createTranslateLoader(http: Http) {
@@ -49,11 +54,11 @@ export function createTranslateLoader(http: Http) {
         ...Pages,
         ...CustomComponents,
         ...ExternalComponents,
-        ParallaxHeader
+        ...CustomDirectives
     ],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(FbrgSmnApp, tabSettings),
+        IonicModule.forRoot(FbrgSmnApp, appSettings),
         CloudModule.forRoot(cloudSettings),
         SwingModule,
         HttpModule,
