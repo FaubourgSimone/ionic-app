@@ -40,17 +40,32 @@ ion-toast.vote-pola .toast-wrapper {
     width: 65%;
   }
 
+  .writing-links {
+    ion-item-divider ion-label {
+      margin: 0;
+    }
+    .item-inner {
+      align-items: flex-end;
+    }
+  }
+
+  .misc-links {
+    position: absolute;
+    bottom: 0;
+  }
+
   ion-item-divider {
     background: none;
     span {
       font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 
   .social-links {
     button {
-      //TODO: mixin or function !
       $button-size: 2.8rem;
+      //TODO: mixin or function !
       width: $button-size;
       height: $button-size;
 
@@ -76,11 +91,22 @@ ion-toast.vote-pola .toast-wrapper {
     }
   }
 
+  $icon-size: 1.7rem;
+  .logo-messenger-64 {
+    width: $icon-size;
+    height: $icon-size;
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1Ni43cHgiIGlkPSJMYXllcl8xIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1Ni43IDU2Ljc7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1Ni43IDU2LjciIHdpZHRoPSI1Ni43cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnIGlkPSJGYWNlYm9va19NZXNzZW5nZXJfMV8iPjxnPjxwYXRoIGQ9Ik0yOC40MzQyLDMuODQxNmMtMTMuNDUyMSwwLTI0LjM1NzEsMTAuMTU5OS0yNC4zNTcxLDIyLjY5M2MwLDcuMTQxNSwzLjU0MTksMTMuNTExNSw5LjA3NzIsMTcuNjcxM3Y4LjY1MjVsOC4yOTM0LTQuNTc5OSAgICBjMi4yMTMzLDAuNjE2Myw0LjU1ODEsMC45NDksNi45ODY2LDAuOTQ5YzEzLjQ1MjEsMCwyNC4zNTcxLTEwLjE1OTksMjQuMzU3MS0yMi42OTNTNDEuODg2MywzLjg0MTYsMjguNDM0MiwzLjg0MTZ6ICAgICBNMzAuODU0OCwzNC40MDE1bC02LjIwMjctNi42NTY2bC0xMi4xMDI5LDYuNjU2NmwxMy4zMTMyLTE0LjIyMDlsNi4zNTQsNi42NTY2bDExLjk1MTYtNi42NTY2TDMwLjg1NDgsMzQuNDAxNXoiLz48L2c+PC9nPjwvc3ZnPg==') no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+    background-position-x: -0.1rem;
+  }
+
   .item-list-links {
     ion-icon, span {
       vertical-align: middle;
     }
-
     ion-icon {
       font-size: 2rem;
     }
@@ -88,5 +114,12 @@ ion-toast.vote-pola .toast-wrapper {
     span {
       font-size: 1.4rem;
     }
+
+    &.misc-links {
+      span {
+        font-size: 1.2rem;
+      }
+    }
+
   }
 }

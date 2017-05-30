@@ -239,7 +239,7 @@ export class RadioPage {
                     "&picture="+el.innerHTML;
 
 
-                this.browserPopup = this.iab.create(url, '_self');
+                this.browserPopup = this.iab.create(url, '_blank');
                 // This check is because of a crash when simulated on desktop browser
                 if(typeof this.browserPopup.on('loadstop').subscribe === 'function' ) {
                     this.browserPopup.on('loadstop').subscribe((evt)=>{
@@ -252,7 +252,6 @@ export class RadioPage {
     }
 
     closePopUp() {
-        console.log('CLOOOOSE');
         this.browserPopup.close();
     }
 
@@ -340,3 +339,5 @@ export class RadioPage {
     }
 
 }
+
+

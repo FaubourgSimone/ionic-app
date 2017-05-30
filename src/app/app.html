@@ -17,28 +17,46 @@
         <!--</button>-->
         <!--</ion-list>-->
 
-        <ion-item-group padding-bottom>
-            <ion-item-divider no-lines><span text-uppercase color="primary">Suivez nous !</span></ion-item-divider>
+        <ion-item-group no-padding padding-horizontal padding-top>
+            <ion-item-divider no-lines no-margin><span no-margin ion-text text-uppercase color="secondary">Suivez nous !</span></ion-item-divider>
+
             <ion-row class="social-links" justify-content-between>
                 <ion-col text-center><button data-link="fb" class="ts-btn-social logo-facebook-64"></button></ion-col>
                 <ion-col text-center><button data-link="insta" class="ts-btn-social logo-instagram-64"></button></ion-col>
                 <ion-col text-center><button data-link="tw" class="ts-btn-social logo-twitter-64"></button></ion-col>
                 <ion-col text-center><button data-link="scd" class="ts-btn-social logo-soundcloud-64"></button></ion-col>
             </ion-row>
+
+            <!--<ion-item-divider no-lines><span ion-text text-uppercase color="primary">Écrivez nous !</span></ion-item-divider>-->
+
+            <!--<ion-row class="social-links" justify-content-between>-->
+                <!--<ion-col text-center><button data-link="fb" class="ts-btn-social logo-facebook-64"></button></ion-col>-->
+                <!--<ion-col text-center><button data-link="insta" class="ts-btn-social logo-instagram-64"></button></ion-col>-->
+            <!--</ion-row>-->
         </ion-item-group>
 
-        <ion-list class="item-list-links">
-            <button class="ts-btn-link" ion-item icon-left data-link="contact">
-                <ion-icon name="ios-mail"></ion-icon><span text-uppercase color="primary">Contactez-nous</span>
+        <ion-list class="item-list-links writing-links" no-padding padding-horizontal padding-top>
+            <ion-item-divider no-lines><span ion-text text-uppercase color="secondary">Écrivez nous !</span></ion-item-divider>
+
+            <button class="ts-btn-social" ion-item icon-left data-link="msg" no-margin>
+                <div class="logo-messenger-64" no-padding no-margin></div><span>Sur messenger</span>
             </button>
+
+            <button class="ts-btn-link" ion-item icon-left data-link="contact">
+                <ion-icon name="ios-mail"></ion-icon><span>Par email</span>
+            </button>
+
+        </ion-list>
+
+        <ion-list class="item-list-links misc-links" no-padding padding-horizontal>
             <button class="ts-btn-link" ion-item icon-left data-link="note">
-                <ion-icon name="star"></ion-icon><span text-uppercase color="primary">Notez l'app</span>
+                <ion-icon name="star"></ion-icon><span ion-text text-uppercase>Notez l'app</span>
             </button>
             <button class="ts-btn-link" ion-item icon-left data-link="spread">
-                <ion-icon name="megaphone"></ion-icon><span text-uppercase color="primary">Recommandez l'app</span>
+                <ion-icon name="megaphone"></ion-icon><span ion-text text-uppercase>Recommandez l'app</span>
             </button>
             <button class="ts-btn-link" ion-item icon-left data-link="info">
-                <ion-icon name="information-circle"></ion-icon><span text-uppercase color="primary">À propos</span>
+                <ion-icon name="information-circle"></ion-icon><span ion-text text-uppercase>À propos</span>
             </button>
         </ion-list>
 
