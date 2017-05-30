@@ -33,7 +33,7 @@ export class ShareButtonComponent {
                 },
                 (error)=> {
                     console.log('error: ', error);
-                    //TODO
+                    this.prompt.presentMessage({message: `Une erreur s'est produite lors de la screenshot : \n ${error.toString()}`, classNameCss:'error'});
                 });
         }
         else {
@@ -53,7 +53,7 @@ export class ShareButtonComponent {
             }
         }).catch((e) => {
             if(this.trackingOptions) {
-                this.prompt.presentMessage({message: `Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`});
+                this.prompt.presentMessage({message: `Une erreur s'est produite pour partager ${this.trackingOptions.label}: \n ${e.toString()}`, classNameCss:'error'});
             }
         });
     }

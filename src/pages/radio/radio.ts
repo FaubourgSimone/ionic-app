@@ -10,7 +10,7 @@ import { PromptService }    from "../../providers/prompt-service";
 import { TranslateService } from "ng2-translate";
 import { TrackerService }   from "../../providers/tracker-service";
 // import { InAppBrowser }     from 'ionic-native';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import {InAppBrowser, InAppBrowserObject} from '@ionic-native/in-app-browser';
 
 
 declare let cordova: any;
@@ -37,7 +37,7 @@ export class RadioPage {
     private configReady:boolean = true;
     private shareOptions:any;
     private trackingOptions:any;
-    private browserPopup:any;
+    private browserPopup:InAppBrowserObject;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -232,17 +232,22 @@ export class RadioPage {
                     "app_id=419281238161744" +
                     "&name="+this.currentSong.title+"" +
                     "&display=popup" +
-                    "&caption=http://faubourgsimone.paris" +
+                    "&caption=http://faubourgsimone.paris/application-mobile" +
                     "&description="+ result +
                     "&link=faubourgsimone.paris/application-mobile" +
                     // "&redirect_uri=http://faubourgsimone.com/facebook.php" +
                     "&picture="+el.innerHTML;
-                this.browserPopup = this.iab.create(url, '_blank');
-                this.browserPopup.on('loadstop').subscribe((evt)=>{
-                    if(evt.url === 'https://www.facebook.com/dialog/return/close?#_=_') {
-                        this.closePopUp();
-                    }
-                });
+
+
+                this.browserPopup = this.iab.create(url, '_self');
+                // This check is because of a crash when simulated on desktop browser
+                if(typeof this.browserPopup.on('loadstop').subscribe === 'function' ) {
+                    this.browserPopup.on('loadstop').subscribe((evt)=>{
+                        if(evt.url === 'https://www.facebook.com/dialog/return/close?#_=_') {
+                            this.closePopUp();
+                        }
+                    });
+                }
             });
     }
 
