@@ -1,8 +1,9 @@
 import { Directive, ElementRef } from '@angular/core';
-import { AlertController} from "ionic-angular";
+import { ModalController} from "ionic-angular";
 import { InAppBrowser, InAppBrowserObject } from "@ionic-native/in-app-browser";
 import { AppRate } from "@ionic-native/app-rate";
 import { SocialSharing } from "@ionic-native/social-sharing";
+import { CreditsPage } from "../../pages/credits/credits";
 
 @Directive({
     selector: '[main-menu]'
@@ -12,10 +13,10 @@ export class MainMenu {
     private browserPopup:InAppBrowserObject;
 
     constructor(public element: ElementRef,
-                public alertCtrl: AlertController,
                 private iab: InAppBrowser,
                 private appRate: AppRate,
-                private socialSharing: SocialSharing) {
+                private socialSharing: SocialSharing,
+                public modalCtrl: ModalController) {
         console.log('Hello MainMenu Directive');
     }
 
@@ -63,7 +64,7 @@ export class MainMenu {
                 break;
             case 'spread':
                 this.socialSharing.share(
-                    "Telecharge l'appli Faubourg Simone pour ecouter la radio et consulter les news musicales",
+                    "Télécharge l'appli Faubourg Simone pour écouter la radio et consulter les news musicales",
                     "Application Faubourg Simone",
                     null,
                     "https://urlgeni.us/faubourgsimone-app").then(() => {
@@ -76,7 +77,8 @@ export class MainMenu {
                 });
                 break;
             case 'info':
-                this.showAlert('A PROPOS', 'Ouvrir une modal avec les mentions legales et les credits');
+                let profileModal = this.modalCtrl.create(CreditsPage, { userId: 8675309 });
+                profileModal.present();
                 break;
             default:
                 break;
@@ -99,15 +101,6 @@ export class MainMenu {
 
     closePopUp() {
         this.browserPopup.close();
-    }
-
-    showAlert(title:string, message:string) {
-        let alert = this.alertCtrl.create({
-            title: title,
-            subTitle: message,
-            buttons: ['Fermer']
-        });
-        alert.present();
     }
 
 }

@@ -1,0 +1,191 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title text-uppercase>
+            <span color="secondary">À Propos</span>
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+                <span ion-text color="primary" showWhen="ios">Fermer</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-row no-padding no-margin align-items-center>
+        <ion-col col-5 no-padding no-margin class="col-logo">
+            <img srcset="assets/images/logo-standard.svg" src="assets/images/faubourgsimone-logo-no-waves.png"/>
+        </ion-col>
+
+        <ion-col col-7 no-padding no-margin class="app-info">
+            <p *ngIf="appName" color="foggy-gray">{{appName}}</p>
+            <p *ngIf="appPackageName" color="foggy-gray">{{appPackageName}}</p>
+            <p *ngIf="appVersionNumber" color="foggy-gray">v.{{appVersionNumber}}</p>
+            <p *ngIf="appVersionCode" color="foggy-gray">code {{appVersionCode}}</p>
+        </ion-col>
+    </ion-row>
+    <div margin color="primary">
+
+
+        <h1 color="secondary">Mentions Légales</h1>
+
+        <h2>Informations légales</h2>
+        <p text-left>Éditeur: Faubourg Simone<br>
+        Siège social : 83 rue de Turenne, 75003 Paris.
+        Direction de la publication: Nathalie Dos Reis (nathalie.dosreis@faubourgsimone.paris)<br>
+        Responsable de la rédaction: Stéphanie Boué (stephanie.boue@faubourgsimone.paris)<br>
+        Hébergements: <br>- OVH, SAS (2 rue Kellermann, 59100 Roubaix) <br>- ONLINE, SAS (8 rue de la ville l'Evêque, 75008 Paris)<br>
+        Création et maintenance: <br>Jennifer Proust (jennifer.proust@faubourgsimone.paris)<br>
+
+        <h2>Informatique et libertés</h2>
+        <p text-justify>Aucune donnée personnelle n'est collectée. L'utilisateur est informé que conformément à l’article 32 de la loi n°78-17 du 6 janvier 1978 modifiée en 2004,
+            relative à l’informatique, aux fichiers et aux libertés, les informations qu’il communique par le biais des formulaires présents dans l'application sont
+            nécessaires pour répondre à sa demande et sont destinées à l’éditeur.
+            Conformément à cette loi, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent,
+            ainsi que d’un droit d’opposition au traitement de vos données pour des motifs légitimes.
+            Vous pouvez exercer l’ensemble de ces droits auprès de l’éditeur du site par email ou par voie postale.</p>
+
+        <h2>Droits d’auteurs</h2>
+        <p text-justify>Le site est protégé par le droit d’auteur.
+        Les droits de propriété intellectuelle relatifs au contenu de l'application restent la propriété exclusive de Faubourg Simone.
+        Les marques de l’éditeur de l'application et de ses partenaires, ainsi que les logos figurant dans l'application sont des marques déposées.
+        L’utilisation de l'application ne vous confère aucun droit.
+        En conséquence, vous ne pouvez télécharger tout ou partie des textes, images, sons, photographies, données,
+        marques et tout autre élément qui y sont contenus qu’à des fins strictement privées.
+        Toute réutilisation, diffusion, commercialisation, reproduction et représentation, totale ou partielle,
+        d’éléments du site à d’autres fins qu’un usage privé, sans l’autorisation préalable expresse de Faubourg Simone est interdite et
+            constitutive du délit de contrefaçon de droit d’auteur et/ou d’atteinte aux droits voisins.</p>
+
+        <h2>Analyse de trafic</h2>
+        <p text-justify>Ce site utilise Google Analytics, un service d’analyse du trafic de site internet fourni par Google.
+        Google Analytics utilise des cookies, pour aider le site internet à analyser l’utilisation du site par ses utilisateurs.
+        Les données générées par les cookies concernant votre utilisation de l'application (y compris votre adresse IP)
+        sont transmises et stockées par Google sur des serveurs situés aux Etats-Unis.
+        Google utilise ces informations dans le but d’évaluer l’utilisation du site par ses visiteurs,
+        de compiler des rapports sur l’activité du site à destination de son éditeur et de fournir d’autres services
+        relatifs à l’activité du site et à l’utilisation d’Internet.
+        Google est susceptible de communiquer ces données à des tiers en cas d’obligation légale ou lorsque ces tiers
+        traitent ces données pour le compte de Google, y compris notamment l’éditeur de ce site.
+        Google s’engage à ne jamais recouper votre adresse IP avec toute autre donnée détenue par Google. En utilisant ce site Web, vous acceptez que Google traite des données vous concernant de la manière et aux fins décrites ci-dessus.</p>
+
+
+        <h1 color="secondary">Logiciels tiers</h1>
+
+        <h2>Ionic</h2>
+        <p>
+            2015-present Drifty Co<br>
+            <a href="https://github.com/ionic-team/ionic" target="_blank">https://github.com/ionic-team/ionic</a><br>
+            Ionic is licensed under the MIT License.<br>
+        </p>
+
+
+        <h2>Angular</h2>
+        <p>
+            2014-2017 Google, Inc. http://angular.io<br>
+            <a href="https://github.com/angular/angular" target="_blank">https://github.com/angular/angular</a><br>
+            Angular is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Ionic-Audio</h2>
+        <p>
+            <a href="https://github.com/FaubourgSimone/ionic-audio" target="_blank">https://github.com/FaubourgSimone/ionic-audio</a><br>
+            forked from <a href="https://github.com/arielfaur/ionic-audio" target="_blank">https://github.com/arielfaur/ionic-audio</a><br>
+            Ionic-audio is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Ngx Translate Core</h2>
+        <p>
+            2016 Olivier Combe
+            <a href="https://github.com/ngx-translate/core" target="_blank">https://github.com/ngx-translate/core</a><br>
+            Ngx Translate is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Ngx Translate Http-Loader</h2>
+        <p>
+            2016 Olivier Combe
+            <a href="https://github.com/ngx-translate/http-loader" target="_blank">https://github.com/ngx-translate/http-loader</a><br>
+            Ngx Translate is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Angular2 Swing</h2>
+        <p>
+            2016 Kapil Sachdeva
+            <a href="https://github.com/ksachdeva/angular2-swing" target="_blank">https://github.com/ksachdeva/angular2-swing</a><br>
+            Angular2 Swing is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Google Analytics Plugin</h2>
+        <p>
+            2013 danwilson
+            <a href="https://github.com/danwilson/google-analytics-plugin" target="_blank">https://github.com/danwilson/google-analytics-plugin</a><br>
+            Google Analytics Plugin is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Cordova Android, Cordova iOS</h2>
+        <p>
+            Apache
+            <a href="https://github.com/apache/cordova-android" target="_blank">https://github.com/apache/cordova-android</a><br>
+            <a href="https://github.com/apache/cordova-android" target="_blank">https://github.com/apache/cordova-android</a><br>
+            Cordova Android & Cordova iOS are licensed under the Apache License 2.0.<br>
+        </p>
+
+        <h2>Crosswalk WebView Cordova Plugin</h2>
+        <p>
+            <a href="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview" target="_blank">https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview</a><br>
+            Crosswalk WebView Cordova Plugin is licensed under the Apache License 2.0.<br>
+        </p>
+
+        <h2>Cordova plugin InAppBrowser</h2>
+        <p>
+            Apache
+            <a href="https://github.com/apache/cordova-plugin-inappbrowser" target="_blank">https://github.com/apache/cordova-plugin-inappbrowser</a><br>
+            Cordova Plugin InAppBrowser is licensed under the Apache License 2.0.<br>
+        </p>
+
+        <h2>Cordova plugin Splashscreen</h2>
+        <p>
+            Apache
+            <a href="https://github.com/apache/cordova-plugin-splashscreen" target="_blank">https://github.com/apache/cordova-plugin-splashscreen</a><br>
+            Cordova Plugin Splashscreen is licensed under the Apache License 2.0.<br>
+        </p>
+
+        <h2>Cordova plugin Statusbar</h2>
+        <p>
+            Apache
+            <a href="https://github.com/apache/cordova-plugin-statusbar" target="_blank">https://github.com/apache/cordova-plugin-statusbar</a><br>
+            Cordova Plugin Statusbar is licensed under the Apache License 2.0.<br>
+        </p>
+
+        <h2>Social Sharing PhoneGap Plugin</h2>
+        <p>
+            <a href="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin" target="_blank">https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin</a><br>
+            Social Sharing is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Cordova Music Controls Plugin</h2>
+        <p>
+            <a href="https://github.com/homerours/cordova-music-controls-plugin" target="_blank">https://github.com/homerours/cordova-music-controls-plugin</a><br>
+            Cordova Music Controls is licensed under the MIT License.<br>
+        </p>
+
+        <h2>Cordova Screenshot</h2>
+        <p>
+            2012-2014 Hongbo LU<br>
+            2012 30ideas (http://30ide.as)<br>
+            <a href="https://github.com/gitawego/cordova-screenshot" target="_blank">https://github.com/gitawego/cordova-screenshot</a><br>
+            Cordova Screenshot is licensed under the MIT License.<br>
+        </p>
+
+
+        <h2>Cordova Plugin Apprate</h2>
+        <p>
+            <a href="https://github.com/pushandplay/cordova-plugin-apprate" target="_blank">https://github.com/pushandplay/cordova-plugin-apprate</a><br>
+            Cordova Plugin Apprate is licensed under Apache License 2.0.<br>
+        </p>
+
+
+    </div>
+</ion-content>

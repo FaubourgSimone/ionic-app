@@ -95,6 +95,7 @@
     <engine name="ios" spec="^4.4.0" />
     <engine name="windows" spec="~4.4.3" />
     <plugin name="com.darktalker.cordova.screenshot" spec="git+https://github.com/gitawego/cordova-screenshot.git" />
+    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-apprate" spec="^1.3.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.6" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">

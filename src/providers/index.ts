@@ -15,6 +15,7 @@ import { TrackerService }           from "./tracker-service";
 import { Screenshot }               from "@ionic-native/screenshot";
 import { InAppBrowser }             from '@ionic-native/in-app-browser';
 import { AppRate }                  from "@ionic-native/app-rate";
+import { AppVersion }               from "@ionic-native/app-version";
 
 export const CustomProviders = [
     InitService,
@@ -34,6 +35,7 @@ export const ExternalProviders = [
     GoogleAnalytics,
     InAppBrowser,
     AppRate,
+    AppVersion,
     { provide: LOCALE_ID, useValue: "fr-FR" },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
 ];

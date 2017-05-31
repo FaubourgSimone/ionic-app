@@ -7,6 +7,7 @@ import { CasquesPage }  from './casques/casques';
 import { CasquePage }   from './casque/casque';
 import { ConcertsPage } from "./concerts/concerts";
 import { ConcertPage }  from "./concert/concert";
+import { CreditsPage } from "./credits/credits";
 
 export const Pages = [
     TabsPage,
@@ -17,5 +18,6 @@ export const Pages = [
     CasquesPage,
     CasquePage,
     ConcertsPage,
-    ConcertPage
+    ConcertPage,
+    CreditsPage
 ];
