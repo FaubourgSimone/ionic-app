@@ -3,7 +3,6 @@
 </ion-header>
 <ion-content padding>
 
-  <!-- to get different behaviors use (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)"  -->
   <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwout)="onThrowOut($event)" id="card-stack" [class]="stackStyle">
     <ion-card swing-card #mycards1 *ngFor="let card of cards" class="td-card" no-padding>
       <ion-item *ngIf="card.image">
@@ -18,31 +17,18 @@
                       [trackingOptions]="cards[cards.length-1].trackingOptions"
                       icon-only>
         </share-button>
-        <div class="pola-footer" no-margin>
-          <button id="swipe_dislike" class="rate" (click)="voteUp(false)">
-            <ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>
-          </button>
+        <!--<div class="pola-footer" no-margin>-->
+          <!--<button id="swipe_dislike" class="rate" (click)="vote(false)">-->
+            <!--<ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>-->
+          <!--</button>-->
 
-          <button id="swipe_like" class="rate" (click)="voteUp(true)">
-            <ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>
-          </button>
-        </div>
+          <!--<button id="swipe_like" class="rate" (click)="vote(true)">-->
+            <!--<ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>-->
+          <!--</button>-->
+        <!--</div>-->
       </ion-card-content>
     </ion-card>
   </div>
-
-  <!--<ion-footer no-border no-lines="">-->
-    <!--<div class="pola-footer" no-margin>-->
-      <!--<button id="swipe_dislike" class="rate" (click)="voteUp(false)">-->
-        <!--<ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>-->
-      <!--</button>-->
-
-      <!--<button id="swipe_like" class="rate" (click)="voteUp(true)">-->
-        <!--<ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>-->
-      <!--</button>-->
-    <!--</div>-->
-  <!--</ion-footer>-->
-
 </ion-content>
 
 

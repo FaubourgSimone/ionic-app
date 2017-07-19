@@ -62,16 +62,16 @@ export class PolaPage {
         switch( event.throwDirection ) {
             case Direction.RIGHT:
             case Direction.UP:
-                this.voteUp( false );
+                this.vote( false );
                 break;
             case Direction.LEFT:
             case Direction.DOWN:
-                this.voteUp( true );
+                this.vote( true );
                 break;
         }
     }
 
-    voteUp( like: boolean ) {
+    vote( like: boolean ) {
         console.log('vote up');
         let removedCard = this.cards.pop();
 
@@ -91,11 +91,11 @@ export class PolaPage {
             .subscribe((result: string) => {
                 voteAgainst = result;
                 const verb = like ? voteFor : voteAgainst;
-                this.prompt.presentMessage({
-                    message: `Tu as vote ${verb} ${removedCard.title}`,
-                    duration: 3000,
-                    classNameCss: 'vote-pola'
-                });
+                // this.prompt.presentMessage({
+                //     message: `Tu as vote ${verb} ${removedCard.title}`,
+                //     duration: 3000,
+                //     classNameCss: 'vote-pola'
+                // });
 
                 this.tracker.trackEventWithI18n(
                     {translate: 'TRACKING.POLA.CATEGORY'},
