@@ -52,8 +52,8 @@ export class MainMenu {
             case 'rate':
                 try {
                     this.appRate.preferences.storeAppURL = {
-                        ios: 'paris.faubourgsimone.radioapp',
-                        android: 'market://details?id=paris.faubourgsimone.radioapp'
+                        ios: '617687434',
+                        android: 'market://details?id=com.mfkr.faubourg.simone'
                         // windows: 'ms-windows-store://review/?ProductId=<store_id>'
                     };
                     this.appRate.promptForRating(true);

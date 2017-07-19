@@ -1,10 +1,10 @@
-import { ViewController, Platform, NavController } from 'ionic-angular';
-import { Component }                from '@angular/core';
+import { ViewController, Platform, NavController, Content } from 'ionic-angular';
+import { Component, QueryList, ViewChild, ViewChildren }    from '@angular/core';
 import { GoogleAnalytics }          from "@ionic-native/google-analytics";
-import { StackConfig  }             from 'angular2-swing';
+import { TranslateService }         from "ng2-translate";
+import { StackConfig, SwingCardComponent, SwingStackComponent, Direction } from 'angular2-swing';
 import { PolaService }              from "../../providers/pola-service";
 import { PromptService }            from "../../providers/prompt-service";
-import { TranslateService }         from "ng2-translate";
 import { TrackerService }           from "../../providers/tracker-service";
 
 @Component({
@@ -20,6 +20,11 @@ export class PolaPage {
     private displayedCardNb:number = 0;
     private refillNb:number = 0;
 
+    @ViewChild( 'myswing1' ) swingStack: SwingStackComponent;
+    @ViewChildren( 'mycards1' ) swingCards: QueryList<SwingCardComponent>;
+    @ViewChild(Content) content: Content;
+
+
     constructor(public navCtrl: NavController,
                 private viewCtrl: ViewController,
                 private api: PolaService,
@@ -29,32 +34,51 @@ export class PolaPage {
                 private translateService: TranslateService,
                 private tracker: TrackerService) {
 
-        this.plt.ready().then((readySource) => {
+        this.plt.ready().then( readySource => {
             console.log('Platform ready from', readySource);
-            this.ga.trackView(this.viewCtrl.name);
+            this.ga.trackView( this.viewCtrl.name );
         });
 
+
         this.stackConfig = {
-            throwOutConfidence: (offset, element) => {
-                return Math.min((2 * Math.abs(offset) / (element.offsetWidth / 2)), 1);
+            // Default setting only allows UP, LEFT and RIGHT so you can override this as below
+            allowedDirections: [ Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN ],
+            // Now need to send offsetX and offsetY with element instead of just offset
+            throwOutConfidence: ( offsetX, offsetY, element ) => {
+                return Math.min( Math.max( Math.abs( offsetX ) / ( element.offsetWidth / 2 ), Math.abs( offsetY ) / ( element.offsetHeight / 2 ) ), 1);
             },
-            transform: (element, x, y, r) => {
-                element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+            throwOutDistance: d => {
+                return 800;
             }
-        };
+        }
     }
 
     ionViewDidLoad() {
         this.addNewCards();
     }
 
-    voteUp(like: boolean) {
+    onThrowOut( event ) {
+        console.log( 'Hook from the template', event );
+        switch( event.throwDirection ) {
+            case Direction.RIGHT:
+            case Direction.UP:
+                this.voteUp( false );
+                break;
+            case Direction.LEFT:
+            case Direction.DOWN:
+                this.voteUp( true );
+                break;
+        }
+    }
+
+    voteUp( like: boolean ) {
+        console.log('vote up');
         let removedCard = this.cards.pop();
 
         this.tracker.trackEventWithI18n(
-            { translate: 'TRACKING.POLA.CATEGORY' },
-            { translate: 'TRACKING.POLA.ACTION.SWIPE' },
-            { translate: 'TRACKING.POLA.LABEL.SWIPE', params: {index: this.displayedCardNb.toString()} }
+            {translate: 'TRACKING.POLA.CATEGORY'},
+            {translate: 'TRACKING.POLA.ACTION.SWIPE'},
+            {translate: 'TRACKING.POLA.LABEL.SWIPE', params: {index: this.displayedCardNb.toString()}}
         );
 
         let voteFor, voteAgainst;
@@ -67,22 +91,26 @@ export class PolaPage {
             .subscribe((result: string) => {
                 voteAgainst = result;
                 const verb = like ? voteFor : voteAgainst;
-                this.prompt.presentMessage({message: `Tu as vote ${verb} ${removedCard.title}`, duration: 3000, classNameCss: 'vote-pola'});
+                this.prompt.presentMessage({
+                    message: `Tu as vote ${verb} ${removedCard.title}`,
+                    duration: 3000,
+                    classNameCss: 'vote-pola'
+                });
 
                 this.tracker.trackEventWithI18n(
-                    { translate: 'TRACKING.POLA.CATEGORY' },
-                    { translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb: verb} },
-                    { translate: 'TRACKING.POLA.LABEL.VOTE', params: {removedCardId: removedCard.id} }
+                    {translate: 'TRACKING.POLA.CATEGORY'},
+                    {translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb: verb}},
+                    {translate: 'TRACKING.POLA.LABEL.VOTE', params: {removedCardId: removedCard.id}}
                 );
 
             });
 
-        if(this.cards.length === 0) {
+        if ( this.cards.length === 0 ) {
             this.refillNb++;
             this.tracker.trackEventWithI18n(
-                { translate: 'TRACKING.POLA.CATEGORY' },
-                { translate: 'TRACKING.POLA.ACTION.REFILL' },
-                { translate: 'TRACKING.POLA.LABEL.REFILL', params: {time: this.refillNb.toString()}}
+                {translate: 'TRACKING.POLA.CATEGORY'},
+                {translate: 'TRACKING.POLA.ACTION.REFILL'},
+                {translate: 'TRACKING.POLA.LABEL.REFILL', params: { time: this.refillNb.toString() } }
             );
             this.addNewCards();
         }
@@ -90,16 +118,17 @@ export class PolaPage {
     }
 
     addNewCards() {
-        if(typeof this.cards === 'undefined' || this.cards.length === 0) {
+        console.log('addnewcard');
+        if( typeof this.cards === 'undefined' || this.cards.length === 0 ) {
             this.prompt.presentLoading();
         }
-        this.api.getPolas().then((data)=>{
+        this.api.getPolas().then( data => {
             this.cards = data;
-            if(this.cards.length === 0) {
+            if( this.cards.length === 0 ) {
                 this.translateService
                     .get('ERRORS.NO_POLA')
-                    .subscribe((result: string) => {
-                        this.prompt.presentMessage({message: result, classNameCss: 'error'});
+                    .subscribe( ( result: string ) => {
+                        this.prompt.presentMessage( { message: result, classNameCss: 'error' } );
                     });
                 this.prompt.dismissLoading();
             }
@@ -108,13 +137,13 @@ export class PolaPage {
                 this.prompt.dismissLoading();
             }
         }).catch((error)=>{
-            this.prompt.presentMessage({message: error.toString(), classNameCss: 'error'});
+            this.prompt.presentMessage( { message: error.toString(), classNameCss: 'error' } );
             this.prompt.dismissLoading();
         });
     }
 
     switchStyle() {
-        if(this.stackStyle === 'stack-style-1') {
+        if( this.stackStyle === 'stack-style-1' ) {
             this.stackStyle = 'stack-style-2';
         }
         else {

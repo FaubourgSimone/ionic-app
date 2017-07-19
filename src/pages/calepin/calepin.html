@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar><ion-title *ngIf="calepin"><span ion-text text-wrap class="ion-title-header" color="secondary">{{ 'CALEPINPAGE.TITLE' | translate }}</span></ion-title></ion-navbar>
+  <ion-navbar>
+  </ion-navbar>
 </ion-header>
 
 
@@ -18,6 +19,8 @@
           <span>{{calepin.date | date:'longDate'}}</span>
         </ion-icon>
       </ion-col>
+
+
       <ion-col no-padding text-right>
         <ion-icon ion-text name="link" icon-left color="foggy-gray">
           <span><a (click)="onExternalLink()" ion-text color="foggy-gray">{{ 'CALEPINPAGE.EXTERNAL_LINK' | translate }}</a></span>

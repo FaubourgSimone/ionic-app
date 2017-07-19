@@ -1,7 +1,6 @@
 {
   "name": "faubourgsimone",
   "app_id": "2660e52d",
-  "v2": true,
-  "typescript": true,
-  "proxies": []
+  "proxies": [],
+  "type": "ionic-angular"
 }

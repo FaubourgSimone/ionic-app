@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { GoogleAnalytics }  from "@ionic-native/google-analytics";
 import { SocialSharing }    from "@ionic-native/social-sharing";
 import { PromptService }    from "../../providers/prompt-service";
 import { TrackerService }   from "../../providers/tracker-service";
 import { Screenshot }       from "@ionic-native/screenshot";
+import {Content} from "ionic-angular";
 
 @Component({
     selector: 'share-button',
@@ -16,6 +17,8 @@ export class ShareButtonComponent {
     @Input() trackingOptions:any;
     @Input() hasLabel:boolean;
     @Input() doScreenShot:boolean;
+    @Input() content:boolean;
+    // @ViewChild(Content) content: Content;
 
     constructor(private ga: GoogleAnalytics,
                 private socialSharing: SocialSharing,
@@ -26,15 +29,19 @@ export class ShareButtonComponent {
 
     onClick() {
         if(this.doScreenShot) {
-            this.screenshot.URI(80).then(
-                (result)=> {
-                    this.options.image = result.URI;
-                    this.shareIt(this.options);
-                },
-                (error)=> {
-                    console.log('error: ', error);
-                    this.prompt.presentMessage({message: `Une erreur s'est produite lors de la screenshot : \n ${error.toString()}`, classNameCss:'error'});
-                });
+            console.log(this.screenshot);
+            // this.content.scrollToTop().then(() => {
+                this.screenshot.URI(100).then(
+                    (result)=> {
+                        console.log(result);
+                        this.options.image = result.URI;
+                        this.shareIt(this.options);
+                    },
+                    (error)=> {
+                        console.log('error: ', error);
+                        this.prompt.presentMessage({message: `Une erreur s'est produite lors de la screenshot : \n ${error.toString()}`, classNameCss:'error'});
+                    });
+            // });
         }
         else {
             this.shareIt(this.options);

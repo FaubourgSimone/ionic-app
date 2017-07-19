@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, Platform, ViewController} from 'ionic-angular';
+import { NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { AppVersion } from "@ionic-native/app-version";
 
 @Component({

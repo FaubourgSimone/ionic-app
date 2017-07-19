@@ -4,8 +4,8 @@
 <ion-content padding>
 
   <!-- to get different behaviors use (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)"  -->
-  <div swing-stack [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [class]="stackStyle">
-    <ion-card swing-card *ngFor="let card of cards" class="td-card" no-padding>
+  <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwout)="onThrowOut($event)" id="card-stack" [class]="stackStyle">
+    <ion-card swing-card #mycards1 *ngFor="let card of cards" class="td-card" no-padding>
       <ion-item *ngIf="card.image">
         <img *ngIf="card.image" [src]="card.image">
       </ion-item>
@@ -13,6 +13,7 @@
         <h2 ion-text class="title" text-wrap text-uppercase color="primary">{{ card.title }}</h2>
         <h3 ion-text class="date" text-uppercase color="foggy-gray">{{ card.date | date:'longDate'}}</h3>
         <share-button class="pola"
+                      [content]="content"
                       [options]="cards[cards.length-1].shareOptions"
                       [trackingOptions]="cards[cards.length-1].trackingOptions"
                       icon-only>
