@@ -1,19 +1,21 @@
-<ion-header>
+<ion-header no-padding no-margin>
   <ion-navbar>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding class="single-article-page">
+<ion-content class="single-article-page" no-padding no-margin>
 
-  <div *ngIf="calepin">
+  <div *ngIf="calepin" no-padding no-margin>
 
-    <h1 ion-text color="primary" [innerHTML] = calepin.title></h1>
-    <h2 ion-text color="primary" [innerHTML] = calepin.subtitle></h2>
+    <header class="header-article" no-padding no-margin>
+      <h1 ion-text color="secondary" [innerHTML] = "calepin.title" text-uppercase text-center class="article-title" no-margin></h1>
+      <h2 ion-text color="primary" [innerHTML] = "calepin.subtitle" class="article-subtitle" text-center no-margin></h2>
+    </header>
 
-    <article ion-text class="article-content" color="primary" [innerHTML] = calepin.content></article>
+    <article ion-text class="article-content" color="primary" [innerHTML] = "calepin.content" text-justify margin></article>
 
-    <ion-row class="meta" padding-vertical>
+    <ion-row class="meta" padding-vertical margin>
       <ion-col no-padding text-left>
         <ion-icon ion-text name="calendar" icon-left color="foggy-gray">
           <span>{{calepin.date | date:'longDate'}}</span>
@@ -27,7 +29,7 @@
         </ion-icon>
       </ion-col>
     </ion-row>
-    <share-button class="calepin"
+    <share-button margin class="calepin"
                   [options]="calepin.shareOptions"
                   [trackingOptions]="calepin.trackingOptions"
                   [hasLabel] = true

@@ -6,10 +6,11 @@
 <ion-content padding class="single-article-page">
   <div *ngIf="casque">
 
-    <h1 ion-text color="primary" [innerHTML] = casque.title></h1>
-    <h2 ion-text color="primary" [innerHTML] = casque.artist></h2>
+    <h1 ion-text color="secondary" [innerHTML] = "casque.title" text-uppercase class="article-title" text-justify></h1>
 
-    <article ion-text class="article-content" color="primary" [innerHTML] = casque.content></article>
+    <h2 ion-text color="primary" [innerHTML] = "casque.artist" class="article-subtitle" text-justify></h2>
+
+    <article ion-text class="article-content" color="primary" [innerHTML] = "casque.content" text-justifys></article>
 
     <ion-row class="meta" padding-vertical>
       <ion-col no-padding text-left>

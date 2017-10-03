@@ -10,6 +10,9 @@
 
     <div class="main-content">
 
+        <!--<button ion-button full (click)="startStreaming()"> START </button>-->
+        <!--<button ion-button full (click)="stopStreaming()" color="danger"> STOP </button>-->
+
         <div class="meta-info" padding>
             <span ion-text class="label-now-playing"
                   [ngClass]="configReady ? 'hidden' : ''"
@@ -20,29 +23,24 @@
             </span>
             <ion-row class="toggle-buttons" justify-content-center>
 
-                <audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)" (onError)="onTrackError($event)">
-
-                    <button [disabled]="!isButtonActive" class="btn-play-pause" ion-button round icon-only
-                            color="secondary"
-                            *ngIf="playerReady"
-                            (click)="togglePlayPause()">
-                        <ion-icon *ngIf="isButtonActive" [name]="playPauseButton"></ion-icon>
-                        <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
-                    </button>
-
-
-                    <!--<div class="btn-container"-->
-                            <!--[ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"-->
+                <!--<audio-track #audio *ngIf="myOnlyTrack" [track]="myOnlyTrack" (onLoaded)="onTrackLoaded($event)" (onError)="onTrackError($event)">-->
+                    <!--<button [disabled]="!isButtonActive" class="btn-play-pause" ion-button round icon-only-->
+                            <!--color="secondary"-->
+                            <!--*ngIf="playerReady"-->
                             <!--(click)="togglePlayPause()">-->
-                        <!--<div class="play-button" color="secondary">-->
-                            <!--<div class="lp-background"></div>-->
-                            <!--<ion-icon *ngIf="isButtonActive" [name]="playPauseButton" [ngClass]="(isPlaying && !isLoading) ? 'playing' : 'paused'"></ion-icon>-->
-                            <!--<ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                        <!--<ion-icon *ngIf="isButtonActive" [name]="playPauseButton"></ion-icon>-->
+                        <!--<ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>-->
+                    <!--</button>-->
+                <!--</audio-track>-->
 
+                <button [disabled]="!isButtonActive" class="btn-play-pause" ion-button round icon-only
+                        color="secondary"
+                        *ngIf="playerReady"
+                        (click)="togglePlayPause()">
+                    <ion-icon *ngIf="isButtonActive" [name]="playPauseButton"></ion-icon>
+                    <ion-spinner name="dots" *ngIf="!isButtonActive"></ion-spinner>
+                </button>
 
-                </audio-track>
             </ion-row>
             <h1 ion-text class="artist" color="primary" text-uppercase no-margin padding-horizontal><span>{{currentSong.artist}}</span></h1>
             <h2 ion-text class="track" color="primary" text-capitalize padding-horizontal><span>{{currentSong.track}}</span></h2>

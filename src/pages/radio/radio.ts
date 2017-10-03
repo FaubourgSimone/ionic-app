@@ -1,16 +1,20 @@
 import { ViewController, Platform, NavController, Events } from 'ionic-angular';
-import { Component }        from '@angular/core';
-import { MusicControls }    from '@ionic-native/music-controls';
-import { GoogleAnalytics }  from '@ionic-native/google-analytics';
-import { AudioProvider }    from "ionic-audio";
-import { InitService }      from '../../providers/init-service';
-import { RadioService }     from '../../providers/radio-service';
-import { GlobalService }    from '../../providers/global-service';
-import { PromptService }    from "../../providers/prompt-service";
-import { TranslateService } from "ng2-translate";
-import { TrackerService }   from "../../providers/tracker-service";
-// import { InAppBrowser }     from 'ionic-native';
-import {InAppBrowser, InAppBrowserObject} from '@ionic-native/in-app-browser';
+import { Component, NgZone }        from '@angular/core';
+import { TranslateService }         from "ng2-translate";
+// import { AudioProvider }         from "ionic-audio";
+import { InitService }              from '../../providers/init-service';
+import { RadioService }             from '../../providers/radio-service';
+import { GlobalService }            from '../../providers/global-service';
+import { PromptService }            from "../../providers/prompt-service";
+import { TrackerService }           from "../../providers/tracker-service";
+// import { InAppBrowser }                                  from 'ionic-native';
+import { MusicControls }                                    from '@ionic-native/music-controls';
+import { GoogleAnalytics }                                  from '@ionic-native/google-analytics';
+import { InAppBrowser, InAppBrowserObject }                 from '@ionic-native/in-app-browser';
+// import { StreamingMedia, StreamingAudioOptions }         from "@ionic-native/streaming-media";
+import { BackgroundMode, BackgroundModeConfiguration }      from "@ionic-native/background-mode";
+// import { NativeAudio }                                   from "@ionic-native/native-audio";
+import { Media, MediaObject, MEDIA_STATUS, MEDIA_ERROR }    from "@ionic-native/media";
 
 
 declare let cordova: any;
@@ -38,6 +42,7 @@ export class RadioPage {
     private shareOptions:any;
     private trackingOptions:any;
     private browserPopup:InAppBrowserObject;
+    private mediaObject:MediaObject;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -46,13 +51,19 @@ export class RadioPage {
                 private initService: InitService,
                 private radioService: RadioService,
                 private musicControls: MusicControls,
-                private _audioProvider: AudioProvider,
+                // private _audioProvider: AudioProvider,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService,
                 private events: Events,
                 private translateService: TranslateService,
                 private tracker:TrackerService,
-                private iab: InAppBrowser) {
+                private iab : InAppBrowser,
+                // private streamingMedia: StreamingMedia,
+                private backgroundMode: BackgroundMode,
+                // private nativeAudio: NativeAudio,
+                private media: Media,
+                // private zone:NgZone
+    ) {
 
 
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
@@ -60,6 +71,7 @@ export class RadioPage {
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             this.ga.trackView(this.viewCtrl.name);
+            this.backgroundMode.enable();
 
             // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
             this.initService.getInitData().then((data:any)=>{
@@ -72,7 +84,6 @@ export class RadioPage {
                 this.configReady = false;
                 this.initPlayer();
             });
-
         });
     }
 
@@ -127,18 +138,98 @@ export class RadioPage {
         this.isButtonActive = false;
         this.prompt.presentLoading(true);
         this.isPlaying = true;
-        this._audioProvider.play(0);
+        // this._audioProvider.play(0);
+        this.startStreamingMedia();
         this.playPauseButton = 'pause';
+    }
+    startStreamingMedia() {
+
+        this.mediaObject = this.media.create(this.myOnlyTrack.src);
+        this.mediaObject.onStatusUpdate.subscribe( status => {
+            if( status == MEDIA_STATUS.RUNNING ) {
+                this.onTrackLoaded();
+            }
+        });
+        this.mediaObject.onSuccess.subscribe(() => console.log('Action is successful'));
+        this.mediaObject.onError.subscribe(error => console.log('Error!', error));
+
+        // play the file
+        this.mediaObject.play();
+        // this.backgroundMode.enable();
+        // this.backgroundMode.disableWebViewOptimizations();
+        //
+        //
+        //
+        // this.zone.runOutsideAngular(() => {
+        //     console.log('OUT OF ANGULAR ZONE');
+        //     let options:StreamingAudioOptions = {
+        //         successCallback:  () => {
+        //             console.log('successfull PLAYED');
+        //         },
+        //         errorCallback: () => {
+        //             console.log('error PLAYED');
+        //
+        //         },
+        //         initFullscreen: false
+        //     };
+        //     this.streamingMedia.playAudio('http://91.121.65.131:8000/;', options);
+        //
+        //     // reenter Angular zone
+        //     this.zone.run(() => {
+        //         console.log('reenter ANGULAR ZONE');
+        //     });
+        // });
+        //
+        //
+        //
+        //
+        //
+        //
+        // this.backgroundMode.on('activate').subscribe(()=> {
+        //     console.log('BACKGROUND ACTIVATE');
+        //     this.backgroundMode.disableWebViewOptimizations();
+        // });
+        //
+        //
+        // this.backgroundMode.on('deactivate').subscribe(()=> {
+        //     console.log('BACKGROUND DEACTIVATE');
+        //     // this.zone.run(()=>{
+        //     //
+        //     // });
+        // });
+        //
+
+        // this.nativeAudio.preloadSimple('uniqueId1', 'http://91.121.65.131:8000/;').then(
+        //     () => {
+        //         console.log('SUCCESS PRELOAD');
+        //     }
+        //     , () => {
+        //         console.log('ERROR PRELOAD');
+        //     });
+        // this.nativeAudio.play('uniqueId1').then(
+        //     () => {
+        //         console.log('SUCCESS PLAYED');
+        //     }
+        //     , () => {
+        //         console.log('ERROR PLAYED');
+        //     });
+
     }
 
     pause() {
         this.playPauseButton = 'play';
         this.isPlaying = false;
         this.isLoading = true;
-        this._audioProvider.stop();
+        // this._audioProvider.stop();
+        this.stopStreamingMedia();
         if (typeof cordova !== 'undefined' && this.musicControls && typeof this.musicControls !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
+    }
+
+    stopStreamingMedia() {
+        // this.streamingMedia.stopAudio();
+        this.mediaObject.stop();
     }
 
     createMusicControls() {
@@ -313,7 +404,7 @@ export class RadioPage {
         }
     }
 
-    onTrackLoaded(event) {
+    onTrackLoaded(event?) {
         this.isLoading = false;
         this.prompt.dismissLoading();
         this.isPlaying = true;

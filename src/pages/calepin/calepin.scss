@@ -1,3 +1,41 @@
 page-calepin {
+  .article-title {
+    font-size: 1.8rem;
+  }
+  .article-subtitle{
+    font-size: 1.2rem;
+  }
 
+
+
+  .header-article {
+    h1 {
+      background: color($colors, 'secondary');
+      padding: 3rem 2rem;
+      color: color($colors, 'verylight');
+    }
+
+    h2 {
+      background: color($colors, 'primary');
+      padding: 1.6rem;
+      color: color($colors, 'verylight');
+      width: 80%;
+      margin: 0 auto
+    }
+  }
+
+  .separator-title {
+    width: 90%;
+  }
+  .separator-subtitle {
+    width: calc(100% / 3);
+  }
+
+  .separator-title {
+    background: color($colors, 'secondary');
+  }
+  .separator-subtitle {
+    background: color($colors, 'primary');
+
+  }
 }

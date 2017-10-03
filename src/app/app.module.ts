@@ -26,6 +26,7 @@ import { IonicAudioModule } from 'ionic-audio';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 
+
 const cloudSettings: CloudSettings = {
     'core': {
         'app_id': '2660e52d'

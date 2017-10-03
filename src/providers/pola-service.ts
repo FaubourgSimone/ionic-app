@@ -19,6 +19,7 @@ export class PolaService {
         this.datePipe = new DatePipe('fr-FR');
     }
     getPolas() {
+        console.log("################# GETPOLAS");
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_POLAS.baseUrl + this.vars.URL_POLAS.params.count + this.requestCount;
             if(typeof this.currentQueryPage !== 'undefined') {
@@ -57,7 +58,7 @@ export class PolaService {
                                     id: post.id,
                                     title: post.title,
                                     image: img,
-                                    date: new Date(post.date),
+                                    date: new Date(post.date.replace(' ', 'T')),
                                     permalink: post.url,
                                     shareOptions: null,
                                     trackingOptions: null

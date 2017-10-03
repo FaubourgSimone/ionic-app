@@ -41,7 +41,7 @@ export class CalepinsService {
                                 title: post.title,
                                 subtitle: post.custom_fields.cal_subtitle,
                                 thumbnail: post.thumbnail,
-                                date: new Date(post.date)
+                                date: new Date(post.date.replace(' ', 'T'))
                             }
                         });
                         resolve(calepins);
