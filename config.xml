@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.mfkr.faubourg.simone" version="3.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mfkr.faubourg.simone" version="3.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Faubourg Simone</name>
     <description>Faubourg Simone, la webradio parisienne, sans pub et impertinente ! Notre radio en direct, nos calepins, nos polas et nos coups de coeur musicaux dans une app.</description>
     <author email="tech.team@faubourgsimone.com" href="http://faubourgsimone.paris/">Faubourg Simone Team</author>
