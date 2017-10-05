@@ -2,6 +2,9 @@ Faubourg Simone: mobile applications
 ========
 Sources of our web radio applications: android and ios with Ionic 2.
 
+[![dependencies Status](https://david-dm.org/faubourgsimone/ionic-app/status.svg)](https://david-dm.org/faubourgsimone/ionic-app)
+[![devDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
+
 
 Features
 --------
