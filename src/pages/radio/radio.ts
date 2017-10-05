@@ -1,5 +1,5 @@
 import { ViewController, Platform, NavController, Events } from 'ionic-angular';
-import { Component, NgZone }        from '@angular/core';
+import { Component }        from '@angular/core';
 import { TranslateService }         from "ng2-translate";
 // import { AudioProvider }         from "ionic-audio";
 import { InitService }              from '../../providers/init-service';
@@ -12,9 +12,9 @@ import { MusicControls }                                    from '@ionic-native/
 import { GoogleAnalytics }                                  from '@ionic-native/google-analytics';
 import { InAppBrowser, InAppBrowserObject }                 from '@ionic-native/in-app-browser';
 // import { StreamingMedia, StreamingAudioOptions }         from "@ionic-native/streaming-media";
-import { BackgroundMode, BackgroundModeConfiguration }      from "@ionic-native/background-mode";
+import { BackgroundMode }      from "@ionic-native/background-mode";
 // import { NativeAudio }                                   from "@ionic-native/native-audio";
-import { Media, MediaObject, MEDIA_STATUS, MEDIA_ERROR }    from "@ionic-native/media";
+import { Media, MediaObject, MEDIA_STATUS }    from "@ionic-native/media";
 
 
 declare let cordova: any;

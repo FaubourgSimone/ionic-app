@@ -20,7 +20,7 @@ import { CustomComponents, ExternalComponents, CustomDirectives } from "../compo
 
 // Libs
 import { SwingModule }      from 'angular2-swing';
-import { IonicAudioModule } from 'ionic-audio';
+// import { IonicAudioModule } from 'ionic-audio';
 
 
 import { HttpModule, Http } from '@angular/http';
@@ -67,8 +67,8 @@ export function createTranslateLoader(http: Http) {
             provide: TranslateLoader,
             useFactory: (createTranslateLoader),
             deps: [Http]
-        }),
-        IonicAudioModule.forRoot()
+        })
+        // IonicAudioModule.forRoot()
     ],
     bootstrap: [IonicApp],
     entryComponents: [
