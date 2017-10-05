@@ -1,16 +1,17 @@
-Faubourg Simone: mobile applications
+[![Itunes App Store](https://img.shields.io/itunes/v/617687434.svg)](https://itunes.apple.com/fr/app/faubourg-simone-radio/id617687434) 
+[![Google Play Store](https://img.shields.io/badge/Google%20Play-v3.0.3-blue.svg)](https://play.google.com/store/apps/details?id=com.mfkr.faubourg.simone) 
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=faubourgsimone.paris)](http://faubourgsimone.paris/) 
+[![Twitter Follow](https://img.shields.io/twitter/follow/faubourgsimone.svg?style=social&label=Follow)](https://twitter.com/faubourgsimone)
+
+Faubourg Simone: mobile applications 
 ========
+
 Sources of our web radio applications: android and ios with Ionic 2.
 
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![dependencies Status](https://david-dm.org/faubourgsimone/ionic-app/status.svg)](https://david-dm.org/faubourgsimone/ionic-app)
 [![devDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
 [![GitHub license](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://raw.githubusercontent.com/FaubourgSimone/ionic-app/master/LICENSE)
-
-[![Itunes App Store](https://img.shields.io/itunes/v/617687434.svg)](https://itunes.apple.com/fr/app/faubourg-simone-radio/id617687434) 
-[![Google Play Store](https://img.shields.io/badge/Google%20Play-v3.0.3-blue.svg)](https://play.google.com/store/apps/details?id=com.mfkr.faubourg.simone) 
-[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=faubourgsimone.paris)](http://faubourgsimone.paris/) 
-[![Twitter Follow](https://img.shields.io/twitter/follow/faubourgsimone.svg?style=social&label=Follow)](https://twitter.com/faubourgsimone)
 
 
 Features
