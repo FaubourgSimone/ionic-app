@@ -5,6 +5,7 @@ Sources of our web radio applications: android and ios with Ionic 2.
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![dependencies Status](https://david-dm.org/faubourgsimone/ionic-app/status.svg)](https://david-dm.org/faubourgsimone/ionic-app)
 [![devDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=faubourgsimone.paris)](http://faubourgsimone.paris/)
 
 
 Features
