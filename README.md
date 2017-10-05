@@ -1,7 +1,7 @@
-Faubourg Simone: mobile applications 
+Faubourg Simone: mobile applications [![Twitter Follow](https://img.shields.io/twitter/follow/faubourgsimone.svg?style=social&label=Follow)](https://twitter.com/faubourgsimone)
 ========
 
-Sources of our web radio applications: android and ios with Ionic 2.
+Sources of our web radio applications: android and ios with Ionic 2. 
 
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![dependencies Status](https://david-dm.org/faubourgsimone/ionic-app/status.svg)](https://david-dm.org/faubourgsimone/ionic-app)
@@ -11,7 +11,6 @@ Sources of our web radio applications: android and ios with Ionic 2.
 
 [![Get it on Google Play](https://i.imgur.com/29uMBf4.png)](https://play.google.com/store/apps/details?id=com.mfkr.faubourg.simone&pcampaignid=GITHUB)
 [![Get it on Apple Store](https://i.imgur.com/k8JTMyX.png)](https://itunes.apple.com/fr/app/faubourg-simone-radio/id617687434&pcampaignid=GITHUB)
-[![Twitter Follow](https://img.shields.io/twitter/follow/faubourgsimone.svg?style=social&label=Follow)](https://twitter.com/faubourgsimone)
 
 Features
 --------
