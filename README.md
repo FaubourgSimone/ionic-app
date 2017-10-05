@@ -8,9 +8,8 @@ Sources of our web radio applications: android and ios with Ionic 2.
 [![devDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
 [![GitHub license](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://raw.githubusercontent.com/FaubourgSimone/ionic-app/master/LICENSE)
 
-
-[![Get it on Google Play](https://i.imgur.com/29uMBf4.png)](https://play.google.com/store/apps/details?id=com.mfkr.faubourg.simone&pcampaignid=GITHUB)
-[![Get it on Apple Store](https://i.imgur.com/k8JTMyX.png)](https://itunes.apple.com/fr/app/faubourg-simone-radio/id617687434&pcampaignid=GITHUB)
+<a href='https://play.google.com/store/apps/details?id=com.mfkr.faubourg.simone&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width="150"/></a>
+<a href='https://itunes.apple.com/fr/app/faubourg-simone-radio/id617687434&pcampaignid=GITHUB'><img alt='Get it on Apple Store' src='https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg' width="150"/></a>
 
 Features
 --------
