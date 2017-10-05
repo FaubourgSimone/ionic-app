@@ -64,14 +64,12 @@ export class RadioPage {
                 private media: Media,
                 // private zone:NgZone
     ) {
-
-
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
 
         this.plt.ready().then((readySource) => {
             console.log('Platform ready from', readySource);
             this.ga.trackView(this.viewCtrl.name);
-            this.backgroundMode.enable();
+
 
             // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
             this.initService.getInitData().then((data:any)=>{
@@ -143,18 +141,37 @@ export class RadioPage {
         this.playPauseButton = 'pause';
     }
     startStreamingMedia() {
+        //default path (web view)
+        // let path = 'assets/media/';
+        // //
+        // //android path
+        // if (this.plt.is('android')) {
+        //     path = '/android_asset/www/assets/media/';
+        // }
+        // this.mediaObject = this.media.create(path + 'the-cons.mp3');
 
         this.mediaObject = this.media.create(this.myOnlyTrack.src);
         this.mediaObject.onStatusUpdate.subscribe( status => {
             if( status == MEDIA_STATUS.RUNNING ) {
+                this.backgroundMode.enable();
                 this.onTrackLoaded();
+
+            }
+            if((status == MEDIA_STATUS.STOPPED || status == MEDIA_STATUS.PAUSED) && this.backgroundMode.isEnabled()) {
+                this.backgroundMode.disable();
             }
         });
-        this.mediaObject.onSuccess.subscribe(() => console.log('Action is successful'));
-        this.mediaObject.onError.subscribe(error => console.log('Error!', error));
+        // this.mediaObject.onSuccess.subscribe(() => console.log('Action is successful'));
+        this.mediaObject.onError.subscribe(error => {
+                console.log('Error!', error);
+                this.onTrackError(error);
+            }
+        );
 
         // play the file
         this.mediaObject.play();
+
+
         // this.backgroundMode.enable();
         // this.backgroundMode.disableWebViewOptimizations();
         //
@@ -199,19 +216,19 @@ export class RadioPage {
         // });
         //
 
-        // this.nativeAudio.preloadSimple('uniqueId1', 'http://91.121.65.131:8000/;').then(
+        // this.nativeAudio.preloadSimple('uniqueId1', path + 'the-cons.mp3').then(
         //     () => {
         //         console.log('SUCCESS PRELOAD');
+        //         this.nativeAudio.play('uniqueId1').then(
+        //             () => {
+        //                 console.log('SUCCESS PLAYED');
+        //             }
+        //             , () => {
+        //                 console.log('ERROR PLAYED');
+        //             });
         //     }
         //     , () => {
         //         console.log('ERROR PRELOAD');
-        //     });
-        // this.nativeAudio.play('uniqueId1').then(
-        //     () => {
-        //         console.log('SUCCESS PLAYED');
-        //     }
-        //     , () => {
-        //         console.log('ERROR PLAYED');
         //     });
 
     }
