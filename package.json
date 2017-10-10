@@ -10,7 +10,6 @@
         "start": "ionic serve -l",
         "android": "ionic cordova run android --device",
         "ios": "ionic cordova run ios --device",
-        "package": "ionic package build android --profile PROUSTIBAT",
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "ionic:build": "ionic-app-scripts build",
@@ -80,7 +79,8 @@
         "@ionic/cli-plugin-ionic-angular": "1.3.2",
         "commitizen": "^2.9.6",
         "cz-conventional-changelog": "^2.0.0",
-        "typescript": "~2.2.1"
+        "tslint-sonarts": "^1.0.0",
+        "typescript": "^2.2.2"
     },
     "cordovaPlugins": [
         "cordova-plugin-whitelist",

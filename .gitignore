@@ -33,3 +33,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 bower_components
+
+.scannerwork
+sonar-project.properties
