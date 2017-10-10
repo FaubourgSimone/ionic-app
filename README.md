@@ -3,7 +3,7 @@ Faubourg Simone: mobile applications [![Twitter Follow](https://img.shields.io/t
 
 Sources of our web radio applications: android and ios with Ionic 2. 
 
-[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Code Climate](https://codeclimate.com/github/FaubourgSimone/ionic-app/badges/gpa.svg)](https://codeclimate.com/github/FaubourgSimone/ionic-app/badges/gpa.svg)
 [![dependencies Status](https://david-dm.org/faubourgsimone/ionic-app/status.svg)](https://david-dm.org/faubourgsimone/ionic-app)
 [![devDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
 [![GitHub license](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://raw.githubusercontent.com/FaubourgSimone/ionic-app/master/LICENSE)
