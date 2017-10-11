@@ -99,7 +99,7 @@ export class PolaPage {
 
                 this.tracker.trackEventWithI18n(
                     {translate: 'TRACKING.POLA.CATEGORY'},
-                    {translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb: verb}},
+                    {translate: 'TRACKING.POLA.ACTION.VOTE', params: {verb} },
                     {translate: 'TRACKING.POLA.LABEL.VOTE', params: {removedCardId: removedCard.id}}
                 );
 

@@ -40,7 +40,7 @@ export class PromptService {
       dismissOnPageChange: true,
       showCloseButton: true,
       closeButtonText: 'x',
-      message: message,
+      message,
       duration: duration || 5000,
       cssClass: classNameCss || ''
     });

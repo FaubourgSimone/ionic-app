@@ -81,8 +81,8 @@ export class CasquesService {
                                                 excerpt: post.excerpt.replace(/\(lire la suite\)/g,' '),
                                                 date: new Date(post.date.replace(' ', 'T')),
                                                 permalink: post.url,
-                                                shareOptions: shareOptions,
-                                                trackingOptions: trackingOptions
+                                                shareOptions,
+                                                trackingOptions
                                             });
 
                                             if(casquesArray.length === data.posts.length) {
@@ -146,8 +146,8 @@ export class CasquesService {
                                             content: data.content.rendered,
                                             date: new Date(data.date),
                                             permalink: data.link,
-                                            shareOptions: shareOptions,
-                                            trackingOptions: trackingOptions
+                                            shareOptions,
+                                            trackingOptions
                                         };
                                         resolve(result);
                                     });

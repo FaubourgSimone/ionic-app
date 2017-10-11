@@ -111,11 +111,11 @@ export class CalepinsService {
                                         const calepin = {
                                             title:    data.title.rendered,
                                             subtitle: data.acf.cal_subtitle,
-                                            content: content,
+                                            content,
                                             date: new Date(data.date),
                                             permalink: data.link,
-                                            shareOptions: shareOptions,
-                                            trackingOptions: trackingOptions
+                                            shareOptions,
+                                            trackingOptions
                                         };
 
                                         resolve(calepin);

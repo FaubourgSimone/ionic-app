@@ -20,7 +20,7 @@ export class RowLinksCasqueComponent {
     this.tracker.trackEventWithI18n(
         { translate: 'TRACKING.CASQUES.CATEGORY' },
         { translate: 'TRACKING.CASQUES.ACTION.CLICK_PREVIEW' },
-        { translate: 'TRACKING.CASQUES.LABEL.CLICK_PREVIEW', params: { url: url } }
+        { translate: 'TRACKING.CASQUES.LABEL.CLICK_PREVIEW', params: { url } }
     );
     this.navigateTo(url);
   }
@@ -28,7 +28,7 @@ export class RowLinksCasqueComponent {
     this.tracker.trackEventWithI18n(
         { translate: 'TRACKING.CASQUES.CATEGORY' },
         { translate: 'TRACKING.CASQUES.ACTION.CLICK_BUY' },
-        { translate: 'TRACKING.CASQUES.LABEL.CLICK_BUY', params: { url: url } }
+        { translate: 'TRACKING.CASQUES.LABEL.CLICK_BUY', params: { url } }
     );
     this.navigateTo(url);
   }
