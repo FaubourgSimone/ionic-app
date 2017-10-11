@@ -27,7 +27,7 @@ declare let FB: any;
 })
 export class RadioPage {
 
-    private streaming_url:string;
+    private streamingUrl:string;
     private hasLeft = false;
     private isPlaying = false;
     private isLoading = true;
@@ -77,7 +77,7 @@ export class RadioPage {
                     this.prompt.presentMessage({message: data.error.toString(), classNameCss: 'error'});
                     data = data.content;
                 }
-                this.streaming_url = data.streaming_url ? data.streaming_url : this.vars.URL_STREAMING_DEFAULT;
+                this.streamingUrl = data.streamingUrl ? data.streamingUrl : this.vars.URL_STREAMING_DEFAULT;
                 this.radioService.initLoop(data.loop_interval);
                 this.configReady = false;
                 this.initPlayer();
@@ -88,7 +88,7 @@ export class RadioPage {
     initPlayer() {
         this.playerReady = true;
         this.myOnlyTrack = {
-            src: this.streaming_url
+            src: this.streamingUrl
         };
     }
 
