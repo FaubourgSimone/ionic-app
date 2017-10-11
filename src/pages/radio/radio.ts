@@ -336,7 +336,11 @@ export class RadioPage {
         this.translateService
             .get('SHARING.CURRENT_SONG.FACEBOOK_FEED_DESCRIPTION', {track: this.currentSong.track, artist: this.currentSong.artist })
             .subscribe((result: string) => {
-                let url = `https://www.facebook.com/dialog/feed?app_id=419281238161744&name=${this.currentSong.title}&display=popup&caption=http://faubourgsimone.paris/application-mobile&description=${result}&link=faubourgsimone.paris/application-mobile&picture=${el.innerHTML}`;
+                let url = `https://www.facebook.com/dialog/feed?app_id=419281238161744&name=${this.currentSong.title}
+                &display=popup&caption=http://faubourgsimone.paris/application-mobile
+                &description=${result}
+                &link=faubourgsimone.paris/application-mobile
+                &picture=${el.innerHTML}`;
                 this.browserPopup = this.iab.create(url, '_blank');
                 // This check is because of a crash when simulated on desktop browser
                 if(typeof this.browserPopup.on('loadstop').subscribe === 'function' ) {
