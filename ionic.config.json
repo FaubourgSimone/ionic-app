@@ -2,5 +2,8 @@
   "name": "faubourgsimone",
   "app_id": "2660e52d",
   "proxies": [],
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }
