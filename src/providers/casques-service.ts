@@ -45,10 +45,10 @@ export class CasquesService {
 
                                     // Escape HTML content
                                     const el:HTMLElement = document.createElement('textarea');
-                                    el.innerHTML = '"' + post.title + ' - ' + post.custom_fields.dlc_artist + ' ' + result +'" (@FaubourgSimone)';
+                                    el.innerHTML = `${post.title} - ${post.custom_fields.dlc_artist} ${result} (@FaubourgSimone)`;
                                     const shareOptions = {
                                         message: el.innerHTML,
-                                        subject: post.title + ' ' + result,
+                                        subject: `${post.title} ${result}`,
                                         url: post.url
                                     };
 
@@ -113,10 +113,10 @@ export class CasquesService {
                             .subscribe((onFbrg: string) => {
                                 // Escape HTML content
                                 const el:HTMLElement = document.createElement('textarea');
-                                el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.dlc_artist + ' ' + onFbrg + '" (@FaubourgSimone)';
+                                el.innerHTML = `${data.title.rendered} - ${data.acf.dlc_artist} ${onFbrg} (@FaubourgSimone)`;
                                 const shareOptions = {
                                     message: el.innerHTML,
-                                    subject: el.innerHTML + ' ' + onFbrg,
+                                    subject: `${el.innerHTML} ${onFbrg}`,
                                     url: data.link
                                 };
                                 const trackingOptions = {

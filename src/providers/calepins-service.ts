@@ -82,10 +82,10 @@ export class CalepinsService {
 
                                 // Escape HTML content
                                 const el:HTMLElement = document.createElement('textarea');
-                                el.innerHTML = '"' + data.title.rendered + ' - ' + data.acf.cal_subtitle + ' ' + result + '" (@FaubourgSimone)';
+                                el.innerHTML = `${data.title.rendered} - ${data.acf.cal_subtitle} ${result} (@FaubourgSimone)`;
                                 const shareOptions = {
                                     message: el.innerHTML,
-                                    subject: data.title.rendered + ' ' + result,
+                                    subject: `${data.title.rendered} ${result}`,
                                     url: data.link
                                 };
 

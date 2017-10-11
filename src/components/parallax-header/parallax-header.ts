@@ -54,7 +54,7 @@ export class ParallaxHeader {
       this.scaleAmt = -ev.scrollTop / this.headerHeight + 1;
     }
 
-    this.renderer.setElementStyle(this.header, 'webkitTransform', 'translate3d(0,'+this.translateAmt+'px,0) scale('+this.scaleAmt+','+this.scaleAmt+')');
+    this.renderer.setElementStyle(this.header, `webkitTransform`, `translate3d(0, ${this.translateAmt}px, 0) scale(${this.scaleAmt}, ${this.scaleAmt})`);
 
   }
 
