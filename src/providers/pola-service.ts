@@ -19,7 +19,6 @@ export class PolaService {
         this.datePipe = new DatePipe('fr-FR');
     }
     getPolas() {
-        console.log("################# GETPOLAS");
         return new Promise((resolve, reject) => {
             let url = this.vars.URL_POLAS.baseUrl + this.vars.URL_POLAS.params.count + this.requestCount;
             if(typeof this.currentQueryPage !== 'undefined') {
@@ -68,7 +67,6 @@ export class PolaService {
                                 return (post.image !== null);
                             })
                             .reverse();
-
                         let postsArray = [];
                         let i=0;
                         for (let post of posts) {
@@ -81,7 +79,7 @@ export class PolaService {
                                 .get('SHARING.POLA.MESSAGE', {title: post.title})
                                 .flatMap((result: string) => {
                                     shareOptions.message = result;
-                                    return this.translateService.get('SHARING.POLA.SUBJECT', {date: this.datePipe.transform(new Date(post.date), 'dd/MM/yyyy').toString()})
+                                    return this.translateService.get('SHARING.POLA.SUBJECT', {date: post.date});
                                 })
                                 .flatMap((result: string) => {
                                     shareOptions.subject = result;
@@ -115,7 +113,6 @@ export class PolaService {
                                             i++;
 
                                             if( i === posts.length ) {
-                                                console.log('resolve ', posts);
                                                 resolve(postsArray);
                                             }
                                         });
