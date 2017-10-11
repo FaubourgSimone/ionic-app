@@ -31,7 +31,9 @@ export class FbrgSmnApp {
                 translate: TranslateService) {
         platform.ready().then(() => {
 
-            statusBar.styleDefault();
+            statusBar.hide();
+            statusBar.overlaysWebView(false);
+
             splashScreen.hide();
 
             // this language will be used as a fallback when a translation isn't found in the current language
