@@ -1,6 +1,6 @@
 {
   "name": "faubourgsimone",
-  "version": "3.0.4",
+  "version": "3.0.6",
   "author": "Faubourg Simone <jennifer.proust@faubourgsimone.paris>",
   "homepage": "http://faubourgsimone.paris/",
   "description": "faubourgsimone: app for the parisian webradio faubourgsimone.paris",
@@ -72,7 +72,8 @@
     "rxjs": "5.1.1",
     "sw-toolbox": "3.4.0",
     "zone.js": "0.8.4",
-    "cordova-android": "~6.1.2"
+    "cordova-android": "~6.1.2",
+    "cordova-plugin-crosswalk-webview": "~2.3.0"
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.3.0",
@@ -125,7 +126,14 @@
       "cordova-plugin-apprate": {},
       "cordova-plugin-app-version": {},
       "com.hutchind.cordova.plugins.streamingmedia": {},
-      "cordova-plugin-background-mode": {}
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-crosswalk-webview": {
+        "XWALK_VERSION": "23+",
+        "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+        "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+        "XWALK_MODE": "embedded",
+        "XWALK_MULTIPLEAPK": "true"
+      }
     },
     "platforms": [
       "android",
