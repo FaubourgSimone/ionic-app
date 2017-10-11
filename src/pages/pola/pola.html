@@ -10,21 +10,21 @@
       </ion-item>
       <ion-card-content *ngIf="card.date">
         <h2 ion-text class="title" text-wrap text-uppercase color="primary">{{ card.title }}</h2>
-        <h3 ion-text class="date" text-uppercase color="foggy-gray">{{ card.date | date:'longDate'}}</h3>
+        <h3 ion-text class="date" text-uppercase color="foggy-gray">{{card.date | date:'fullDate'}}</h3>
         <share-button class="pola"
                       [content]="content"
                       [options]="cards[cards.length-1].shareOptions"
                       [trackingOptions]="cards[cards.length-1].trackingOptions"
                       icon-only>
         </share-button>
-        <!--<div class="pola-footer" no-margin>-->
-          <!--<button id="swipe_dislike" class="rate" (click)="vote(false)">-->
-            <!--<ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>-->
-          <!--</button>-->
-          <!--<button id="swipe_like" class="rate" (click)="vote(true)">-->
-            <!--<ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>-->
-          <!--</button>-->
-        <!--</div>-->
+        <!--<div class="pola-footer" no-margin>
+          <button id="swipe_dislike" class="rate" (click)="vote(false)">
+          <ion-icon class="rate-down" icon-only name="thumbs-down"></ion-icon>
+          </button>
+          <button id="swipe_like" class="rate" (click)="vote(true)">
+          <ion-icon class="rate-up" icon-only name="thumbs-up"></ion-icon>
+          </button>
+        </div>-->
       </ion-card-content>
     </ion-card>
   </div>

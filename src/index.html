@@ -20,6 +20,13 @@
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
 
+  <!-- The Date and Currency pipes need the ECMAScript Internationalization API.
+  Safari and other older browsers don't support it.
+  https://angular.io/guide/pipes#using-pipes
+  -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.fr,Intl.~locale.en"></script>
+
+
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
 
