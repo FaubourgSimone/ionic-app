@@ -28,17 +28,17 @@ declare let FB: any;
 export class RadioPage {
 
     private streaming_url:string;
-    private hasLeft:boolean = false;
-    private isPlaying:boolean = false;
-    private isLoading:boolean = true;
-    private playPauseButton:string = 'play';
-    private isButtonActive:boolean = true;
+    private hasLeft = false;
+    private isPlaying = false;
+    private isLoading = true;
+    private playPauseButton = 'play';
+    private isButtonActive = true;
     // private volume:number = 50;
-    private playerReady:boolean = false;
+    private playerReady = false;
     private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
     private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
     private myOnlyTrack:any;
-    private configReady:boolean = true;
+    private configReady = true;
     private shareOptions:any;
     private trackingOptions:any;
     private browserPopup:InAppBrowserObject;

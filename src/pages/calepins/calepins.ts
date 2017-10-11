@@ -13,7 +13,7 @@ import { TrackerService }   from "../../providers/tracker-service";
 export class CalepinsPage {
 
     private calepins:any;
-    private reloadNb:number = 0;
+    private reloadNb = 0;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,

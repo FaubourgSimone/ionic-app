@@ -13,7 +13,7 @@ import { TrackerService }   from "../../providers/tracker-service";
 export class CasquesPage {
 
     private casques:any;
-    private reloadNb:number = 0;
+    private reloadNb = 0;
 
     constructor(public navCtrl: NavController,
                 private viewCtrl: ViewController,

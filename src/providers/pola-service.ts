@@ -8,11 +8,11 @@ import {TranslateService}   from "ng2-translate";
 @Injectable()
 export class PolaService {
 
-    private requestCount:number = 5;
+    private requestCount = 5;
     private currentQueryPage:number;
     private totalQueryPage:number;
     private datePipe:DatePipe;
-    private limitAllowed:number = 20;
+    private limitAllowed = 20;
 
     constructor(public http: Http, private vars:GlobalService, private translateService: TranslateService) {
         console.log('Hello PolaService Provider');

@@ -8,7 +8,7 @@ import { TranslateService } from "ng2-translate";
 @Injectable()
 export class CalepinsService {
 
-    private requestCount:number = 10;
+    private requestCount = 10;
     private requestCurrentPage:number;
     private totalPages:number;
 

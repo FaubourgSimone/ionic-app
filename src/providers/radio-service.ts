@@ -7,7 +7,7 @@ import { Events }         from "ionic-angular";
 @Injectable()
 export class RadioService {
 
-  private loop_interval:number = 3000;
+  private loop_interval = 3000;
   private timer:any;
   private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
   private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];

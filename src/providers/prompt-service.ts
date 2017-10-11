@@ -14,7 +14,7 @@ export class PromptService {
     console.log('Hello PromptService Provider');
   }
 
-  presentLoading(forRadio:boolean=false) {
+  presentLoading(forRadio = false) {
     const message = forRadio ? this.vars.getRandomMessageRadio() : this.vars.getRandomMessagePosts();
     this.loader = this.loadingCtrl.create({
       spinner: 'dots',

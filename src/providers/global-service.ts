@@ -3,13 +3,13 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class GlobalService {
 
-    public DEVMODE:boolean = false;
+    public DEVMODE = false;
 
     public  BASE_URL:string;
 
-    private BASE_URL_API_PROD:string    = 'http://faubourgsimone.paris';
-    private BASE_URL_API_DEV:string     = 'http://faubourgsimone.local';
-    public URL_INFO_PROD:string         = 'http://faubourgsimone.paris/ionic-app/info.json';
+    private BASE_URL_API_PROD    = 'http://faubourgsimone.paris';
+    private BASE_URL_API_DEV     = 'http://faubourgsimone.local';
+    public URL_INFO_PROD         = 'http://faubourgsimone.paris/ionic-app/info.json';
     public URL_STREAMING_DEFAULT        = 'http://91.121.65.131:8000/;';
     // public URL_STREAMING_DEFAULT         = 'http://91.121.65.131:1337/faubourgsimone';
     public URL_COVERS_API               = 'http://ks25555.kimsufi.com/fsapi/cacheapi.json';

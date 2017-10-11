@@ -16,9 +16,9 @@ export class PolaPage {
 
     cards: any;
     stackConfig: StackConfig;
-    stackStyle:string = 'stack-style-1';
-    private displayedCardNb:number = 0;
-    private refillNb:number = 0;
+    stackStyle = 'stack-style-1';
+    private displayedCardNb = 0;
+    private refillNb = 0;
 
     @ViewChild( 'myswing1' ) swingStack: SwingStackComponent;
     @ViewChildren( 'mycards1' ) swingCards: QueryList<SwingCardComponent>;
