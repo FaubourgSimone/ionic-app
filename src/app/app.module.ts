@@ -38,6 +38,7 @@ const appSettings = {
     // pageTransition: 'ios-transition',
     // modalEnter: 'modal-slide-in',
     // modalLeave: 'modal-slide-out',
+    statusbarPadding: true,
     tabsHideOnSubPages: true,
     // menuType: 'reveal'
     tabsHighlight: true,

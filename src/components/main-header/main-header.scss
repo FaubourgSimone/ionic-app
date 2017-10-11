@@ -1,11 +1,13 @@
 main-header {
   .menu-button {
     position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
   }
   .logo {
     display: inline-block;
-    width: 7rem;
-    vertical-align: middle;
+    width: 7.5rem;
+    margin-top: 0.7rem;
   }
   .toolbar-title {
     position: absolute;
