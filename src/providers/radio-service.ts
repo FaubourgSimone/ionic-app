@@ -81,7 +81,7 @@ export class RadioService {
     data.songs = data.songs.map((song)=>{
 
       let checkIfTagFor = function(titleToCompare, tagArray, coverIfFound) {
-        var coverToGet = null;
+        let coverToGet = null;
         // Vérifie si le tableau de tags comprend une expression dans le titre courant si c'est le cas, renvoie la cover associee
         tagArray.forEach((tag, index)=> {
           if (titleToCompare.toLowerCase().indexOf(tag.toLowerCase()) > -1) {
