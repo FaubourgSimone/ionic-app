@@ -152,12 +152,12 @@ export class RadioPage {
 
         this.mediaObject = this.media.create(this.myOnlyTrack.src);
         this.mediaObject.onStatusUpdate.subscribe( status => {
-            if( status == MEDIA_STATUS.RUNNING ) {
+            if( status === MEDIA_STATUS.RUNNING ) {
                 this.backgroundMode.enable();
                 this.onTrackLoaded();
 
             }
-            if((status == MEDIA_STATUS.STOPPED || status == MEDIA_STATUS.PAUSED) && this.backgroundMode.isEnabled()) {
+            if((status === MEDIA_STATUS.STOPPED || status === MEDIA_STATUS.PAUSED) && this.backgroundMode.isEnabled()) {
                 this.backgroundMode.disable();
             }
         });
