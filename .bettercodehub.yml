@@ -1,6 +1,10 @@
 exclude:
-- /src/service-worker.js
+  - /src/service-worker.js
 component_depth: 3
 languages:
-- javascript
-- typescript
+  - typescript
+
+- name: typescript
+  test:
+    exclude:
+      - .*/src\.ts
