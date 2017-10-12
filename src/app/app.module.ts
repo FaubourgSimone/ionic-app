@@ -20,7 +20,6 @@ import { CustomComponents, ExternalComponents, CustomDirectives } from "../compo
 
 // Libs
 import { SwingModule }      from 'angular2-swing';
-// import { IonicAudioModule } from 'ionic-audio';
 
 
 import { HttpModule, Http } from '@angular/http';

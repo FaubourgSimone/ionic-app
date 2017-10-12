@@ -1,20 +1,16 @@
 import { ViewController, Platform, NavController, Events } from 'ionic-angular';
-import { Component }        from '@angular/core';
+import { Component }                from '@angular/core';
 import { TranslateService }         from "ng2-translate";
-// import { AudioProvider }         from "ionic-audio";
 import { InitService }              from '../../providers/init-service';
 import { RadioService }             from '../../providers/radio-service';
 import { GlobalService }            from '../../providers/global-service';
 import { PromptService }            from "../../providers/prompt-service";
 import { TrackerService }           from "../../providers/tracker-service";
-// import { InAppBrowser }                                  from 'ionic-native';
+import { BackgroundMode }                                   from "@ionic-native/background-mode";
 import { MusicControls }                                    from '@ionic-native/music-controls';
 import { GoogleAnalytics }                                  from '@ionic-native/google-analytics';
 import { InAppBrowser, InAppBrowserObject }                 from '@ionic-native/in-app-browser';
-// import { StreamingMedia, StreamingAudioOptions }         from "@ionic-native/streaming-media";
-import { BackgroundMode }      from "@ionic-native/background-mode";
-// import { NativeAudio }                                   from "@ionic-native/native-audio";
-import { Media, MediaObject, MEDIA_STATUS }    from "@ionic-native/media";
+import { Media, MediaObject, MEDIA_STATUS }                 from "@ionic-native/media";
 
 
 declare let cordova: any;
@@ -33,7 +29,6 @@ export class RadioPage {
     private isLoading = true;
     private playPauseButton = 'play';
     private isButtonActive = true;
-    // private volume:number = 50;
     private playerReady = false;
     private currentSong = { cover: { jpg:'', svg:''  }, title:'', artist:'', track:'' };
     private lastSongs:{ cover: { jpg:'', svg:''  }, title:string, artist:string, track:string }[];
@@ -51,18 +46,14 @@ export class RadioPage {
                 private initService: InitService,
                 private radioService: RadioService,
                 private musicControls: MusicControls,
-                // private _audioProvider: AudioProvider,
                 private ga: GoogleAnalytics,
                 private prompt: PromptService,
                 private events: Events,
                 private translateService: TranslateService,
                 private tracker:TrackerService,
                 private iab : InAppBrowser,
-                // private streamingMedia: StreamingMedia,
                 private backgroundMode: BackgroundMode,
-                // private nativeAudio: NativeAudio,
-                private media: Media,
-                // private zone:NgZone
+                private media: Media
     ) {
         this.currentSong = { cover: this.vars.COVER_DEFAULT, title:'Title', artist:'Artist', track:'Track' };
 
@@ -70,8 +61,7 @@ export class RadioPage {
             console.log('Platform ready from', readySource);
             this.ga.trackView(this.viewCtrl.name);
 
-
-            // Cherche l'adresse du streaming dans un fichier json sur nos serveurs
+            // Look for streaming address in a json file on a server
             this.initService.getInitData().then((data:any)=>{
                 if(data.error) {
                     this.prompt.presentMessage({message: data.error.toString(), classNameCss: 'error'});
@@ -136,20 +126,10 @@ export class RadioPage {
         this.isButtonActive = false;
         this.prompt.presentLoading(true);
         this.isPlaying = true;
-        // this._audioProvider.play(0);
         this.startStreamingMedia();
         this.playPauseButton = 'pause';
     }
     startStreamingMedia() {
-        //default path (web view)
-        // let path = 'assets/media/';
-        // //
-        // //android path
-        // if (this.plt.is('android')) {
-        //     path = '/android_asset/www/assets/media/';
-        // }
-        // this.mediaObject = this.media.create(path + 'the-cons.mp3');
-
         this.mediaObject = this.media.create(this.myOnlyTrack.src);
         this.mediaObject.onStatusUpdate.subscribe( status => {
             if( status === MEDIA_STATUS.RUNNING ) {
@@ -161,7 +141,6 @@ export class RadioPage {
                 this.backgroundMode.disable();
             }
         });
-        // this.mediaObject.onSuccess.subscribe(() => console.log('Action is successful'));
         this.mediaObject.onError.subscribe(error => {
                 console.log('Error!', error);
                 this.onTrackError(error);
@@ -170,83 +149,16 @@ export class RadioPage {
 
         // play the file
         this.mediaObject.play();
-
-
-        // this.backgroundMode.enable();
-        // this.backgroundMode.disableWebViewOptimizations();
-        //
-        //
-        //
-        // this.zone.runOutsideAngular(() => {
-        //     console.log('OUT OF ANGULAR ZONE');
-        //     let options:StreamingAudioOptions = {
-        //         successCallback:  () => {
-        //             console.log('successfull PLAYED');
-        //         },
-        //         errorCallback: () => {
-        //             console.log('error PLAYED');
-        //
-        //         },
-        //         initFullscreen: false
-        //     };
-        //     this.streamingMedia.playAudio('http://91.121.65.131:8000/;', options);
-        //
-        //     // reenter Angular zone
-        //     this.zone.run(() => {
-        //         console.log('reenter ANGULAR ZONE');
-        //     });
-        // });
-        //
-        //
-        //
-        //
-        //
-        //
-        // this.backgroundMode.on('activate').subscribe(()=> {
-        //     console.log('BACKGROUND ACTIVATE');
-        //     this.backgroundMode.disableWebViewOptimizations();
-        // });
-        //
-        //
-        // this.backgroundMode.on('deactivate').subscribe(()=> {
-        //     console.log('BACKGROUND DEACTIVATE');
-        //     // this.zone.run(()=>{
-        //     //
-        //     // });
-        // });
-        //
-
-        // this.nativeAudio.preloadSimple('uniqueId1', path + 'the-cons.mp3').then(
-        //     () => {
-        //         console.log('SUCCESS PRELOAD');
-        //         this.nativeAudio.play('uniqueId1').then(
-        //             () => {
-        //                 console.log('SUCCESS PLAYED');
-        //             }
-        //             , () => {
-        //                 console.log('ERROR PLAYED');
-        //             });
-        //     }
-        //     , () => {
-        //         console.log('ERROR PRELOAD');
-        //     });
-
     }
 
     pause() {
         this.playPauseButton = 'play';
         this.isPlaying = false;
         this.isLoading = true;
-        // this._audioProvider.stop();
-        this.stopStreamingMedia();
+        this.mediaObject.stop();
         if (typeof cordova !== 'undefined' && this.musicControls && typeof this.musicControls !== 'undefined') {
             this.musicControls.updateIsPlaying(false);
         }
-    }
-
-    stopStreamingMedia() {
-        // this.streamingMedia.stopAudio();
-        this.mediaObject.stop();
     }
 
     createMusicControls() {
@@ -267,7 +179,6 @@ export class RadioPage {
             });
 
             this.musicControls.subscribe().subscribe(action => {
-                // const date = this.datePipe.transform(Date.now(), 'dd/MM/yyyy-HH:mm');
                 switch (action) {
                     case 'music-controls-play':
                         this.play();
@@ -279,7 +190,6 @@ export class RadioPage {
                         break;
                     case 'music-controls-pause':
                         this.pause();
-
                         this.tracker.trackEventWithI18n(
                             { translate: 'TRACKING.PLAYER.CATEGORY' },
                             { translate: 'TRACKING.PLAYER.ACTION.PAUSE' },
@@ -322,7 +232,8 @@ export class RadioPage {
 
             });
 
-            this.musicControls.listen(); // activates the observable above
+            // activates the observable above
+            this.musicControls.listen();
         }
     }
 

@@ -68,10 +68,6 @@ export class MainMenu {
                     "Application Faubourg Simone",
                     null,
                     "https://urlgeni.us/faubourgsimone-app").then(() => {
-                    // if(this.trackingOptions) {
-                    //     console.log('[ShareButtonComponent] Tracked sharing: ', this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
-                    //     this.tracker.trackEventWithData(this.trackingOptions.category, this.trackingOptions.action, this.trackingOptions.label);
-                    // }
                 }).catch((e) => {
                     console.log(e);
                 });

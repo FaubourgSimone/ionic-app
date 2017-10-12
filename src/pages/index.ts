@@ -5,8 +5,6 @@ import { CalepinsPage } from './calepins/calepins';
 import { CalepinPage }  from "./calepin/calepin";
 import { CasquesPage }  from './casques/casques';
 import { CasquePage }   from './casque/casque';
-import { ConcertsPage } from "./concerts/concerts";
-import { ConcertPage }  from "./concert/concert";
 import { CreditsPage } from "./credits/credits";
 
 export const Pages = [
@@ -17,7 +15,5 @@ export const Pages = [
     CalepinPage,
     CasquesPage,
     CasquePage,
-    ConcertsPage,
-    ConcertPage,
     CreditsPage
 ];

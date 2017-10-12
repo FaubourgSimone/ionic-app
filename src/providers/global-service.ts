@@ -11,7 +11,6 @@ export class GlobalService {
     private BASE_URL_API_DEV     = 'http://faubourgsimone.local';
     public URL_INFO_PROD         = 'http://faubourgsimone.paris/ionic-app/info.json';
     public URL_STREAMING_DEFAULT        = 'http://91.121.65.131:8000/;';
-    // public URL_STREAMING_DEFAULT         = 'http://91.121.65.131:1337/faubourgsimone';
     public URL_COVERS_API               = 'http://ks25555.kimsufi.com/fsapi/cacheapi.json';
 
     public URL_POLAS:       { baseUrl:string, params: { count:string, page:string } };
@@ -92,7 +91,7 @@ export class GlobalService {
             }
         };
 
-        this.URL_CALEPIN = this.BASE_URL + '/wp-json/wp/v2/calepin/'; // + {id}
+        this.URL_CALEPIN = this.BASE_URL + '/wp-json/wp/v2/calepin/';
 
         this.URL_CASQUES = {
             baseUrl: this.BASE_URL + '/api/get_recent_posts/?post_type=nouveaute' ,
@@ -102,8 +101,8 @@ export class GlobalService {
             }
         };
 
-        this.URL_CASQUE = this.BASE_URL + '/wp-json/wp/v2/nouveaute/'; // + {id}
-        this.URL_CASQUE_FIELDS = this.BASE_URL + '/wp-json/acf/v2/nouveaute/'; // + {id}
+        this.URL_CASQUE = this.BASE_URL + '/wp-json/wp/v2/nouveaute/';
+        this.URL_CASQUE_FIELDS = this.BASE_URL + '/wp-json/acf/v2/nouveaute/';
     }
 
     getRandomMessageRadio() {

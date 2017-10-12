@@ -35,10 +35,8 @@ export class PolaService {
 
             this.http.get(url)
                 .map(data => data.json())
-                // .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
                 .subscribe(result => {
-                        // c'est la premiere fois que la requete a lieu
-                        // on ne sait pas quelle est la page et le nombre total de page
+                        // it's the first request, we don't know total number of pages
                         if(typeof this.currentQueryPage === 'undefined') {
                             this.totalQueryPage = parseInt(result.pages, 10);
                             this.currentQueryPage = 1;

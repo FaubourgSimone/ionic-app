@@ -12,7 +12,6 @@ import { RadioPage }    from '../pages/radio/radio';
 import { PolaPage }     from '../pages/pola/pola';
 import { CalepinsPage } from '../pages/calepins/calepins';
 import { CasquesPage }  from '../pages/casques/casques';
-// import { ConcertsPage } from "./concerts/concerts";
 
 @Component({
     templateUrl: 'app.html'
