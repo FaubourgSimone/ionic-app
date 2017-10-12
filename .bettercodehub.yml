@@ -1,0 +1,6 @@
+exclude:
+- /src/service-worker.js
+component_depth: 3
+languages:
+- javascript
+- typescript
