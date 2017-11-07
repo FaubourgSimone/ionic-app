@@ -3,8 +3,3 @@ exclude:
 component_depth: 3
 languages:
 - typescript
-
-- name: typescript
-  test:
-    exclude:
-      - .*/src\.ts
