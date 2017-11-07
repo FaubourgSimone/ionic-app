@@ -10,6 +10,38 @@ Sources of our web radio applications: android and ios with Ionic 2.
 [![DevDependencies Status](https://david-dm.org/faubourgsimone/ionic-app/dev-status.svg)](https://david-dm.org/faubourgsimone/ionic-app?type=dev)
 [![GitHub License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://raw.githubusercontent.com/FaubourgSimone/ionic-app/master/LICENSE)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents** 
+
+- [Faubourg Simone: mobile applications *](#faubourg-simone-mobile-applications-)
+  - [Demo](#demo)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Linter for the TypeScript](#linter-for-the-typescript)
+  - [Continuous Code Quality](#continuous-code-quality)
+    - [Usage](#usage)
+    - [A glance at our actual Sonarqube metrics](#a-glance-at-our-actual-sonarqube-metrics)
+      - [Complexity](#complexity)
+      - [Documentation & sizes](#documentation--sizes)
+      - [Duplications](#duplications)
+      - [Issues](#issues)
+      - [Maintainability](#maintainability)
+      - [Technical debt](#technical-debt)
+      - [Reliability](#reliability)
+      - [Security](#security)
+  - [Feel free to improve the app with us](#feel-free-to-improve-the-app-with-us)
+  - [Contribute](#contribute)
+  - [Support](#support)
+  - [License](#license)
+  - [Dependencies](#dependencies)
+  - [Dev Dependencies](#dev-dependencies)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+---------------------
+
+
 Demo
 --------
 
