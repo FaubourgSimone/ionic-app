@@ -216,3 +216,76 @@ If you are having issues, please let us know: tech.team@faubourgsimone.com
 License
 -------
 The project is licensed under the [GNU Affero General Public License v3.0 license](LICENSE)
+
+
+Dependencies
+------------
+
+- [@angular/common](https://github.com/angular/angular): Angular - commonly needed directives and services
+- [@angular/compiler](https://github.com/angular/angular): Angular - the compiler library
+- [@angular/compiler-cli](https://github.com/angular/angular): Angular - the compiler CLI for Node.js
+- [@angular/core](https://github.com/angular/angular): Angular - the core framework
+- [@angular/forms](https://github.com/angular/angular): Angular - directives and services for creating forms
+- [@angular/http](https://github.com/angular/angular): Angular - the http service
+- [@angular/platform-browser](https://github.com/angular/angular): Angular - library for using Angular in a web browser
+- [@angular/platform-browser-dynamic](https://github.com/angular/angular): Angular - library for using Angular in a web browser with JIT compilation
+- [@angular/platform-server](https://github.com/angular/angular): Angular - library for using Angular in Node.js
+- [@ionic-native/app-rate](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/app-version](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/background-mode](https://github.com/ionic-team/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/core](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/google-analytics](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/in-app-browser](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/media](https://github.com/ionic-team/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/music-controls](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/screenshot](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/social-sharing](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/splash-screen](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic-native/status-bar](https://github.com/driftyco/ionic-native): Ionic Native - Native plugins for ionic apps
+- [@ionic/cloud-angular](https://github.com/driftyco/ionic-cloud-angular): Ionic Cloud Client for Angular 2
+- [@ionic/storage](https://github.com/driftyco/ionic-storage): Ionic Storage utility
+- [@ngx-translate/core](https://github.com/ngx-translate/core): The internationalization (i18n) library for Angular 2+
+- [@ngx-translate/http-loader](https://github.com/ngx-translate/http-loader): A loader for ngx-translate that loads translations using http
+- [angular2-swing](https://github.com/ksachdeva/angular2-swing): Angular 2 Component for Swing (Tinder style cards)
+- [com.darktalker.cordova.screenshot](https://github.com/gitawego/cordova-screenshot): screenshot PhoneGap Plugin for Android
+- [cordova-ios](https://git-wip-us.apache.org/repos/asf/cordova-ios.git): cordova-ios release
+- [cordova-plugin-app-version](https://github.com/whiteoctober/cordova-plugin-app-version): Cordova plugin to return the version number of the current app
+- [cordova-plugin-apprate](https://github.com/pushandplay/cordova-plugin-apprate): A plugin to provide rate this app functionality into your Cordova / Phonegap application&lt;br&gt;
+- [cordova-plugin-background-mode](https://github.com/katzer/cordova-plugin-background-mode): Prevent app from going to sleep in background.
+- [cordova-plugin-compat](https://github.com/apache/cordova-plugin-compat): This repo is for remaining backwards compatible with previous versions of Cordova.
+- [cordova-plugin-console](https://github.com/apache/cordova-plugin-console): Cordova Console Plugin
+- [cordova-plugin-device](https://github.com/apache/cordova-plugin-device): Cordova Device Plugin
+- [cordova-plugin-dialogs](https://github.com/apache/cordova-plugin-dialogs): Cordova Notification Plugin
+- [cordova-plugin-file](https://github.com/apache/cordova-plugin-file): Cordova File Plugin
+- [cordova-plugin-globalization](https://github.com/apache/cordova-plugin-globalization): Cordova Globalization Plugin
+- [cordova-plugin-google-analytics](https://github.com/danwilson/google-analytics-plugin): Google Universal Analytics Plugin
+- [cordova-plugin-inappbrowser](https://github.com/apache/cordova-plugin-inappbrowser): Cordova InAppBrowser Plugin
+- [cordova-plugin-media](https://github.com/apache/cordova-plugin-media): Cordova Media Plugin
+- [cordova-plugin-music-controls](https://github.com/homerours/cordova-music-controls-plugin): Music controls for Cordova apps
+- [cordova-plugin-splashscreen](https://github.com/apache/cordova-plugin-splashscreen): Cordova Splashscreen Plugin
+- [cordova-plugin-statusbar](https://github.com/apache/cordova-plugin-statusbar): Cordova StatusBar Plugin
+- [cordova-plugin-whitelist](https://github.com/apache/cordova-plugin-whitelist): Cordova Whitelist Plugin
+- [cordova-plugin-x-socialsharing](https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin): Share text, images (and other files), or a link via the native sharing widget of your device. Android is fully supported, as well as iOS 6 and up. WP8 has somewhat limited support.
+- [cordova-windows](https://github.com/apache/cordova-windows): cordova-windows release
+- [es6-promise-plugin](https://github.com/vstirbu/PromisesPlugin): ES6-Promises polyfill for Cordova/PhoneGap
+- [ionic-angular](https://github.com/driftyco/ionic): A powerful framework for building mobile and progressive web apps with JavaScript and Angular 2
+- [ionic-plugin-deploy](https://github.com/driftyco/ionic-plugin-deploy): Ionic Deploy Plugin
+- [ionic-plugin-keyboard](https://github.com/driftyco/ionic-plugin-keyboard): Ionic Keyboard Plugin
+- [ionicons](https://github.com/driftyco/ionicons): Premium icons for Ionic.
+- [ng2-translate](https://github.com/ocombe/ng2-translate): An implementation of angular translate for Angular 2
+- [rxjs](https://github.com/ReactiveX/RxJS): Reactive Extensions for modern JavaScript
+- [sw-toolbox](https://github.com/GoogleChrome/sw-toolbox): Service Worker Toolbox provides some simple helpers for use in creating your own service workers.
+- [zone.js](https://github.com/angular/zone.js): Zones for JavaScript
+- [cordova-android](https://git-wip-us.apache.org/repos/asf/cordova-android.git): cordova-android release
+
+Dev Dependencies
+----------------
+
+- [@ionic/app-scripts](https://github.com/driftyco/ionic-app-scripts): Scripts for Ionic Projects
+- [@ionic/cli-plugin-cordova](https://github.com/ionic-team/ionic-cli): Ionic Cordova Plugin for Ionic CLI
+- [@ionic/cli-plugin-ionic-angular](https://github.com/ionic-team/ionic-cli): Ionic CLI build plugin for Ionic Angular projects
+- [commitizen](https://github.com/commitizen/cz-cli): Git commit, but play nice with conventions.
+- [cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog): Commitizen adapter following the conventional-changelog format.
+- [tslint-sonarts](https://github.com/SonarSource/SonarTS): SonarTS rules for TSLint
+- [typescript](https://github.com/Microsoft/TypeScript): TypeScript is a language for application scale JavaScript development
+
