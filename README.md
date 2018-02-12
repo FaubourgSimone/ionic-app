@@ -1,3 +1,8 @@
+# DEPRECATED
+Please go to https://github.com/proustibat/fbrgsmn.mobile.app 
+
+--------------------
+
 Faubourg Simone: mobile applications [![Twitter Follow](https://img.shields.io/twitter/follow/faubourgsimone.svg?style=social&label=Follow)](https://twitter.com/faubourgsimone)
 ========
 
